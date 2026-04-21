@@ -1,0 +1,26 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: valgrid
+      POSTGRES_USER: valgrid
+      POSTGRES_PASSWORD: valgrid
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    command:
+      - -c
+      - wal_level=logical
+
+  electric:
+    image: electricsql/electric
+    environment:
+      DATABASE_URL: postgresql://valgrid:valgrid@postgres:5432/valgrid
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:

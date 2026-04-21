@@ -1,0 +1,6 @@
+[submodule "scripts"]
+	path = scripts
+	url = https://github.com/vec4me/convex-pages-scripts
+[submodule "analyzer"]
+	path = analyzer
+	url = https://github.com/vec4me/hana-analyzer

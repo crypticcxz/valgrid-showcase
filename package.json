@@ -1,0 +1,49 @@
+{
+	"name": "valgrid",
+	"version": "1.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"dev:server": "tsx watch server/main.ts",
+		"dev:all": "concurrently \"npm run dev\" \"npm run dev:server\"",
+		"build": "vite build",
+		"build:server": "esbuild server/main.ts --bundle --platform=node --format=esm --outfile=dist/server.js --packages=external",
+		"check": "biome check --write .",
+		"db:generate": "drizzle-kit generate",
+		"db:migrate": "drizzle-kit migrate",
+		"db:studio": "drizzle-kit studio"
+	},
+	"dependencies": {
+		"@hono/node-server": "^1.19.14",
+		"@solidjs/router": "^0.16.1",
+		"@tanstack/db": "^0.6.5",
+		"@tanstack/electric-db-collection": "^0.3.3",
+		"@tanstack/solid-db": "^0.2.19",
+		"dockerode": "^4.0.6",
+		"drizzle-orm": "^0.44.0",
+		"hono": "^4.7.0",
+		"nanoid": "^5.1.5",
+		"pg": "^8.16.0",
+		"solid-js": "^1.9.11",
+		"tar": "^7.4.3"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.4.8",
+		"@tailwindcss/vite": "^4.2.2",
+		"@types/dockerode": "^3.3.38",
+		"@types/node": "^25.5.0",
+		"@types/pg": "^8.15.4",
+		"@typescript-eslint/utils": "^8.58.2",
+		"concurrently": "^9.1.2",
+		"drizzle-kit": "^0.31.0",
+		"esbuild": "^0.27.4",
+		"eslint": "^10.2.1",
+		"jiti": "^2.6.1",
+		"tailwindcss": "^4.2.2",
+		"tsx": "^4.21.0",
+		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.58.2",
+		"vite": "^8.0.1",
+		"vite-plugin-solid": "^2.11.11"
+	}
+}
