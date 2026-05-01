@@ -1,49 +1,29 @@
 {
-	"name": "valgrid",
-	"version": "1.0.0",
-	"type": "module",
-	"scripts": {
-		"dev": "vite",
-		"dev:server": "tsx watch server/main.ts",
-		"dev:all": "concurrently \"npm run dev\" \"npm run dev:server\"",
-		"build": "vite build",
-		"build:server": "esbuild server/main.ts --bundle --platform=node --format=esm --outfile=dist/server.js --packages=external",
-		"check": "biome check --write .",
-		"db:generate": "drizzle-kit generate",
-		"db:migrate": "drizzle-kit migrate",
-		"db:studio": "drizzle-kit studio"
-	},
-	"dependencies": {
-		"@hono/node-server": "^1.19.14",
-		"@solidjs/router": "^0.16.1",
-		"@tanstack/db": "^0.6.5",
-		"@tanstack/electric-db-collection": "^0.3.3",
-		"@tanstack/solid-db": "^0.2.19",
-		"dockerode": "^4.0.6",
-		"drizzle-orm": "^0.44.0",
-		"hono": "^4.7.0",
-		"nanoid": "^5.1.5",
-		"pg": "^8.16.0",
-		"solid-js": "^1.9.11",
-		"tar": "^7.4.3"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "^2.4.8",
-		"@tailwindcss/vite": "^4.2.2",
-		"@types/dockerode": "^3.3.38",
-		"@types/node": "^25.5.0",
-		"@types/pg": "^8.15.4",
-		"@typescript-eslint/utils": "^8.58.2",
-		"concurrently": "^9.1.2",
-		"drizzle-kit": "^0.31.0",
-		"esbuild": "^0.27.4",
-		"eslint": "^10.2.1",
-		"jiti": "^2.6.1",
-		"tailwindcss": "^4.2.2",
-		"tsx": "^4.21.0",
-		"typescript": "^5.9.3",
-		"typescript-eslint": "^8.58.2",
-		"vite": "^8.0.1",
-		"vite-plugin-solid": "^2.11.11"
-	}
+  "name": "valgrid-progressive",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@tanstack/electric-db-collection": "^0.3.3",
+    "@tanstack/react-db": "^0.1.83",
+    "bs58": "^6.0.0",
+    "express": "^5.2.1",
+    "google-auth-library": "^10.6.2",
+    "pidusage": "^4.0.1",
+    "postgres": "^3.4.9",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^6.30.2",
+    "react-simple-code-editor": "^0.14.1",
+    "rehype-highlight": "^7.0.2",
+    "tweetnacl": "^1.0.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "eslint": "^9.39.4",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.5.0"
+  }
 }

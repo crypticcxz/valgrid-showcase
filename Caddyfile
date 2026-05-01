@@ -1,0 +1,17 @@
+:8080 {
+  handle /api/* {
+    reverse_proxy backend:3001 {
+      flush_interval -1
+    }
+  }
+
+  reverse_proxy frontend:5173
+}
+
+:8081 {
+  uri strip_prefix /electric
+  uri query +secret {$ELECTRIC_SECRET}
+  reverse_proxy electric:3000 {
+    flush_interval -1
+  }
+}

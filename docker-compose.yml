@@ -1,26 +1,72 @@
 services:
-  postgres:
-    image: postgres:16-alpine
-    environment:
-      POSTGRES_DB: valgrid
-      POSTGRES_USER: valgrid
-      POSTGRES_PASSWORD: valgrid
+  proxy:
+    image: caddy:alpine
     ports:
-      - "5432:5432"
+      - "8080:8080"
+      - "8081:8081"
     volumes:
-      - pgdata:/var/lib/postgresql/data
-    command:
-      - -c
-      - wal_level=logical
+      - ${PWD}/Caddyfile:/etc/caddy/Caddyfile:ro
+    environment:
+      ELECTRIC_SECRET: ${ELECTRIC_SECRET}
+    depends_on:
+      frontend:
+        condition: service_started
+      backend:
+        condition: service_started
+      electric:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+    command: ["bun", "frontend/index.html", "--host=0.0.0.0", "--port=5173"]
+    volumes:
+      - ${PWD}/frontend:/app/frontend
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/valgrid_test?sslmode=disable
+      SESSION_SECRET: ${SESSION_SECRET}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      RECONCILER_TOKEN: ${RECONCILER_TOKEN}
+    cpus: 0.75
+    mem_limit: 768m
+    pids_limit: 256
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:18
+    command: -c wal_level=logical
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: valgrid_test
+    volumes:
+      - pgdata:/var/lib/postgresql
+      - ${PWD}/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d valgrid_test"]
+      interval: 2s
+      timeout: 2s
+      retries: 20
 
   electric:
-    image: electricsql/electric
+    image: electricsql/electric:latest
     environment:
-      DATABASE_URL: postgresql://valgrid:valgrid@postgres:5432/valgrid
-    ports:
-      - "3000:3000"
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/valgrid_test?sslmode=disable
+      ELECTRIC_SECRET: ${ELECTRIC_SECRET}
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
 
 volumes:
   pgdata:
