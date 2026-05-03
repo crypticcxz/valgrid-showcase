@@ -27,6 +27,10 @@ import {
 } from "./misc"
 import { useToast } from "./toast"
 
+const TRADINGVIEW_WIDGET_SRC =
+  "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"
+let tradingViewPreloadPromise = null
+
 export function StrategyDetail({ id, collection }) {
   const { data = [] } = useLiveQuery(collection)
   const strategy = data.find((s) => s.id === id)
@@ -225,6 +229,9 @@ export function StrategyDetail({ id, collection }) {
   const togglePanelExpand = (panel) => {
     setExpandedPanel((current) => (current === panel ? null : panel))
   }
+  const chartExpanded = expandedPanel === "chart"
+  const chatExpanded = expandedPanel === "chat"
+  const editorExpanded = expandedPanel === "editor"
 
   return (
     <div className="flex h-full min-w-0 flex-col">
@@ -245,133 +252,102 @@ export function StrategyDetail({ id, collection }) {
         />
         {view === "chat" ? (
           <div className="min-h-0 flex-1 p-4 lg:p-5">
-            {expandedPanel === "chart" ? (
-              <section className="flex h-full min-h-0 flex-col overflow-hidden rounded-xl border border-white/[0.08] bg-[#081321]/70">
-                <StrategyQuickChart
-                  charts={sortedCharts}
-                  expanded
-                  onToggleExpand={() => togglePanelExpand("chart")}
-                />
-              </section>
-            ) : expandedPanel === "chat" ? (
-              <section className="flex h-full min-h-0 flex-col overflow-hidden rounded-xl border border-white/[0.08] bg-[#081321]/70">
-                <div className="flex h-full min-h-0 flex-col">
-                  <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-2.5">
-                    <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/45">
-                      AI Chat
-                    </p>
-                    <PanelExpandButton
-                      expanded
-                      onClick={() => togglePanelExpand("chat")}
-                    />
-                  </div>
-                  <ChatMessages
-                    messages={visibleMessages}
-                    markdownComponents={markdownComponents}
-                    responding={assistantResponding}
-                    onTemplate={applyTemplate}
-                    showTemplates={showTemplates}
+            <div
+              className={
+                "grid h-full min-h-0 gap-4 " +
+                (expandedPanel
+                  ? "lg:grid-cols-1"
+                  : "lg:grid-cols-[minmax(0,1fr)_minmax(360px,42%)]")
+              }
+            >
+              <div
+                className={
+                  "grid min-h-0 gap-4 " +
+                  (chartExpanded
+                    ? "lg:grid-rows-[minmax(0,1fr)_0px]"
+                    : chatExpanded
+                      ? "lg:grid-rows-[0px_minmax(0,1fr)]"
+                      : "lg:grid-rows-[minmax(240px,44%)_minmax(0,56%)]") +
+                  (editorExpanded ? " lg:hidden" : "")
+                }
+              >
+                <section
+                  className={
+                    "min-h-[240px] overflow-hidden rounded-xl bg-[#081321]/70 transition-all " +
+                    (chatExpanded ? "lg:min-h-0 lg:h-0" : "")
+                  }
+                >
+                  <StrategyQuickChart
+                    charts={sortedCharts}
+                    expanded={chartExpanded}
+                    onToggleExpand={() => togglePanelExpand("chart")}
                   />
-                  <ChatComposer
-                    model={strategy.ai_model}
-                    onModel={(model) => update({ ai_model: model })}
-                    draft={chatDraft}
-                    onDraft={setChatDraft}
-                    onSend={send}
-                  />
-                </div>
-              </section>
-            ) : expandedPanel === "editor" ? (
-              <section className="flex h-full min-h-0 flex-col overflow-hidden rounded-xl border border-white/[0.08] bg-[#081321]/70">
-                <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-2.5">
-                  <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/45">
-                    Editor
-                  </p>
-                  <PanelExpandButton
-                    expanded
-                    onClick={() => togglePanelExpand("editor")}
-                  />
-                </div>
-                <div className="min-h-0 flex-1">
-                  <StrategyEditor
-                    key={`editor:${strategy.id}`}
-                    strategy={id}
-                    reset={
-                      strategy?.desired_runtime === RUNTIME_RUNNING
-                        ? strategy.runtime_requested_at
-                        : null
-                    }
-                    code={strategy.code}
-                    onCode={updateCode}
-                  />
-                </div>
-              </section>
-            ) : (
-              <div className="grid h-full min-h-0 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(360px,42%)]">
-                <div className="grid min-h-0 gap-4 lg:grid-rows-[minmax(240px,44%)_minmax(0,56%)]">
-                  <section className="min-h-[240px] overflow-hidden rounded-xl border border-white/[0.08] bg-[#081321]/70">
-                    <StrategyQuickChart
-                      charts={sortedCharts}
-                      expanded={false}
-                      onToggleExpand={() => togglePanelExpand("chart")}
-                    />
-                  </section>
-                  <section className="min-h-0 overflow-hidden rounded-xl border border-white/[0.08] bg-[#081321]/70">
-                    <div className="flex h-full min-h-0 flex-col">
-                      <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-2.5">
-                        <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/45">
-                          AI Chat
-                        </p>
-                        <PanelExpandButton
-                          expanded={false}
-                          onClick={() => togglePanelExpand("chat")}
-                        />
-                      </div>
-                      <ChatMessages
-                        messages={visibleMessages}
-                        markdownComponents={markdownComponents}
-                        responding={assistantResponding}
-                        onTemplate={applyTemplate}
-                        showTemplates={showTemplates}
-                      />
-                      <ChatComposer
-                        model={strategy.ai_model}
-                        onModel={(model) => update({ ai_model: model })}
-                        draft={chatDraft}
-                        onDraft={setChatDraft}
-                        onSend={send}
-                      />
-                    </div>
-                  </section>
-                </div>
-                <section className="min-h-0 overflow-hidden rounded-xl border border-white/[0.08] bg-[#081321]/70">
+                </section>
+                <section
+                  className={
+                    "min-h-0 overflow-hidden rounded-xl border border-white/[0.08] bg-[#081321]/70 transition-all " +
+                    (chartExpanded ? "lg:h-0 lg:min-h-0 lg:border-transparent" : "")
+                  }
+                >
                   <div className="flex h-full min-h-0 flex-col">
                     <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-2.5">
                       <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/45">
-                        Editor
+                        AI Chat
                       </p>
                       <PanelExpandButton
-                        expanded={false}
-                        onClick={() => togglePanelExpand("editor")}
+                        expanded={chatExpanded}
+                        onClick={() => togglePanelExpand("chat")}
                       />
                     </div>
-                    <div className="min-h-0 flex-1">
-                      <StrategyEditor
-                        key={`editor:${strategy.id}`}
-                        strategy={id}
-                        reset={
-                          strategy?.desired_runtime === RUNTIME_RUNNING
-                            ? strategy.runtime_requested_at
-                            : null
-                        }
-                        code={strategy.code}
-                        onCode={updateCode}
-                      />
-                    </div>
+                    <ChatMessages
+                      messages={visibleMessages}
+                      markdownComponents={markdownComponents}
+                      responding={assistantResponding}
+                      onTemplate={applyTemplate}
+                      showTemplates={showTemplates}
+                    />
+                    <ChatComposer
+                      model={strategy.ai_model}
+                      onModel={(model) => update({ ai_model: model })}
+                      draft={chatDraft}
+                      onDraft={setChatDraft}
+                      onSend={send}
+                    />
                   </div>
                 </section>
               </div>
-            )}
+              <section
+                className={
+                  "min-h-0 overflow-hidden rounded-xl border border-white/[0.08] bg-[#081321]/70 " +
+                  (chartExpanded || chatExpanded ? "lg:hidden" : "")
+                }
+              >
+                <div className="flex h-full min-h-0 flex-col">
+                  <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-2.5">
+                    <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/45">
+                      Editor
+                    </p>
+                    <PanelExpandButton
+                      expanded={editorExpanded}
+                      onClick={() => togglePanelExpand("editor")}
+                    />
+                  </div>
+                  <div className="min-h-0 flex-1">
+                    <StrategyEditor
+                      key={`editor:${strategy.id}`}
+                      strategy={id}
+                      reset={
+                        strategy?.desired_runtime === RUNTIME_RUNNING
+                          ? strategy.runtime_requested_at
+                          : null
+                      }
+                      code={strategy.code}
+                      onCode={updateCode}
+                    />
+                  </div>
+                </div>
+              </section>
+            </div>
           </div>
         ) : (
           <TopPanel
@@ -396,23 +372,33 @@ export function StrategyDetail({ id, collection }) {
 
 function StrategyQuickChart({ charts, expanded, onToggleExpand }) {
   const chart = charts[0]
-  const title = chart?.title || "SOL/USDT"
   const symbol = normalizeTradingViewSymbol(chart?.contract_address || "BINANCE:SOLUSDT")
   const container = useRef(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [loadError, setLoadError] = useState(false)
 
   useEffect(() => {
     const target = container.current
     if (!target) return
+    let cancelled = false
+    let readyInterval
+    let failTimeout
+    setIsLoading(true)
+    setLoadError(false)
     target.innerHTML = ""
     const widget = document.createElement("div")
     widget.className = "tradingview-widget-container__widget"
     widget.style.height = "100%"
     widget.style.width = "100%"
     const script = document.createElement("script")
-    script.src =
-      "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"
+    script.src = TRADINGVIEW_WIDGET_SRC
     script.type = "text/javascript"
     script.async = true
+    script.onerror = () => {
+      if (cancelled) return
+      setLoadError(true)
+      setIsLoading(false)
+    }
     script.innerHTML = JSON.stringify({
       autosize: true,
       symbol,
@@ -425,40 +411,104 @@ function StrategyQuickChart({ charts, expanded, onToggleExpand }) {
       gridColor: "rgba(255, 255, 255, 0.06)",
       allow_symbol_change: true,
       calendar: false,
-      hide_side_toolbar: false,
-      hide_top_toolbar: false,
+      hide_side_toolbar: true,
+      hide_top_toolbar: true,
       support_host: "https://www.tradingview.com",
     })
-    target.append(widget, script)
+    const markReady = () => {
+      if (cancelled) return
+      setIsLoading(false)
+      setLoadError(false)
+      if (readyInterval) clearInterval(readyInterval)
+      if (failTimeout) clearTimeout(failTimeout)
+    }
+
+    preloadTradingViewAssets().finally(() => {
+      if (cancelled) return
+      target.append(widget, script)
+      readyInterval = window.setInterval(() => {
+        if (target.querySelector("iframe")) {
+          markReady()
+        }
+      }, 200)
+      failTimeout = window.setTimeout(() => {
+        if (cancelled) return
+        setIsLoading(false)
+        setLoadError(true)
+      }, 12000)
+    })
+
     return () => {
+      cancelled = true
+      if (readyInterval) clearInterval(readyInterval)
+      if (failTimeout) clearTimeout(failTimeout)
       target.innerHTML = ""
     }
   }, [symbol])
 
   return (
-    <div className="flex h-full min-h-0 flex-col">
-      <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-2.5">
-        <div>
-          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-white/45">
-            Crypto chart
-          </p>
-          <p className="mt-0.5 text-xs text-white/35">{title}</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="rounded-full border border-white/[0.08] bg-white/[0.03] px-2.5 py-1 text-[0.62rem] font-mono text-[#B4F1FF]">
-            {symbol}
-          </span>
-          <PanelExpandButton expanded={expanded} onClick={onToggleExpand} />
-        </div>
+    <div className="relative flex h-full min-h-0 flex-col">
+      <div className="absolute right-3 top-3 z-10">
+        <PanelExpandButton expanded={expanded} onClick={onToggleExpand} />
       </div>
-      <div className="min-h-0 flex-1 bg-[#020b14] p-2">
+      <div className="min-h-0 flex-1 bg-[#020b14]">
         <div
           ref={container}
-          className="tradingview-widget-container h-full min-h-0 w-full overflow-hidden rounded-lg border border-white/[0.05]"
+          className={
+            "tradingview-widget-container h-full min-h-0 w-full overflow-hidden rounded-xl transition-opacity duration-300 " +
+            (isLoading ? "opacity-0" : "opacity-100")
+          }
         />
+        {isLoading && <ChartLoadingSkeleton />}
+        {loadError && !isLoading && (
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <div className="rounded-md border border-white/[0.08] bg-[#020b14]/80 px-3 py-2 text-xs text-white/60 backdrop-blur">
+              Loading chart data...
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
+}
+
+function ChartLoadingSkeleton() {
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl bg-[#06050c]">
+      <div className="absolute -left-16 top-10 h-40 w-40 rounded-full bg-[#B4F1FF]/10 blur-3xl" />
+      <div className="absolute -right-8 bottom-8 h-36 w-36 rounded-full bg-[#0094BC]/12 blur-3xl" />
+      <div className="absolute inset-0 animate-pulse bg-[linear-gradient(120deg,rgba(255,255,255,0.01),rgba(123,208,249,0.06),rgba(255,255,255,0.01))]" />
+      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#030b16]/95 via-[#030b16]/55 to-transparent" />
+      <div className="absolute left-4 top-4 h-2 w-24 rounded bg-[#B4F1FF]/28" />
+      <div className="absolute left-4 top-8 h-2 w-36 rounded bg-[#7BD0F9]/18" />
+      <div className="absolute left-4 top-[42%] h-px w-[86%] bg-[#7BD0F9]/18" />
+      <div className="absolute left-4 top-[62%] h-px w-[78%] bg-[#7BD0F9]/14" />
+      <div className="absolute left-4 top-[78%] h-px w-[64%] bg-[#7BD0F9]/10" />
+      <div className="absolute bottom-3 right-4 rounded border border-white/[0.08] bg-[#030d1a]/80 px-2 py-1 text-[0.62rem] font-medium text-[#B4F1FF]/75 backdrop-blur">
+        Loading SOL chart...
+      </div>
+    </div>
+  )
+}
+
+function preloadTradingViewAssets() {
+  if (typeof document === "undefined") return Promise.resolve()
+  if (tradingViewPreloadPromise) return tradingViewPreloadPromise
+  tradingViewPreloadPromise = Promise.resolve().then(() => {
+    const ensureLink = (id, rel, href, as) => {
+      if (document.getElementById(id)) return
+      const link = document.createElement("link")
+      link.id = id
+      link.rel = rel
+      link.href = href
+      if (as) link.as = as
+      document.head.appendChild(link)
+    }
+    ensureLink("tv-preconnect-main", "preconnect", "https://www.tradingview.com")
+    ensureLink("tv-preconnect-s3", "preconnect", "https://s3.tradingview.com")
+    ensureLink("tv-preload-script", "preload", TRADINGVIEW_WIDGET_SRC, "script")
+  })
+  return tradingViewPreloadPromise
 }
 
 function PanelExpandButton({ expanded, onClick }) {
@@ -466,7 +516,7 @@ function PanelExpandButton({ expanded, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-white/[0.08] bg-white/[0.03] text-white/60 transition-colors hover:bg-white/[0.06] hover:text-white"
+      className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-[#7BD0F9]/55 bg-[#0094BC]/35 text-[#B4F1FF] shadow-[0_0_0_1px_rgb(180_241_255_/_0.15),0_8px_18px_rgb(0_148_188_/_0.25)] transition-colors hover:bg-[#0094BC]/50 hover:border-[#B4F1FF]/65 hover:text-[#E1F8FF]"
       aria-label={expanded ? "Contract panel" : "Expand panel"}
       title={expanded ? "Contract" : "Expand"}
     >
