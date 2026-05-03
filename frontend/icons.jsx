@@ -44,6 +44,18 @@ export const ICONS = {
   send: ["M22 2L11 13", "M22 2l-7 20-4-9-9-4z"],
   play: ["M5 3l14 9-14 9z"],
   stop: ["M5 5h14v14H5z"],
+  expand: [
+    "M15 3h6v6",
+    "M21 3l-7 7",
+    "M9 21H3v-6",
+    "M3 21l7-7",
+  ],
+  contract: [
+    "M10 14 3 21",
+    "M3 15v6h6",
+    "M14 10l7-7",
+    "M15 3h6v6",
+  ],
   archive: ["M21 8v13H3V8", "M1 3h22v5H1z", "M10 12h4"],
   clone: [
     "M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-2",

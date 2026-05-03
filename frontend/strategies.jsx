@@ -644,7 +644,14 @@ export function Strategies({ me, collection, onOpen }) {
     .filter(isActiveStrategy)
     .sort(byTimeDesc("created_at"))
   const recent = active.slice(0, 6)
+  const [prompt, setPrompt] = useState("")
   const create = () => openNewStrategy(collection, me.id, onOpen)
+  const sendPrompt = (e) => {
+    e.preventDefault()
+    if (!prompt.trim()) return
+    create()
+    setPrompt("")
+  }
 
   return (
     <div className="-mx-4 -my-6 w-auto md:-mx-8 md:-my-8">
@@ -675,12 +682,12 @@ export function Strategies({ me, collection, onOpen }) {
           </div>
         </nav>
 
-        <section className="relative flex-1 px-5 py-0">
+        <section className="relative flex flex-1 items-center justify-center px-5 py-0">
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
             <div className="absolute left-1/2 top-8 h-56 w-56 -translate-x-1/2 rounded-full bg-[#B4F1FF]/20 blur-3xl" />
             <div className="absolute bottom-0 right-10 h-48 w-48 rounded-full bg-[#0094BC]/18 blur-3xl" />
           </div>
-          <div className="relative mx-auto flex h-full min-h-[22rem] max-w-2xl flex-col items-center justify-center text-center">
+          <div className="relative mx-auto w-full max-w-2xl text-center">
             <p className="text-[0.68rem] font-bold uppercase tracking-[0.25em] text-[#B4F1FF]/75">
               Assistant
             </p>
@@ -691,14 +698,37 @@ export function Strategies({ me, collection, onOpen }) {
               Start a new strategy conversation, generate code, and move straight
               into runtime from one place.
             </p>
-            <button
-              type="button"
-              onClick={create}
-              className="mt-8 inline-flex items-center justify-center gap-2 rounded-full border border-[#7BD0F9]/35 bg-[#0094BC]/20 px-8 py-3 text-sm font-semibold text-[#B4F1FF] transition-all duration-200 hover:bg-[#0094BC]/35 hover:border-[#B4F1FF]/45 hover:shadow-[0_0_0_1px_rgb(180_241_255_/_0.08)]"
-            >
-              <Icon d={ICONS.plus} size={14} />
-              Start chat
-            </button>
+            <div className="mt-8 w-full max-w-xl mx-auto rounded-2xl border border-white/[0.1] bg-[#081321]/80 p-3 backdrop-blur">
+              <div className="mb-3 flex flex-wrap items-center gap-2">
+                {["Grid bot setup", "Risk limits", "DCA strategy"].map((label) => (
+                  <button
+                    key={label}
+                    type="button"
+                    onClick={() => setPrompt(label)}
+                    className="rounded-full border border-white/[0.12] bg-white/[0.03] px-3 py-1 text-xs text-white/75 transition-colors hover:bg-white/[0.06] hover:text-white"
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+              <form onSubmit={sendPrompt} className="flex items-center gap-2">
+                <input
+                  type="text"
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                  placeholder="Ask anything about your strategy..."
+                  className="h-11 flex-1 rounded-xl border border-white/[0.1] bg-[#06050c]/70 px-4 text-sm text-white outline-none placeholder:text-white/35 focus:border-[#7BD0F9]/45"
+                />
+                <button
+                  type="submit"
+                  disabled={!prompt.trim()}
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[#7BD0F9]/35 bg-[#0094BC]/25 text-[#B4F1FF] transition-all duration-200 hover:bg-[#0094BC]/45 hover:border-[#B4F1FF]/45 disabled:cursor-not-allowed disabled:opacity-40"
+                  aria-label="Send prompt"
+                >
+                  <Icon d={ICONS.arrowRight} size={14} />
+                </button>
+              </form>
+            </div>
           </div>
         </section>
 
@@ -711,7 +741,7 @@ export function Strategies({ me, collection, onOpen }) {
           </div>
           {recent.length === 0 ? (
             <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] px-4 py-6 text-sm text-white/45">
-              No strategies yet. Use Start chat to create your first one.
+              No strategies yet. Use the chat box to create your first one.
             </div>
           ) : (
             <ul className="divide-y divide-white/[0.06] overflow-hidden rounded-xl border border-white/[0.08] bg-[#09080f]/65">

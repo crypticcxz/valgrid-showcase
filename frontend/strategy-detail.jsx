@@ -34,6 +34,7 @@ export function StrategyDetail({ id, collection }) {
   const [chatDraft, setChatDraft] = useState("")
   const [chartImportOpen, setChartImportOpen] = useState(false)
   const [chartImportSymbol, setChartImportSymbol] = useState("")
+  const [expandedPanel, setExpandedPanel] = useState(null)
   const msg = messages(id)
   const { data: messageData = [] } = useLiveQuery(msg)
   const sortedMessages = useMemo(
@@ -71,7 +72,6 @@ export function StrategyDetail({ id, collection }) {
   useEffect(() => {
     if (
       view === "chat" ||
-      view === "editor" ||
       view === "wallet" ||
       view === "trades"
     ) {
@@ -81,6 +81,12 @@ export function StrategyDetail({ id, collection }) {
       setView("chat")
     }
   }, [view, sortedCharts])
+
+  useEffect(() => {
+    if (view !== "chat" && expandedPanel) {
+      setExpandedPanel(null)
+    }
+  }, [view, expandedPanel])
 
   if (!strategy) {
     return (
@@ -216,6 +222,10 @@ export function StrategyDetail({ id, collection }) {
     updateFields(chartStore, chart.id, { title })
   }
 
+  const togglePanelExpand = (panel) => {
+    setExpandedPanel((current) => (current === panel ? null : panel))
+  }
+
   return (
     <div className="flex h-full min-w-0 flex-col">
       <section className="flex min-h-0 flex-1 flex-col">
@@ -234,34 +244,135 @@ export function StrategyDetail({ id, collection }) {
           canExplain={canExplain}
         />
         {view === "chat" ? (
-          <>
-            <ChatMessages
-              messages={visibleMessages}
-              markdownComponents={markdownComponents}
-              responding={assistantResponding}
-              onTemplate={applyTemplate}
-              showTemplates={showTemplates}
-            />
-            <ChatComposer
-              model={strategy.ai_model}
-              onModel={(model) => update({ ai_model: model })}
-              draft={chatDraft}
-              onDraft={setChatDraft}
-              onSend={send}
-            />
-          </>
-        ) : view === "editor" ? (
-          <StrategyEditor
-            key={`editor:${strategy.id}`}
-            strategy={id}
-            reset={
-              strategy?.desired_runtime === RUNTIME_RUNNING
-                ? strategy.runtime_requested_at
-                : null
-            }
-            code={strategy.code}
-            onCode={updateCode}
-          />
+          <div className="min-h-0 flex-1 p-4 lg:p-5">
+            {expandedPanel === "chart" ? (
+              <section className="flex h-full min-h-0 flex-col overflow-hidden rounded-xl border border-white/[0.08] bg-[#081321]/70">
+                <StrategyQuickChart
+                  charts={sortedCharts}
+                  expanded
+                  onToggleExpand={() => togglePanelExpand("chart")}
+                />
+              </section>
+            ) : expandedPanel === "chat" ? (
+              <section className="flex h-full min-h-0 flex-col overflow-hidden rounded-xl border border-white/[0.08] bg-[#081321]/70">
+                <div className="flex h-full min-h-0 flex-col">
+                  <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-2.5">
+                    <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/45">
+                      AI Chat
+                    </p>
+                    <PanelExpandButton
+                      expanded
+                      onClick={() => togglePanelExpand("chat")}
+                    />
+                  </div>
+                  <ChatMessages
+                    messages={visibleMessages}
+                    markdownComponents={markdownComponents}
+                    responding={assistantResponding}
+                    onTemplate={applyTemplate}
+                    showTemplates={showTemplates}
+                  />
+                  <ChatComposer
+                    model={strategy.ai_model}
+                    onModel={(model) => update({ ai_model: model })}
+                    draft={chatDraft}
+                    onDraft={setChatDraft}
+                    onSend={send}
+                  />
+                </div>
+              </section>
+            ) : expandedPanel === "editor" ? (
+              <section className="flex h-full min-h-0 flex-col overflow-hidden rounded-xl border border-white/[0.08] bg-[#081321]/70">
+                <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-2.5">
+                  <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/45">
+                    Editor
+                  </p>
+                  <PanelExpandButton
+                    expanded
+                    onClick={() => togglePanelExpand("editor")}
+                  />
+                </div>
+                <div className="min-h-0 flex-1">
+                  <StrategyEditor
+                    key={`editor:${strategy.id}`}
+                    strategy={id}
+                    reset={
+                      strategy?.desired_runtime === RUNTIME_RUNNING
+                        ? strategy.runtime_requested_at
+                        : null
+                    }
+                    code={strategy.code}
+                    onCode={updateCode}
+                  />
+                </div>
+              </section>
+            ) : (
+              <div className="grid h-full min-h-0 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(360px,42%)]">
+                <div className="grid min-h-0 gap-4 lg:grid-rows-[minmax(240px,44%)_minmax(0,56%)]">
+                  <section className="min-h-[240px] overflow-hidden rounded-xl border border-white/[0.08] bg-[#081321]/70">
+                    <StrategyQuickChart
+                      charts={sortedCharts}
+                      expanded={false}
+                      onToggleExpand={() => togglePanelExpand("chart")}
+                    />
+                  </section>
+                  <section className="min-h-0 overflow-hidden rounded-xl border border-white/[0.08] bg-[#081321]/70">
+                    <div className="flex h-full min-h-0 flex-col">
+                      <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-2.5">
+                        <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/45">
+                          AI Chat
+                        </p>
+                        <PanelExpandButton
+                          expanded={false}
+                          onClick={() => togglePanelExpand("chat")}
+                        />
+                      </div>
+                      <ChatMessages
+                        messages={visibleMessages}
+                        markdownComponents={markdownComponents}
+                        responding={assistantResponding}
+                        onTemplate={applyTemplate}
+                        showTemplates={showTemplates}
+                      />
+                      <ChatComposer
+                        model={strategy.ai_model}
+                        onModel={(model) => update({ ai_model: model })}
+                        draft={chatDraft}
+                        onDraft={setChatDraft}
+                        onSend={send}
+                      />
+                    </div>
+                  </section>
+                </div>
+                <section className="min-h-0 overflow-hidden rounded-xl border border-white/[0.08] bg-[#081321]/70">
+                  <div className="flex h-full min-h-0 flex-col">
+                    <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-2.5">
+                      <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/45">
+                        Editor
+                      </p>
+                      <PanelExpandButton
+                        expanded={false}
+                        onClick={() => togglePanelExpand("editor")}
+                      />
+                    </div>
+                    <div className="min-h-0 flex-1">
+                      <StrategyEditor
+                        key={`editor:${strategy.id}`}
+                        strategy={id}
+                        reset={
+                          strategy?.desired_runtime === RUNTIME_RUNNING
+                            ? strategy.runtime_requested_at
+                            : null
+                        }
+                        code={strategy.code}
+                        onCode={updateCode}
+                      />
+                    </div>
+                  </div>
+                </section>
+              </div>
+            )}
+          </div>
         ) : (
           <TopPanel
             key={`charts:${strategy.id}`}
@@ -281,6 +392,96 @@ export function StrategyDetail({ id, collection }) {
       />
     </div>
   )
+}
+
+function StrategyQuickChart({ charts, expanded, onToggleExpand }) {
+  const chart = charts[0]
+  const title = chart?.title || "SOL/USDT"
+  const symbol = normalizeTradingViewSymbol(chart?.contract_address || "BINANCE:SOLUSDT")
+  const container = useRef(null)
+
+  useEffect(() => {
+    const target = container.current
+    if (!target) return
+    target.innerHTML = ""
+    const widget = document.createElement("div")
+    widget.className = "tradingview-widget-container__widget"
+    widget.style.height = "100%"
+    widget.style.width = "100%"
+    const script = document.createElement("script")
+    script.src =
+      "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"
+    script.type = "text/javascript"
+    script.async = true
+    script.innerHTML = JSON.stringify({
+      autosize: true,
+      symbol,
+      interval: "30",
+      timezone: "Etc/UTC",
+      theme: "dark",
+      style: "1",
+      locale: "en",
+      backgroundColor: "rgba(2, 11, 20, 1)",
+      gridColor: "rgba(255, 255, 255, 0.06)",
+      allow_symbol_change: true,
+      calendar: false,
+      hide_side_toolbar: false,
+      hide_top_toolbar: false,
+      support_host: "https://www.tradingview.com",
+    })
+    target.append(widget, script)
+    return () => {
+      target.innerHTML = ""
+    }
+  }, [symbol])
+
+  return (
+    <div className="flex h-full min-h-0 flex-col">
+      <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-2.5">
+        <div>
+          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-white/45">
+            Crypto chart
+          </p>
+          <p className="mt-0.5 text-xs text-white/35">{title}</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="rounded-full border border-white/[0.08] bg-white/[0.03] px-2.5 py-1 text-[0.62rem] font-mono text-[#B4F1FF]">
+            {symbol}
+          </span>
+          <PanelExpandButton expanded={expanded} onClick={onToggleExpand} />
+        </div>
+      </div>
+      <div className="min-h-0 flex-1 bg-[#020b14] p-2">
+        <div
+          ref={container}
+          className="tradingview-widget-container h-full min-h-0 w-full overflow-hidden rounded-lg border border-white/[0.05]"
+        />
+      </div>
+    </div>
+  )
+}
+
+function PanelExpandButton({ expanded, onClick }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-white/[0.08] bg-white/[0.03] text-white/60 transition-colors hover:bg-white/[0.06] hover:text-white"
+      aria-label={expanded ? "Contract panel" : "Expand panel"}
+      title={expanded ? "Contract" : "Expand"}
+    >
+      <Icon d={expanded ? ICONS.contract : ICONS.expand} size={12} />
+    </button>
+  )
+}
+
+function normalizeTradingViewSymbol(input) {
+  const raw = String(input || "").trim().toUpperCase()
+  if (!raw) return "BINANCE:SOLUSDT"
+  if (raw.includes(":")) return raw.replace(/\s+/g, "")
+  const pair = raw.match(/^([A-Z0-9]+)\s*\/\s*([A-Z0-9]+)$/)
+  if (pair) return `BINANCE:${pair[1]}${pair[2]}`
+  return raw
 }
 
 function StrategyTabs({
@@ -320,12 +521,6 @@ function StrategyTabs({
       <div className="flex min-w-0 overflow-x-auto rounded-lg border border-white/[0.06] bg-white/[0.02] p-0.5">
         <StrategyTab active={value === "chat"} onClick={() => onChange("chat")}>
           Chat
-        </StrategyTab>
-        <StrategyTab
-          active={value === "editor"}
-          onClick={() => onChange("editor")}
-        >
-          Editor
         </StrategyTab>
         <StrategyTab
           active={value === "trades"}

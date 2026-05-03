@@ -4,6 +4,7 @@ import {
   useEffect,
   useMemo,
   useRef,
+  useState,
 } from "react"
 import ReactMarkdown from "react-markdown"
 import rehypeHighlight from "rehype-highlight"
@@ -177,6 +178,30 @@ export function ChatMessages({
 }
 
 function TemplateChoices({ onChoose }) {
+  const [selectedTemplateId, setSelectedTemplateId] = useState(TEMPLATES[0]?.id || "")
+  const [menuOpen, setMenuOpen] = useState(false)
+  const menuRef = useRef(null)
+  const selectedTemplate =
+    TEMPLATES.find((item) => item.id === selectedTemplateId) || TEMPLATES[0]
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const closeOnOutside = (event) => {
+      if (!menuRef.current?.contains(event.target)) {
+        setMenuOpen(false)
+      }
+    }
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") setMenuOpen(false)
+    }
+    document.addEventListener("mousedown", closeOnOutside)
+    document.addEventListener("keydown", closeOnEscape)
+    return () => {
+      document.removeEventListener("mousedown", closeOnOutside)
+      document.removeEventListener("keydown", closeOnEscape)
+    }
+  }, [menuOpen])
+
   return (
     <div className="py-8">
       <div className="mb-5">
@@ -187,23 +212,67 @@ function TemplateChoices({ onChoose }) {
           Pick a template or describe what you want to build.
         </p>
       </div>
-      <div className="grid gap-3 sm:grid-cols-2">
-        {TEMPLATES.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => onChoose(item)}
-            className="group flex min-h-[128px] flex-col rounded-lg border border-white/[0.08] bg-white/[0.02] p-4 text-left transition-colors hover:border-sky-500/30 hover:bg-sky-500/[0.04]"
-          >
-            <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-md border border-white/[0.08] bg-white/[0.03] text-white/55 group-hover:border-sky-500/30 group-hover:text-sky-300">
-              <Icon d={ICONS.plus} size={15} />
+      <div className="rounded-lg border border-white/[0.08] bg-white/[0.02] p-4">
+        <label className="block text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-white/45">
+          Strategy template
+          <div className="mt-2 flex gap-2">
+            <div className="relative flex-1" ref={menuRef}>
+              <button
+                type="button"
+                onClick={() => setMenuOpen((open) => !open)}
+                className="flex h-10 w-full items-center justify-between rounded-lg border border-white/[0.08] bg-[#030d1a] px-3 text-left text-sm text-white outline-none transition-colors hover:border-sky-500/35 focus:border-sky-500/40"
+                aria-haspopup="listbox"
+                aria-expanded={menuOpen}
+              >
+                <span className="truncate">{selectedTemplate?.name || "Select template"}</span>
+                <span className="text-white/45">▾</span>
+              </button>
+              {menuOpen && (
+                <div
+                  className="absolute z-20 mt-1 max-h-56 w-full overflow-y-auto rounded-lg border border-white/[0.08] bg-[#030d1a] p-1 shadow-xl shadow-black/40"
+                  role="listbox"
+                >
+                  {TEMPLATES.map((item) => {
+                    const active = item.id === selectedTemplateId
+                    return (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => {
+                          setSelectedTemplateId(item.id)
+                          setMenuOpen(false)
+                        }}
+                        className={
+                          "w-full rounded-md px-3 py-2 text-left text-sm transition-colors " +
+                          (active
+                            ? "bg-sky-500/20 text-sky-200"
+                            : "text-white/80 hover:bg-white/[0.05] hover:text-white")
+                        }
+                        role="option"
+                        aria-selected={active}
+                      >
+                        {item.name}
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
             </div>
-            <p className="text-sm font-semibold text-white">{item.name}</p>
-            <p className="mt-2 line-clamp-2 text-xs leading-5 text-white/45">
-              {item.summary}
-            </p>
-          </button>
-        ))}
+            <button
+              type="button"
+              onClick={() => selectedTemplate && onChoose(selectedTemplate)}
+              className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-sky-600 px-3 text-xs font-semibold text-white transition-colors hover:bg-sky-500"
+            >
+              <Icon d={ICONS.plus} size={13} />
+              Use template
+            </button>
+          </div>
+        </label>
+        {selectedTemplate?.summary && (
+          <p className="mt-3 text-xs leading-5 text-white/45">
+            {selectedTemplate.summary}
+          </p>
+        )}
       </div>
     </div>
   )
