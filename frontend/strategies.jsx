@@ -330,15 +330,15 @@ export function StrategySidebar({
   }
 
   return (
-    <aside className="flex w-72 shrink-0 flex-col border-r border-white/[0.08] bg-[#03111f]">
+    <aside className="flex w-72 shrink-0 flex-col border-r border-white/[0.08] bg-[#06050c]">
       <div className="flex items-center gap-2 p-3">
         <Link
           to="/strategies"
           replace
           className="flex min-w-0 flex-1 items-center gap-2 px-2 hover:opacity-80 transition-opacity"
         >
-          <div className="h-8 w-8 rounded-lg bg-sky-500/15 border border-sky-500/30 flex items-center justify-center">
-            <span className="text-sky-400 text-sm font-bold">V</span>
+          <div className="h-8 w-8 rounded-lg bg-[#7BD0F9]/15 border border-[#7BD0F9]/35 flex items-center justify-center">
+            <span className="text-[#7BD0F9] text-sm font-bold">V</span>
           </div>
           <span className="text-base font-semibold tracking-tight text-white">
             Valgrid
@@ -361,7 +361,7 @@ export function StrategySidebar({
           value={search}
           onChange={(e) => onSearch(e.target.value)}
           placeholder="Search strategies..."
-          className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-xs text-white placeholder:text-white/30 outline-none focus:border-sky-500/40"
+          className="w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-xs text-white placeholder:text-white/30 outline-none focus:border-[#7BD0F9]/50"
         />
       </div>
       {running.length > 0 && (
@@ -383,10 +383,10 @@ export function StrategySidebar({
             <button
               type="button"
               onClick={create}
-              className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-white/60 transition-colors hover:bg-white/[0.03] hover:text-white"
+              className="flex w-full items-center justify-center gap-2 rounded-full border border-[#7BD0F9]/35 bg-[#0094BC]/20 px-3 py-2 text-sm font-semibold text-[#B4F1FF] transition-all duration-200 hover:bg-[#0094BC]/35 hover:border-[#B4F1FF]/45 hover:shadow-[0_0_0_1px_rgb(180_241_255_/_0.08)]"
             >
               <Icon d={ICONS.plus} />
-              <span className="truncate flex-1 text-left">New strategy</span>
+              <span>New strategy</span>
             </button>
           </li>
         </ul>
@@ -478,14 +478,14 @@ export function StrategySidebar({
               className={
                 "relative flex flex-col items-center gap-1 rounded-lg py-2 text-[0.65rem] transition-colors " +
                 (active
-                  ? "bg-sky-500/10 text-sky-400"
+                  ? "bg-[#7BD0F9]/10 text-[#7BD0F9] border border-[#7BD0F9]/25"
                   : "text-white/50 hover:bg-white/[0.03] hover:text-white")
               }
             >
               <Icon d={ICONS[item.icon]} />
               <span>{item.label}</span>
               {badge && (
-                <span className="absolute top-1 right-1 rounded-full bg-sky-500 px-1 py-px text-[0.55rem] font-bold leading-none text-white min-w-[1rem] text-center">
+                <span className="absolute top-1 right-1 rounded-full bg-[#0094BC] px-1 py-px text-[0.55rem] font-bold leading-none text-white min-w-[1rem] text-center">
                   {item.count > 99 ? "99+" : item.count}
                 </span>
               )}
@@ -500,7 +500,7 @@ export function StrategySidebar({
           replace
           className="flex items-center gap-3 mb-3 rounded-lg p-2 -m-2 hover:bg-white/[0.03] transition-colors"
         >
-          <div className="h-9 w-9 rounded-full bg-sky-500/10 border border-white/[0.08] flex items-center justify-center text-sky-400 text-sm font-medium">
+          <div className="h-9 w-9 rounded-full bg-[#7BD0F9]/10 border border-white/[0.08] flex items-center justify-center text-[#7BD0F9] text-sm font-medium">
             {short.slice(0, 2).toUpperCase()}
           </div>
           <div className="flex-1 min-w-0">
@@ -643,77 +643,93 @@ export function Strategies({ me, collection, onOpen }) {
   const active = data
     .filter(isActiveStrategy)
     .sort(byTimeDesc("created_at"))
-  const starred = active.filter((strategy) => strategy.is_starred)
-  const unstarred = active.filter((strategy) => !strategy.is_starred)
+  const recent = active.slice(0, 6)
   const create = () => openNewStrategy(collection, me.id, onOpen)
 
   return (
-    <div className="mx-auto flex min-h-[70vh] w-full max-w-4xl flex-col justify-center py-8">
-      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-sky-500/20 bg-sky-500/10 text-sky-300">
-            <Icon d={ICONS.strategies} size={24} />
+    <div className="-mx-4 -my-6 w-auto md:-mx-8 md:-my-8">
+      <div className="flex min-h-[100dvh] flex-col overflow-hidden rounded-none border border-white/[0.08] border-l-0 bg-[#0b0a12]/75 backdrop-blur">
+        <nav className="flex items-center justify-between border-b border-white/[0.08] bg-[#09080f]/90 px-5 py-3">
+          <p className="text-sm font-semibold tracking-tight text-white">Strategies</p>
+          <div className="flex items-center gap-2 sm:gap-3">
+            {[
+              { label: "Strategies", path: "/strategies" },
+              { label: "Wallets", path: "/wallets" },
+              { label: "Analytics", path: "/analytics" },
+              { label: "Settings", path: "/settings" },
+            ].map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                replace
+                className={
+                  "rounded-md px-3 py-1.5 text-xs font-medium transition-all duration-200 " +
+                  (item.path === "/strategies"
+                    ? "bg-[#7BD0F9]/12 text-[#B4F1FF] border border-[#7BD0F9]/25"
+                    : "text-white/60 border border-transparent hover:border-white/[0.1] hover:bg-white/[0.03] hover:text-white")
+                }
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
-          <h1 className="text-3xl font-bold tracking-tight text-white">
-            Strategies
-          </h1>
-          <p className="mt-2 max-w-2xl text-sm text-white/50">
-            Open an existing strategy or create a new one.
-          </p>
-        </div>
-        <button
-          type="button"
-          onClick={create}
-          className="self-start rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white hover:bg-sky-500 sm:self-auto"
-        >
-          New strategy
-        </button>
-      </div>
+        </nav>
 
-      {active.length === 0 ? (
-        <div className="rounded-lg border border-white/[0.06] bg-white/[0.02] px-4 py-10 text-center">
-          <p className="text-sm text-white/45">No strategies yet.</p>
-        </div>
-      ) : (
-        <div className="space-y-6">
-          {starred.length > 0 && (
-            <section>
-              <h2 className="mb-2 text-xs font-bold uppercase tracking-widest text-amber-200/60">
-                Starred
-              </h2>
-              <ul className="divide-y divide-white/[0.06] overflow-hidden rounded-lg border border-amber-300/15 bg-amber-300/[0.03]">
-                {starred.map((strategy) => (
-                  <StrategyListRow
-                    key={strategy.id}
-                    strategy={strategy}
-                    collection={collection}
-                    onOpen={onOpen}
-                  />
-                ))}
-              </ul>
-            </section>
-          )}
-          <section>
-            <h2 className="mb-2 text-xs font-bold uppercase tracking-widest text-white/40">
-              All strategies
+        <section className="relative flex-1 px-5 py-0">
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="absolute left-1/2 top-8 h-56 w-56 -translate-x-1/2 rounded-full bg-[#B4F1FF]/20 blur-3xl" />
+            <div className="absolute bottom-0 right-10 h-48 w-48 rounded-full bg-[#0094BC]/18 blur-3xl" />
+          </div>
+          <div className="relative mx-auto flex h-full min-h-[22rem] max-w-2xl flex-col items-center justify-center text-center">
+            <p className="text-[0.68rem] font-bold uppercase tracking-[0.25em] text-[#B4F1FF]/75">
+              Assistant
+            </p>
+            <h2 className="mt-3 text-4xl font-bold tracking-tight text-white sm:text-5xl">
+              Chat to start
             </h2>
-            {unstarred.length === 0 ? (
-              <div className="rounded-lg border border-white/[0.06] bg-white/[0.02] px-4 py-6 text-sm text-white/45">
-                No unstarred strategies.
-              </div>
-            ) : (
-              <ul className="divide-y divide-white/[0.06] overflow-hidden rounded-lg border border-white/[0.08] bg-white/[0.02]">
-                {unstarred.map((strategy) => (
-                  <StrategyListRow
-                    key={strategy.id}
-                    strategy={strategy}
-                    collection={collection}
-                    onOpen={onOpen}
-                  />
-                ))}
-              </ul>
-            )}
-          </section>
+            <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-white/55 sm:text-base">
+              Start a new strategy conversation, generate code, and move straight
+              into runtime from one place.
+            </p>
+            <button
+              type="button"
+              onClick={create}
+              className="mt-8 inline-flex items-center justify-center gap-2 rounded-full border border-[#7BD0F9]/35 bg-[#0094BC]/20 px-8 py-3 text-sm font-semibold text-[#B4F1FF] transition-all duration-200 hover:bg-[#0094BC]/35 hover:border-[#B4F1FF]/45 hover:shadow-[0_0_0_1px_rgb(180_241_255_/_0.08)]"
+            >
+              <Icon d={ICONS.plus} size={14} />
+              Start chat
+            </button>
+          </div>
+        </section>
+
+        <section className="border-t border-white/[0.08] px-5 py-5">
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white/45">
+              Recent strategies
+            </h3>
+            <span className="text-xs text-white/35">{active.length} total</span>
+          </div>
+          {recent.length === 0 ? (
+            <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] px-4 py-6 text-sm text-white/45">
+              No strategies yet. Use Start chat to create your first one.
+            </div>
+          ) : (
+            <ul className="divide-y divide-white/[0.06] overflow-hidden rounded-xl border border-white/[0.08] bg-[#09080f]/65">
+              {recent.map((strategy) => (
+                <StrategyListRow
+                  key={strategy.id}
+                  strategy={strategy}
+                  collection={collection}
+                  onOpen={onOpen}
+                />
+              ))}
+            </ul>
+          )}
+        </section>
+      </div>
+      {active.length > 6 && (
+        <div className="mt-3 text-xs text-white/35">
+          Showing recent 6 strategies. Use the sidebar to browse all.
         </div>
       )}
     </div>

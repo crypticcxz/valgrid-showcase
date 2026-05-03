@@ -1,4 +1,4 @@
-FROM oven/bun:alpine
+FROM oven/bun:1.2.19-alpine
 
 RUN apk add --no-cache build-base py3-pip python3 python3-dev
 

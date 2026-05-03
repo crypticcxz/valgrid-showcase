@@ -1,23 +1,22 @@
 export function PageShell({ children }) {
   return (
-    <main className="flex-1 flex bg-[#03111f]">
+    <main className="flex-1 flex bg-[#06050c]">
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-sky-500/[0.03] rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-sky-500/[0.03] rounded-full blur-3xl" />
+        <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-[#7BD0F9]/[0.08] rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-[#0094BC]/[0.08] rounded-full blur-3xl" />
       </div>
       <div className="flex-1 min-w-0 overflow-y-auto">
-        <div className="relative w-full max-w-[1480px] mx-auto px-4 py-6 md:px-8 md:py-8">
+        <div className="relative w-full px-4 py-6 md:px-8 md:py-8">
           {children}
         </div>
       </div>
-      <div className="w-72 shrink-0 hidden xl:block" aria-hidden="true" />
     </main>
   )
 }
 
 export function FullShell({ children }) {
   return (
-    <main className="flex-1 min-w-0 overflow-hidden bg-[#03111f]">
+    <main className="flex-1 min-w-0 overflow-hidden bg-[#06050c]">
       {children}
     </main>
   )
