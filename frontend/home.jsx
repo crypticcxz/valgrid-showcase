@@ -294,7 +294,7 @@ export function Home() {
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-black/15 to-black/30" aria-hidden />
 
-            <div className="relative z-10 flex min-h-0 flex-1 flex-col overflow-hidden overflow-x-hidden overscroll-y-contain lg:overflow-y-auto lg:scrollbar-none">
+            <div className="relative z-10 flex min-h-0 flex-1 flex-col overflow-hidden overflow-x-hidden lg:overscroll-y-contain lg:overflow-y-auto lg:scrollbar-none">
               <div className="hero-panel-nav-in min-w-0 shrink-0">
                 <HeroAnchorPills />
               </div>
