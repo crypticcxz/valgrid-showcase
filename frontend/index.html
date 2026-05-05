@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="icon" type="image/png" href="./public/logo.png" />
@@ -215,6 +215,32 @@
           animation-delay: calc(
             var(--hero-delay-watch-panel) + var(--hero-seq-panel) + var(--hero-seq-gap)
           ) !important;
+        }
+      }
+      /* Matches main-separate/client HeroSection.tsx radial gradient */
+      .hero-sooma-shell {
+        --hero-rad-light: oklch(0.93 0.08 235);
+        --hero-rad-mid1: oklch(0.82 0.1 230);
+        --hero-rad-mid: oklch(0.62 0.12 225);
+        --hero-rad-bg: #06050c;
+        background-color: var(--hero-rad-bg);
+        background-image: radial-gradient(
+          circle at 50% 65%,
+          var(--hero-rad-light) 45%,
+          var(--hero-rad-mid1) 54%,
+          var(--hero-rad-mid) 70%,
+          var(--hero-rad-bg) 85%
+        );
+      }
+      @media (min-width: 1024px) {
+        .hero-sooma-shell {
+          background-image: radial-gradient(
+            circle at 50% 135%,
+            var(--hero-rad-light) 45%,
+            var(--hero-rad-mid1) 55%,
+            var(--hero-rad-mid) 68%,
+            var(--hero-rad-bg) 91%
+          );
         }
       }
       @media (prefers-reduced-motion: reduce) {

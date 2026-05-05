@@ -143,35 +143,35 @@ export function Home() {
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#06050c] text-white">
-      <section className="relative grid min-h-0 w-full grid-cols-1 grid-rows-[minmax(0,1fr)_minmax(26svh,34svh)] gap-0 bg-white pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)] font-['Poppins',system-ui,sans-serif] text-[#06050c] antialiased max-lg:h-[100svh] max-lg:max-h-[100svh] max-lg:overflow-hidden sm:grid-rows-[minmax(0,1fr)_minmax(28svh,36svh)] lg:h-[100svh] lg:max-h-[100svh] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-3 lg:overflow-x-visible lg:overflow-y-hidden lg:pb-0 lg:pt-0 lg:items-stretch xl:gap-4">
+      <section className="hero-sooma-shell relative grid min-h-0 w-full grid-cols-1 grid-rows-[minmax(0,1fr)_minmax(26svh,34svh)] gap-0 pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)] font-['Montserrat',system-ui,sans-serif] antialiased max-lg:h-[100svh] max-lg:max-h-[100svh] max-lg:overflow-hidden sm:grid-rows-[minmax(0,1fr)_minmax(28svh,36svh)] lg:h-[100svh] lg:max-h-[100svh] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-3 lg:overflow-x-visible lg:overflow-y-hidden lg:pb-0 lg:pt-0 lg:items-stretch xl:gap-4">
         {/* Left: compact mobile stack fits in upper fraction of 100svh */}
-        <div className="isolate grid min-h-0 w-full grid-rows-[auto_minmax(0,1fr)_auto] overflow-hidden px-4 pb-3 pt-3 max-lg:h-full max-lg:min-h-0 sm:px-6 sm:pb-4 sm:pt-4 lg:h-full lg:max-h-full lg:grid-rows-[auto_minmax(0,1fr)_auto] lg:px-8 lg:pb-10 lg:pt-9 xl:px-10 xl:pb-11 xl:pt-11 xl:pl-12 xl:pr-10 [@media(max-height:720px)]:pb-3 [@media(max-height:720px)]:pt-3 lg:[@media(max-height:720px)]:py-6">
+        <div className="isolate grid min-h-0 w-full grid-rows-[auto_minmax(0,1fr)_auto] overflow-hidden px-4 pb-3 pt-3 text-white max-lg:h-full max-lg:min-h-0 sm:px-6 sm:pb-4 sm:pt-4 lg:h-full lg:max-h-full lg:grid-rows-[auto_minmax(0,1fr)_auto] lg:px-8 lg:pb-10 lg:pt-9 xl:px-10 xl:pb-11 xl:pt-11 xl:pl-12 xl:pr-10 [@media(max-height:720px)]:pb-3 [@media(max-height:720px)]:pt-3 lg:[@media(max-height:720px)]:py-6">
           <header className="shrink-0">
             <div className="mb-2 flex items-start justify-between gap-3 sm:mb-8 lg:mb-4">
               <Link
                 to="/"
-                className="hero-logo-in text-[1.4rem] font-medium tracking-[0.02em] text-[#111111] lowercase max-lg:leading-none sm:text-[1.85rem]"
+                className="hero-logo-in text-[1.4rem] font-medium tracking-[0.02em] text-white lowercase max-lg:leading-none sm:text-[1.85rem]"
                 onClick={() => setMobileNavOpen(false)}
               >
                 sooma
               </Link>
               <button
                 type="button"
-                className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#06050c]/10 bg-white text-[#06050c] shadow-sm transition hover:bg-neutral-50 sm:h-10 sm:w-10 lg:hidden"
+                className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white shadow-sm backdrop-blur-sm transition hover:bg-white/15 sm:h-10 sm:w-10 lg:hidden"
                 aria-expanded={mobileNavOpen}
                 aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
                 onClick={() => setMobileNavOpen((open) => !open)}
               >
                 <span className="sr-only">Menu</span>
                 <span className="flex flex-col gap-1">
-                  <span className="h-0.5 w-5 rounded-full bg-[#06050c]/85" />
-                  <span className="h-0.5 w-5 rounded-full bg-[#06050c]/85" />
+                  <span className="h-0.5 w-5 rounded-full bg-white" />
+                  <span className="h-0.5 w-5 rounded-full bg-white" />
                 </span>
               </button>
             </div>
 
             {mobileNavOpen && (
-              <div className="mb-6 rounded-2xl border border-[#06050c]/10 bg-neutral-50 p-3 shadow-sm lg:hidden">
+              <div className="mb-6 rounded-2xl border border-white/15 bg-[#06050c]/80 p-3 shadow-lg backdrop-blur-xl lg:hidden">
                 <div className="flex flex-col gap-0.5">
                   <NavLink
                     to="/"
@@ -179,7 +179,7 @@ export function Home() {
                     onClick={() => setMobileNavOpen(false)}
                     className={({ isActive }) =>
                       "flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium " +
-                      (isActive ? "bg-white text-[#06050c] shadow-sm" : "text-[#06050c]/75 hover:bg-white/80")
+                      (isActive ? "bg-white/15 text-white shadow-sm" : "text-white/80 hover:bg-white/10")
                     }
                   >
                     {({ isActive }) => (
@@ -221,7 +221,7 @@ export function Home() {
           <div className="min-h-0 overflow-hidden lg:scrollbar-none lg:overflow-y-auto lg:overscroll-y-contain [-webkit-overflow-scrolling:touch]">
             <div className="flex flex-col justify-start gap-0 py-2 max-lg:py-1 sm:py-6 lg:min-h-full lg:justify-center lg:py-6">
             <div className="hero-copy-block-in">
-            <h1 className="max-w-[min(100%,24rem)] text-[clamp(1.35rem,4.5vw+0.35rem,3.5rem)] font-semibold leading-[1.12] tracking-[-0.02em] text-[#111111] max-lg:max-w-none sm:max-w-[26ch] lg:max-w-[min(100%,22ch)] lg:text-[clamp(1.65rem,2.2vw+0.75rem,3.25rem)] lg:leading-[1.1] xl:max-w-[26ch] xl:text-[clamp(1.85rem,2vw+0.85rem,4rem)]">
+            <h1 className="max-w-[min(100%,24rem)] text-[clamp(1.35rem,4.5vw+0.35rem,3.5rem)] font-semibold leading-[1.12] tracking-[-0.02em] text-white max-lg:max-w-none sm:max-w-[26ch] lg:max-w-[min(100%,22ch)] lg:text-[clamp(1.65rem,2.2vw+0.75rem,3.25rem)] lg:leading-[1.1] xl:max-w-[26ch] xl:text-[clamp(1.85rem,2vw+0.85rem,4rem)]">
               <span className="block">Unleash your</span>
               <span className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 sm:mt-4 sm:gap-x-3">
                 <span
@@ -236,7 +236,7 @@ export function Home() {
               </span>
               <span className="mt-1.5 block sm:mt-4">without judgment</span>
             </h1>
-            <p className="mt-2 max-w-xl text-[0.8125rem] font-light leading-snug text-[#555555] sm:mt-8 sm:text-lg sm:leading-relaxed">
+            <p className="mt-2 max-w-xl text-[0.8125rem] font-light leading-snug text-white/80 sm:mt-8 sm:text-lg sm:leading-relaxed">
               Your wellness assistant is here 24/7. Feeling anxious or burned out? It supports you safely and anonymously
             </p>
             <div className="mt-3 sm:mt-9 lg:mt-7">
@@ -256,10 +256,10 @@ export function Home() {
           </div>
           </div>
 
-          <div className="hero-watch-in relative z-[1] shrink-0 border-t border-neutral-200 bg-white pt-3 sm:pt-6 lg:pt-5 [@media(max-height:720px)]:pt-3">
+          <div className="hero-watch-in relative z-[1] shrink-0 border-t border-white/10 bg-transparent pt-3 sm:pt-6 lg:pt-5 [@media(max-height:720px)]:pt-3">
             <a
               href="#how-it-works"
-              className="group flex max-w-lg gap-1.5 rounded-xl border border-neutral-200 bg-neutral-50 p-2 pr-2 transition hover:border-neutral-300 hover:bg-white sm:gap-3 sm:rounded-2xl sm:p-4 sm:pr-5"
+              className="group flex max-w-lg gap-1.5 rounded-xl border border-white/15 bg-white/10 p-2 pr-2 shadow-sm backdrop-blur-xl transition hover:border-white/25 hover:bg-white/15 sm:gap-3 sm:rounded-2xl sm:p-4 sm:pr-5"
             >
               <span className="flex w-8 shrink-0 flex-col justify-center self-stretch rounded-l-lg bg-black py-1.5 text-center text-[8px] font-bold uppercase leading-tight tracking-wider text-white sm:w-11 sm:rounded-l-xl sm:py-2 sm:text-[10px]">
                 Watch
@@ -272,7 +272,7 @@ export function Home() {
                 height={96}
               />
               <div className="min-w-0 flex-1 py-0.5">
-                <p className="text-[11px] font-medium leading-snug text-black sm:text-[15px] sm:leading-snug">
+                <p className="text-[11px] font-medium leading-snug text-white sm:text-[15px] sm:leading-snug">
                   Learn how the AI supports your mental health and keeps your data private
                 </p>
                 <span className="mt-1 inline-block rounded-full bg-pink-100 px-2 py-0.5 text-[10px] font-semibold text-pink-700 sm:mt-2 sm:px-2.5 sm:text-[11px]">
@@ -774,7 +774,7 @@ function GlassNavAnchorMobile({ href, children, onNavigate }) {
   return (
     <a
       href={href}
-      className="block rounded-xl px-4 py-3 text-sm font-medium text-[#06050c]/85 transition-colors hover:bg-white/35"
+      className="block rounded-xl px-4 py-3 text-sm font-medium text-white/90 transition-colors hover:bg-white/10"
       onClick={onNavigate}
     >
       {children}
