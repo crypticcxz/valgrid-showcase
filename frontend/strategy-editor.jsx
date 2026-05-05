@@ -56,14 +56,9 @@ function useOutput(strategy, reset) {
 export function StrategyEditor({ strategy, reset, code, onCode }) {
   const output = useOutput(strategy, reset)
   return (
-    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+    <div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden">
       <div className="flex min-h-0 flex-[3] flex-col overflow-hidden">
-        <div className="border-b border-white/[0.06] bg-white/[0.02] px-4 py-2">
-          <span className="text-xs font-semibold uppercase tracking-widest text-white/45">
-            Editor
-          </span>
-        </div>
-        <div className="flex-1 overflow-auto">
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain">
           <Editor
             value={code}
             onValueChange={onCode}
@@ -71,7 +66,7 @@ export function StrategyEditor({ strategy, reset, code, onCode }) {
             padding={16}
             placeholder="# write your strategy here"
             textareaClassName="outline-none"
-            className="min-h-full font-mono text-xs text-white"
+            className="min-w-full font-mono text-xs text-white"
             style={{
               fontFamily: '"SF Mono", "Menlo", "Monaco", "Consolas", monospace',
               caretColor: "white",
@@ -79,17 +74,19 @@ export function StrategyEditor({ strategy, reset, code, onCode }) {
           />
         </div>
       </div>
-      <div className="flex min-h-[180px] flex-[2] flex-col border-t border-white/[0.06]">
-        <div className="border-b border-white/[0.06] bg-white/[0.02] px-4 py-2">
+      <div className="flex min-h-[180px] flex-[2] flex-col overflow-hidden border-t border-white/[0.06]">
+        <div className="shrink-0 border-b border-white/[0.06] bg-white/[0.02] px-4 py-2">
           <span className="text-xs font-semibold uppercase tracking-widest text-white/45">
             Output
           </span>
         </div>
-        <OutputView
-          output={output.text}
-          error={output.error}
-          emptyText="No output yet. Run this strategy to see output."
-        />
+        <div className="flex min-h-0 flex-1 flex-col">
+          <OutputView
+            output={output.text}
+            error={output.error}
+            emptyText="No output yet. Run this strategy to see output."
+          />
+        </div>
       </div>
     </div>
   )

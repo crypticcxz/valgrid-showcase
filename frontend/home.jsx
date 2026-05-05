@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { Link, NavLink, useLocation } from "react-router-dom"
 import logoImg from "./public/logo.png"
 import featureChartImg from "./public/p-1.png"
@@ -134,8 +134,8 @@ export function Home() {
   }, [hash])
 
   return (
-    <main className="min-h-screen bg-[#06050c] text-white">
-      <section className="relative flex min-h-screen flex-col rounded-b-[2rem] bg-[radial-gradient(circle_at_50%_65%,#B4F1FF_45%,#7BD0F9_54%,#0094BC_70%,#06050c_85%)] lg:rounded-b-[2.2rem] lg:bg-[radial-gradient(circle_at_50%_135%,#B4F1FF_45%,#7BD0F9_55%,#0094BC_68%,#06050c_91%)]">
+    <main className="min-h-screen overflow-x-clip bg-[#06050c] text-white">
+      <section className="relative flex flex-col rounded-b-[2rem] bg-[radial-gradient(circle_at_50%_65%,#B4F1FF_45%,#7BD0F9_54%,#0094BC_70%,#06050c_85%)] lg:rounded-b-[2.2rem] lg:bg-[radial-gradient(circle_at_50%_135%,#B4F1FF_45%,#7BD0F9_55%,#0094BC_68%,#06050c_91%)]">
         <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-b-[2rem] lg:rounded-b-[2.2rem]">
           <div className="absolute inset-0 bg-[linear-gradient(105deg,transparent_0%,rgba(255,255,255,0.16)_40%,rgba(255,255,255,0.05)_50%,transparent_62%)] opacity-[0.55]" />
           <div className="absolute -left-[20%] top-0 h-full w-[55%] bg-[linear-gradient(95deg,rgba(255,255,255,0.22),transparent_65%)] opacity-40 blur-2xl" />
@@ -148,7 +148,7 @@ export function Home() {
           />
         </div>
 
-        <nav className="relative z-30 px-4 pb-10 pt-6 sm:px-8 sm:pb-14 lg:px-16 lg:pb-16">
+        <nav className="relative z-30 px-3 pb-6 pt-5 sm:px-8 sm:pb-12 sm:pt-6 lg:px-16 lg:pb-14 lg:pt-6">
           <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-4">
             <Link
               to="/"
@@ -263,14 +263,14 @@ export function Home() {
           )}
         </nav>
 
-        <div className="relative z-10 flex min-h-0 flex-1 flex-col justify-center px-4 py-8 sm:px-6 sm:py-10 lg:px-16 lg:py-12">
-          <div className="relative z-10 mx-auto w-full max-w-7xl pt-6 sm:pt-8 lg:pt-10">
-            <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(260px,400px)] lg:gap-12 xl:gap-16">
-              <div className="mx-auto max-w-2xl text-center lg:mx-0 lg:max-w-[min(36rem,100%)] lg:text-left">
+        <div className="relative z-10 w-full px-3 py-6 sm:px-6 sm:py-8 lg:px-16 lg:py-10">
+          <div className="relative z-10 mx-auto w-full min-w-0 max-w-7xl pt-2 sm:pt-4 lg:pt-6">
+            <div className="grid grid-cols-1 items-start gap-8 sm:gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(260px,min(100%,400px))] lg:gap-12 xl:gap-16">
+              <div className="mx-auto w-full min-w-0 max-w-2xl text-center lg:mx-0 lg:max-w-[min(36rem,100%)] lg:text-left">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#06050c]/45 sm:text-xs">
                   ValGrid
                 </p>
-                <h1 className="mt-3 text-[2.25rem] font-bold leading-[1.08] tracking-[-0.03em] text-[#06050c] sm:text-5xl sm:leading-[1.06] lg:mt-4 lg:text-6xl lg:leading-[1.02]">
+                <h1 className="mt-3 text-[clamp(1.85rem,5.5vw+0.5rem,3.75rem)] font-bold leading-[1.08] tracking-[-0.03em] text-[#06050c] sm:text-5xl sm:leading-[1.06] lg:mt-4 lg:text-6xl lg:leading-[1.02]">
                   Build Your Bot
                 </h1>
                 <p className="mx-auto mt-5 max-w-[26rem] text-[15px] font-normal leading-[1.65] text-[#06050c]/65 sm:mt-6 sm:text-lg sm:leading-relaxed lg:mx-0 lg:max-w-lg lg:text-[1.125rem] lg:leading-[1.7]">
@@ -294,26 +294,38 @@ export function Home() {
                     </svg>
                   </Link>
                 </div>
-                <div
-                  className="pointer-events-none mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-8 lg:mt-12 lg:justify-start"
-                  aria-hidden
-                >
-                  <HeroOrbitDisc text="AI CODE • EDIT • DEPLOY • " />
-                  <HeroOrbitDisc text="TRADE • SLEEP • EARN • " />
-                </div>
               </div>
               <HeroStatsGlassStack />
             </div>
           </div>
         </div>
 
-        <div className="relative z-10 mt-auto w-full shrink-0">
-          <HeroFeatureStrip />
+        <div className="relative z-10 w-full shrink-0 px-3 pb-8 pt-2 sm:px-6 sm:pb-10 sm:pt-4 lg:px-8 lg:pb-12">
+          <div className="relative mx-auto w-full min-w-0 max-w-7xl">
+            <div className="mb-6 flex w-full min-w-0 items-center sm:mb-8 lg:mb-10" role="presentation">
+              <span
+                className="h-0.5 w-8 shrink-0 rounded-full bg-[#0094BC] shadow-[0_0_14px_rgba(0,148,188,0.45)] sm:w-11"
+                aria-hidden
+              />
+              <span className="h-px min-w-0 flex-1 bg-gradient-to-r from-[#06050c]/22 via-[#06050c]/12 to-transparent" />
+            </div>
+            <div className="flex flex-col items-stretch gap-6 md:flex-row md:items-center md:gap-4 lg:gap-6">
+              <div className="order-2 flex shrink-0 justify-center md:order-1 md:w-[clamp(160px,24vw,260px)]">
+                <HeroCornerOrbitBox text="AI CODE • EDIT • DEPLOY • " />
+              </div>
+              <div className="order-1 min-h-[10rem] min-w-0 flex-1 md:order-2 md:min-h-[11rem]">
+                <HeroStripInteractiveDeck />
+              </div>
+              <div className="order-3 flex shrink-0 justify-center md:w-[clamp(160px,24vw,260px)]">
+                <HeroCornerOrbitBox text="AI CODE • EDIT • DEPLOY • " />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section id="features" className="bg-[#06050c] px-8 py-20 lg:px-16 xl:px-32">
-        <h2 className="bg-gradient-to-b from-white via-[#B4F1FF] to-[#7BD0F9] bg-clip-text py-10 text-center text-5xl font-bold text-transparent md:text-6xl lg:text-7xl">
+      <section id="features" className="bg-[#06050c] px-4 py-16 sm:px-8 sm:py-20 lg:px-16 xl:px-32">
+        <h2 className="bg-gradient-to-b from-white via-[#B4F1FF] to-[#7BD0F9] bg-clip-text px-2 py-8 text-center text-4xl font-bold text-transparent sm:py-10 sm:text-5xl md:text-6xl lg:text-7xl">
           Why Valgrid?
         </h2>
         <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-4 lg:grid-cols-3">
@@ -359,10 +371,10 @@ export function Home() {
         </div>
       </section>
 
-      <section id="how-it-works" className="relative min-h-screen bg-[#06050c] p-8 lg:p-16 xl:p-32">
+      <section id="how-it-works" className="relative bg-[#06050c] px-4 py-12 sm:p-8 lg:p-16 xl:p-32">
         <div className="relative z-10 mx-auto w-full max-w-7xl">
           <div className="mb-16 text-center lg:mb-20">
-          <h2 className="mb-6 bg-gradient-to-b from-white to-[#7BD0F9] bg-clip-text text-5xl font-bold text-transparent md:text-6xl lg:text-7xl">
+          <h2 className="mb-6 bg-gradient-to-b from-white to-[#7BD0F9] bg-clip-text text-4xl font-bold text-transparent sm:text-5xl md:text-6xl lg:text-7xl">
               How It Works
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-white/50 md:text-xl">
@@ -484,13 +496,13 @@ export function Home() {
         </div>
       </section>
 
-      <section id="pricing" className="relative bg-[#06050c] px-6 py-24 lg:px-12">
+      <section id="pricing" className="relative bg-[#06050c] px-4 py-16 sm:px-6 sm:py-24 lg:px-12">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-1/2 top-24 h-[320px] w-[min(900px,90vw)] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgb(123_208_249_/_0.08),transparent_65%)]" />
         </div>
         <div className="relative z-10 mx-auto max-w-7xl">
           <div className="mb-14 text-center">
-            <h2 className="mb-4 inline-block w-full overflow-visible bg-gradient-to-b from-white to-[#7BD0F9] bg-clip-text pb-2 text-5xl font-bold leading-snug text-transparent md:text-6xl">
+            <h2 className="mb-4 inline-block w-full overflow-visible bg-gradient-to-b from-white to-[#7BD0F9] bg-clip-text pb-2 text-4xl font-bold leading-snug text-transparent sm:text-5xl md:text-6xl">
               Pricing
             </h2>
             <p className="mx-auto max-w-2xl text-base text-white/45 md:text-lg">
@@ -541,8 +553,8 @@ export function Home() {
         </div>
       </section>
 
-      <section id="waitlist" className="border-y border-white/[0.06] bg-[#06050c] px-6 py-20 lg:px-12">
-        <div className="relative mx-auto max-w-5xl overflow-hidden rounded-3xl border border-white/[0.08] bg-[#0d0b14] px-6 py-12 sm:px-10 lg:px-14">
+      <section id="waitlist" className="border-y border-white/[0.06] bg-[#06050c] px-4 py-16 sm:px-6 sm:py-20 lg:px-12">
+        <div className="relative mx-auto max-w-5xl overflow-hidden rounded-3xl border border-white/[0.08] bg-[#0d0b14] px-4 py-10 sm:px-10 sm:py-12 lg:px-14">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgb(123_208_249_/_0.08),transparent_55%)]" />
           <div className="relative z-10">
             <h2 className="text-center text-3xl font-bold text-white md:text-4xl">Join the waitlist</h2>
@@ -583,9 +595,9 @@ export function Home() {
         </div>
       </section>
 
-      <section id="faq" className="bg-[#06050c] px-6 py-24 lg:px-12">
+      <section id="faq" className="bg-[#06050c] px-4 py-16 sm:px-6 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-5xl">
-          <h2 className="mb-4 bg-gradient-to-b from-white to-[#7BD0F9] bg-clip-text text-center text-5xl font-bold text-transparent md:text-6xl">
+          <h2 className="mb-4 bg-gradient-to-b from-white to-[#7BD0F9] bg-clip-text px-2 text-center text-4xl font-bold text-transparent sm:text-5xl md:text-6xl">
             Frequently Asked Questions
           </h2>
           <p className="mb-10 text-center text-white/40">Everything you need to know about ValGrid</p>
@@ -600,12 +612,16 @@ export function Home() {
                   <button
                     type="button"
                     onClick={() => setActiveIndex(open ? null : index)}
-                    className="flex w-full items-center justify-between px-6 py-5 text-left"
+                    className="flex w-full min-w-0 items-start justify-between gap-3 px-4 py-5 text-left sm:px-6"
                   >
-                    <span className="text-lg font-medium">{item.question}</span>
+                    <span className="min-w-0 flex-1 text-base font-medium leading-snug sm:text-lg">{item.question}</span>
                     <span className="text-xl text-white/70">{open ? "-" : "+"}</span>
                   </button>
-                  {open && <p className="px-6 pb-6 text-sm leading-7 text-white/45">{item.answer}</p>}
+                  {open && (
+                    <p className="border-t border-white/[0.04] px-4 pb-6 pt-2 text-sm leading-7 text-white/45 sm:px-6">
+                      {item.answer}
+                    </p>
+                  )}
                 </li>
               )
             })}
@@ -613,7 +629,7 @@ export function Home() {
         </div>
       </section>
 
-      <section className="w-full bg-[#06050c] px-6 py-20 lg:py-28">
+      <section className="w-full bg-[#06050c] px-4 py-16 sm:px-6 sm:py-20 lg:py-28">
         <div className="mx-auto max-w-7xl">
           <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-[#0d0b14]">
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#7BD0F9]/45 to-transparent" />
@@ -763,32 +779,6 @@ function FeatureCard({ title, description, className, image }) {
   )
 }
 
-function HeroFeatureStrip() {
-  return (
-    <div className="relative mx-auto w-full max-w-7xl px-4 pb-10 pt-2 sm:px-6 sm:pb-12 lg:px-8 lg:pb-14">
-      <div className="mb-8 flex w-full items-center sm:mb-10" role="presentation">
-        <span
-          className="h-0.5 w-9 shrink-0 rounded-full bg-[#0094BC] shadow-[0_0_14px_rgba(0,148,188,0.45)] sm:w-11"
-          aria-hidden
-        />
-        <span className="h-px min-w-0 flex-1 bg-gradient-to-r from-[#06050c]/22 via-[#06050c]/12 to-transparent" />
-      </div>
-      <div className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-5 lg:gap-x-4 lg:gap-y-0">
-        {heroStripItems.map((item, index) => (
-          <div key={item.icon + index} className="flex min-w-0 flex-col gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/55 bg-white/28 text-[#06050c] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] backdrop-blur-md sm:h-11 sm:w-11">
-              <HeroStripIcon name={item.icon} />
-            </div>
-            <p className="max-w-[38ch] text-left text-[13px] font-medium leading-snug text-[#06050c]/82 sm:text-sm">
-              {item.text}
-            </p>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 function HeroStripIcon({ name }) {
   const common = "h-6 w-6"
   switch (name) {
@@ -843,6 +833,87 @@ function HeroStripIcon({ name }) {
   }
 }
 
+function HeroCornerOrbitBox({ text }) {
+  return (
+    <div className="pointer-events-none flex shrink-0 justify-center">
+      <HeroOrbitDisc text={text} />
+    </div>
+  )
+}
+
+function HeroStripInteractiveDeck() {
+  const n = heroStripItems.length
+  const [activeIndex, setActiveIndex] = useState(0)
+  const zoneRef = useRef(null)
+
+  const pickIndexFromX = useCallback(
+    (clientX) => {
+      const el = zoneRef.current
+      if (!el) return
+      const r = el.getBoundingClientRect()
+      const t = (clientX - r.left) / Math.max(r.width, 1)
+      const x = Math.min(1, Math.max(0, t))
+      const idx = Math.round(x * (n - 1))
+      setActiveIndex(idx)
+    },
+    [n],
+  )
+
+  return (
+    <div
+      ref={zoneRef}
+      className="relative flex h-full min-h-[10rem] cursor-ew-resize select-none flex-col overflow-hidden rounded-[1.75rem] border border-white/50 bg-white/22 px-3 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] backdrop-blur-xl sm:min-h-[11rem] sm:rounded-[2rem] sm:px-5 sm:py-5"
+      onMouseMove={(e) => pickIndexFromX(e.clientX)}
+      onTouchMove={(e) => {
+        const t = e.touches[0]
+        if (t) pickIndexFromX(t.clientX)
+      }}
+      role="region"
+      aria-label="Product highlights"
+    >
+      <p className="pointer-events-none mb-2 text-center text-[10px] font-semibold uppercase tracking-[0.22em] text-[#06050c]/45">
+        Hover · drag right to explore
+      </p>
+      <div className="relative min-h-[6.5rem] flex-1 overflow-hidden sm:min-h-[7rem]">
+        <div
+          className="flex transition-[transform] duration-700 ease-out motion-reduce:transition-none motion-reduce:duration-0"
+          style={{
+            width: `${n * 100}%`,
+            transform: `translateX(-${(activeIndex / n) * 100}%)`,
+          }}
+        >
+          {heroStripItems.map((item, i) => (
+            <div
+              key={item.icon + String(i)}
+              className="flex shrink-0 items-start gap-3 px-2 sm:gap-4 sm:px-3"
+              style={{ width: `${100 / n}%` }}
+            >
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/55 bg-white/35 text-[#06050c] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] backdrop-blur-md sm:h-11 sm:w-11">
+                <HeroStripIcon name={item.icon} />
+              </div>
+              <p className="min-w-0 flex-1 text-left text-sm font-medium leading-relaxed text-[#06050c]/88 [overflow-wrap:anywhere] sm:text-[15px] sm:leading-snug">
+                {item.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="pointer-events-none mt-3 flex justify-center gap-1.5">
+        {heroStripItems.map((_, i) => (
+          <span
+            key={String(i)}
+            className={
+              "h-1.5 rounded-full transition-all duration-300 " +
+              (i === activeIndex ? "w-6 bg-[#0094BC]" : "w-1.5 bg-[#06050c]/25")
+            }
+            aria-hidden
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function GlassNavAnchor({ href, children, onNavigate }) {
   return (
     <a
@@ -869,13 +940,13 @@ function GlassNavAnchorMobile({ href, children, onNavigate }) {
 
 function HeroStatsGlassStack() {
   return (
-    <div className="mx-auto w-full max-w-[400px] shrink-0 lg:mx-0 lg:w-full lg:max-w-none">
+    <div className="mx-auto w-full min-w-0 max-w-[400px] shrink-0 lg:mx-0 lg:w-full lg:max-w-none">
       <div className="relative overflow-hidden rounded-[1.75rem] border border-[#7BD0F9]/35 bg-gradient-to-br from-[#0094BC] via-[#086f8a] to-[#062432] p-4 shadow-[0_24px_64px_rgba(0,80,110,0.45)] sm:p-5">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_25%_0%,rgba(180,241,255,0.22),transparent_55%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(160deg,rgba(255,255,255,0.06)_0%,transparent_40%)]" />
         <div className="relative z-10 flex flex-col">
           <div className="mx-auto h-1 w-11 shrink-0 rounded-full bg-white shadow-[0_0_12px_rgba(255,255,255,0.5)]" />
-          <div className="mt-3 flex items-center justify-center gap-2 text-[11px] font-medium leading-snug text-white/90 sm:text-xs">
+          <div className="mt-3 flex min-w-0 items-center justify-center gap-2 text-center text-[10px] font-medium leading-snug text-white/90 sm:text-xs">
             <svg
               className="h-3.5 w-3.5 shrink-0 text-white/95"
               fill="none"
@@ -959,45 +1030,53 @@ function HeroStatBarDecoration() {
 }
 
 function HeroOrbitDisc({ text }) {
-  return (
-    <div
-      className="pointer-events-none flex h-[112px] w-[112px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#06050c] shadow-[0_16px_44px_rgba(0,0,0,0.42)] ring-1 ring-white/15 sm:h-[148px] sm:w-[148px] lg:h-[168px] lg:w-[168px]"
-      aria-hidden
-    >
-      <div className="origin-center scale-[0.46] sm:scale-[0.54] lg:scale-[0.62]">
-        <CircularText text={text} />
-      </div>
-    </div>
-  )
+  return <CircularText text={text} />
 }
 
 function CircularText({ text }) {
   const letters = Array.from(text)
+  const n = letters.length
+  const d = 192
+  const radius = d * 0.345
+  const fontPx = Math.round(d * 0.098)
+  const logoSize = Math.round(d * 0.26)
+
   return (
-    <div className="relative m-0 mx-auto h-[200px] w-[80px] origin-center rounded-full text-center font-black text-white animate-[spin_20s_linear_infinite]">
+    <div
+      className="relative mx-auto animate-[spin_20s_linear_infinite] motion-reduce:animate-none"
+      style={{ width: d, height: d }}
+      aria-hidden
+    >
       {letters.map((letter, i) => {
-        const rotationDeg = (360 / letters.length) * i
-        const factor = Math.PI / letters.length
-        const x = factor * i
-        const y = factor * i
-        const transform = `rotateZ(${rotationDeg}deg) translate3d(${x}px, ${y}px, 0)`
+        const angleDeg = (360 / n) * i - 90
         return (
           <span
             key={`${letter}-${i}`}
-            className="absolute inset-0 inline-block text-2xl transition-all duration-500 ease-[cubic-bezier(0,0,0,1)]"
-            style={{ transform }}
+            className="absolute left-1/2 top-1/2 block h-0 w-0 will-change-transform"
+            style={{ transform: `rotate(${angleDeg}deg) translateY(-${radius}px)` }}
           >
-            {letter}
+            <span
+              className="block -translate-x-1/2 font-black uppercase leading-none tracking-[0.02em] text-[#034859]"
+              style={{
+                fontSize: fontPx,
+                textShadow: "0 1px 3px rgba(180, 241, 255, 0.75)",
+              }}
+            >
+              {letter}
+            </span>
           </span>
         )
       })}
-      <img
-        src={logoImg}
-        alt="Logo"
-        className="translate-x-[30%] translate-y-[140%]"
-        width={50}
-        height={50}
-      />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
+        <img
+          src={logoImg}
+          alt=""
+          width={logoSize}
+          height={logoSize}
+          className="block object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.25)]"
+          draggable={false}
+        />
+      </div>
     </div>
   )
 }
