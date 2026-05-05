@@ -135,7 +135,7 @@ export function Home() {
 
   return (
     <main className="min-h-screen overflow-x-clip bg-[#06050c] text-white">
-      <section className="relative flex flex-col rounded-b-[2rem] bg-[radial-gradient(circle_at_50%_65%,#B4F1FF_45%,#7BD0F9_54%,#0094BC_70%,#06050c_85%)] lg:rounded-b-[2.2rem] lg:bg-[radial-gradient(circle_at_50%_135%,#B4F1FF_45%,#7BD0F9_55%,#0094BC_68%,#06050c_91%)]">
+      <section className="relative flex min-h-0 h-[100svh] max-h-[100svh] flex-col overflow-x-clip rounded-b-[2rem] bg-[radial-gradient(circle_at_50%_65%,#B4F1FF_45%,#7BD0F9_54%,#0094BC_70%,#06050c_85%)] lg:rounded-b-[2.2rem] lg:bg-[radial-gradient(circle_at_50%_135%,#B4F1FF_45%,#7BD0F9_55%,#0094BC_68%,#06050c_91%)]">
         <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-b-[2rem] lg:rounded-b-[2.2rem]">
           <div className="absolute inset-0 bg-[linear-gradient(105deg,transparent_0%,rgba(255,255,255,0.16)_40%,rgba(255,255,255,0.05)_50%,transparent_62%)] opacity-[0.55]" />
           <div className="absolute -left-[20%] top-0 h-full w-[55%] bg-[linear-gradient(95deg,rgba(255,255,255,0.22),transparent_65%)] opacity-40 blur-2xl" />
@@ -148,7 +148,7 @@ export function Home() {
           />
         </div>
 
-        <nav className="relative z-30 px-3 pb-6 pt-5 sm:px-8 sm:pb-12 sm:pt-6 lg:px-16 lg:pb-14 lg:pt-6">
+        <nav className="relative z-30 shrink-0 px-3 pb-3 pt-3 sm:px-8 sm:pb-6 sm:pt-5 lg:px-16 lg:pb-8 lg:pt-6">
           <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-4">
             <Link
               to="/"
@@ -263,20 +263,20 @@ export function Home() {
           )}
         </nav>
 
-        <div className="relative z-10 w-full px-3 py-6 sm:px-6 sm:py-8 lg:px-16 lg:py-10">
-          <div className="relative z-10 mx-auto w-full min-w-0 max-w-7xl pt-2 sm:pt-4 lg:pt-6">
-            <div className="grid grid-cols-1 items-start gap-8 sm:gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(260px,min(100%,400px))] lg:gap-12 xl:gap-16">
+        <div className="relative z-10 flex min-h-0 w-full flex-1 flex-col justify-center overflow-y-auto overscroll-y-contain px-3 py-2 sm:px-6 sm:py-4 lg:px-16 lg:py-6">
+          <div className="relative z-10 mx-auto w-full min-h-0 min-w-0 max-w-7xl py-1 sm:py-2 lg:py-3">
+            <div className="grid grid-cols-1 items-center gap-5 sm:gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(260px,min(100%,400px))] lg:gap-10 xl:gap-14">
               <div className="mx-auto w-full min-w-0 max-w-2xl text-center lg:mx-0 lg:max-w-[min(36rem,100%)] lg:text-left">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#06050c]/45 sm:text-xs">
                   ValGrid
                 </p>
-                <h1 className="mt-3 text-[clamp(1.85rem,5.5vw+0.5rem,3.75rem)] font-bold leading-[1.08] tracking-[-0.03em] text-[#06050c] sm:text-5xl sm:leading-[1.06] lg:mt-4 lg:text-6xl lg:leading-[1.02]">
+                <h1 className="mt-2 text-[clamp(1.65rem,4.2vw+0.45rem,3.75rem)] font-bold leading-[1.08] tracking-[-0.03em] text-[#06050c] sm:text-5xl sm:leading-[1.06] lg:mt-3 lg:text-6xl lg:leading-[1.02]">
                   Build Your Bot
                 </h1>
-                <p className="mx-auto mt-5 max-w-[26rem] text-[15px] font-normal leading-[1.65] text-[#06050c]/65 sm:mt-6 sm:text-lg sm:leading-relaxed lg:mx-0 lg:max-w-lg lg:text-[1.125rem] lg:leading-[1.7]">
+                <p className="mx-auto mt-3 max-w-[26rem] text-[14px] font-normal leading-[1.55] text-[#06050c]/65 sm:mt-4 sm:text-lg sm:leading-relaxed lg:mx-0 lg:max-w-lg lg:text-[1.125rem] lg:leading-[1.7]">
                   Build and deploy your automation bot with zero set up!
                 </p>
-                <div className="mt-8 flex justify-center sm:mt-10 lg:justify-start">
+                <div className="mt-5 flex justify-center sm:mt-7 lg:justify-start lg:mt-8">
                   <Link
                     to="/strategies"
                     className="group inline-flex h-12 items-center gap-2 rounded-full bg-white px-7 text-sm font-semibold tracking-wide text-[#06050c] shadow-[0_12px_40px_rgba(6,5,12,0.12)] ring-1 ring-white/80 transition hover:bg-[#f8fcff] hover:shadow-[0_16px_48px_rgba(0,148,188,0.18)] sm:h-12 sm:px-8"
@@ -300,23 +300,23 @@ export function Home() {
           </div>
         </div>
 
-        <div className="relative z-10 w-full shrink-0 px-3 pb-8 pt-2 sm:px-6 sm:pb-10 sm:pt-4 lg:px-8 lg:pb-12">
+        <div className="relative z-10 w-full shrink-0 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-1 sm:px-6 sm:pb-5 sm:pt-2 lg:px-8 lg:pb-7">
           <div className="relative mx-auto w-full min-w-0 max-w-7xl">
-            <div className="mb-6 flex w-full min-w-0 items-center sm:mb-8 lg:mb-10" role="presentation">
+            <div className="mb-3 flex w-full min-w-0 items-center sm:mb-5 lg:mb-6" role="presentation">
               <span
                 className="h-0.5 w-8 shrink-0 rounded-full bg-[#0094BC] shadow-[0_0_14px_rgba(0,148,188,0.45)] sm:w-11"
                 aria-hidden
               />
               <span className="h-px min-w-0 flex-1 bg-gradient-to-r from-[#06050c]/22 via-[#06050c]/12 to-transparent" />
             </div>
-            <div className="flex flex-col items-stretch gap-6 md:flex-row md:items-center md:gap-4 lg:gap-6">
-              <div className="order-2 flex shrink-0 justify-center md:order-1 md:w-[clamp(160px,24vw,260px)]">
+            <div className="flex flex-col items-stretch gap-3 sm:gap-4 md:flex-row md:items-center md:gap-3 lg:gap-5">
+              <div className="order-2 flex shrink-0 justify-center md:order-1 md:w-[clamp(140px,22vw,260px)]">
                 <HeroCornerOrbitBox text="AI CODE • EDIT • DEPLOY • " />
               </div>
-              <div className="order-1 min-h-[10rem] min-w-0 flex-1 md:order-2 md:min-h-[11rem]">
+              <div className="order-1 min-h-[8.25rem] min-w-0 flex-1 sm:min-h-[9.5rem] md:order-2 md:min-h-[10rem] lg:min-h-[11rem]">
                 <HeroStripInteractiveDeck />
               </div>
-              <div className="order-3 flex shrink-0 justify-center md:w-[clamp(160px,24vw,260px)]">
+              <div className="order-3 flex shrink-0 justify-center md:w-[clamp(140px,22vw,260px)]">
                 <HeroCornerOrbitBox text="AI CODE • EDIT • DEPLOY • " />
               </div>
             </div>
@@ -862,7 +862,7 @@ function HeroStripInteractiveDeck() {
   return (
     <div
       ref={zoneRef}
-      className="relative flex h-full min-h-[10rem] cursor-ew-resize select-none flex-col overflow-hidden rounded-[1.75rem] border border-white/50 bg-white/22 px-3 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] backdrop-blur-xl sm:min-h-[11rem] sm:rounded-[2rem] sm:px-5 sm:py-5"
+      className="relative flex h-full min-h-[7.5rem] cursor-ew-resize select-none flex-col overflow-hidden rounded-[1.35rem] border border-white/50 bg-white/22 px-2.5 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] backdrop-blur-xl sm:min-h-[9rem] sm:rounded-[1.75rem] sm:px-4 sm:py-4 md:min-h-[10rem] md:rounded-[2rem] md:px-5 md:py-5 lg:min-h-[11rem]"
       onMouseMove={(e) => pickIndexFromX(e.clientX)}
       onTouchMove={(e) => {
         const t = e.touches[0]
@@ -871,10 +871,10 @@ function HeroStripInteractiveDeck() {
       role="region"
       aria-label="Product highlights"
     >
-      <p className="pointer-events-none mb-2 text-center text-[10px] font-semibold uppercase tracking-[0.22em] text-[#06050c]/45">
+      <p className="pointer-events-none mb-1.5 text-center text-[9px] font-semibold uppercase tracking-[0.2em] text-[#06050c]/45 sm:mb-2 sm:text-[10px] sm:tracking-[0.22em]">
         Hover · drag right to explore
       </p>
-      <div className="relative min-h-[6.5rem] flex-1 overflow-hidden sm:min-h-[7rem]">
+      <div className="relative min-h-[4.75rem] flex-1 overflow-hidden sm:min-h-[6rem] md:min-h-[6.5rem] lg:min-h-[7rem]">
         <div
           className="flex transition-[transform] duration-700 ease-out motion-reduce:transition-none motion-reduce:duration-0"
           style={{
@@ -941,12 +941,12 @@ function GlassNavAnchorMobile({ href, children, onNavigate }) {
 function HeroStatsGlassStack() {
   return (
     <div className="mx-auto w-full min-w-0 max-w-[400px] shrink-0 lg:mx-0 lg:w-full lg:max-w-none">
-      <div className="relative overflow-hidden rounded-[1.75rem] border border-[#7BD0F9]/35 bg-gradient-to-br from-[#0094BC] via-[#086f8a] to-[#062432] p-4 shadow-[0_24px_64px_rgba(0,80,110,0.45)] sm:p-5">
+      <div className="relative overflow-hidden rounded-[1.35rem] border border-[#7BD0F9]/35 bg-gradient-to-br from-[#0094BC] via-[#086f8a] to-[#062432] p-3 shadow-[0_24px_64px_rgba(0,80,110,0.45)] sm:rounded-[1.75rem] sm:p-4 lg:p-5">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_25%_0%,rgba(180,241,255,0.22),transparent_55%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(160deg,rgba(255,255,255,0.06)_0%,transparent_40%)]" />
         <div className="relative z-10 flex flex-col">
-          <div className="mx-auto h-1 w-11 shrink-0 rounded-full bg-white shadow-[0_0_12px_rgba(255,255,255,0.5)]" />
-          <div className="mt-3 flex min-w-0 items-center justify-center gap-2 text-center text-[10px] font-medium leading-snug text-white/90 sm:text-xs">
+          <div className="mx-auto h-1 w-10 shrink-0 rounded-full bg-white shadow-[0_0_12px_rgba(255,255,255,0.5)] sm:w-11" />
+          <div className="mt-2 flex min-w-0 items-center justify-center gap-2 text-center text-[9px] font-medium leading-snug text-white/90 sm:mt-3 sm:text-xs">
             <svg
               className="h-3.5 w-3.5 shrink-0 text-white/95"
               fill="none"
@@ -960,7 +960,7 @@ function HeroStatsGlassStack() {
             </svg>
             <span className="text-center">Non-custodial automation · Solana network</span>
           </div>
-          <div className="mt-5 flex flex-1 flex-col gap-3">
+          <div className="mt-4 flex flex-1 flex-col gap-2 sm:mt-5 sm:gap-3">
             <HeroStatGlassCard
               tag="Volume"
               badge="Live"
@@ -982,7 +982,7 @@ function HeroStatsGlassStack() {
 
 function HeroStatGlassCard({ tag, badge, value, sublabel }) {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/30 bg-white/[0.14] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md sm:p-5">
+    <div className="relative overflow-hidden rounded-xl border border-white/30 bg-white/[0.14] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md sm:rounded-2xl sm:p-4 lg:p-5">
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.08] to-transparent" />
       <div className="relative flex items-start justify-between gap-2">
         <span className="text-[15px] font-bold tracking-tight text-white">{tag}</span>
@@ -1017,7 +1017,7 @@ function HeroStatGlassCard({ tag, badge, value, sublabel }) {
 function HeroStatBarDecoration() {
   const bars = [14, 22, 12, 26, 16, 24, 11, 28, 18, 20, 13, 25, 17, 21, 15, 23, 12, 27, 19, 14, 24, 16, 22, 18, 20, 13, 26, 15, 23, 17, 21, 19]
   return (
-    <div className="relative mt-4 flex h-10 items-end justify-between gap-px border-t border-white/10 pt-3 opacity-80">
+    <div className="relative mt-3 flex h-8 items-end justify-between gap-px border-t border-white/10 pt-2 opacity-80 sm:mt-4 sm:h-10 sm:pt-3">
       {bars.map((h, i) => (
         <div
           key={i}
@@ -1029,6 +1029,15 @@ function HeroStatBarDecoration() {
   )
 }
 
+function heroOrbitDiameterForWidth(w) {
+  if (w < 380) return 112
+  if (w < 480) return 124
+  if (w < 640) return 140
+  if (w < 900) return 160
+  if (w < 1200) return 176
+  return 192
+}
+
 function HeroOrbitDisc({ text }) {
   return <CircularText text={text} />
 }
@@ -1036,7 +1045,17 @@ function HeroOrbitDisc({ text }) {
 function CircularText({ text }) {
   const letters = Array.from(text)
   const n = letters.length
-  const d = 192
+  const [d, setD] = useState(() =>
+    typeof window !== "undefined" ? heroOrbitDiameterForWidth(window.innerWidth) : 168,
+  )
+
+  useEffect(() => {
+    const onResize = () => setD(heroOrbitDiameterForWidth(window.innerWidth))
+    onResize()
+    window.addEventListener("resize", onResize)
+    return () => window.removeEventListener("resize", onResize)
+  }, [])
+
   const radius = d * 0.345
   const fontPx = Math.round(d * 0.098)
   const logoSize = Math.round(d * 0.26)
