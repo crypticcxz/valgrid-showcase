@@ -4,6 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Valgrid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="icon" type="image/png" href="./public/logo.png" />
     <link rel="apple-touch-icon" href="./public/logo.png" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -37,6 +43,192 @@
 
       *::-webkit-scrollbar-corner {
         background: transparent;
+      }
+
+      /* Kill scrollbars where requested — global * rules above still paint thin bars otherwise */
+      .scrollbar-none {
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+      }
+      .scrollbar-none::-webkit-scrollbar {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+      }
+
+      /*
+        Hero sequence:
+        1) white-panel copy → short pause → 2) Watch + right panel + sooma logo (same beat)
+        → pause → 3) navbar on panel → pause → 4) stats box (last)
+        Pauses use --hero-seq-gap so rhythm stays even after the first beat.
+      */
+      :root {
+        --hero-seq-text: 2.05s;
+        --hero-seq-panel: 2.05s;
+        --hero-seq-nav: 1.05s;
+        --hero-seq-logo: 0.62s;
+        /* First handoff: copy finishes → quick breath before panel + logo + watch */
+        --hero-gap-after-copy: 0.08s;
+        /* Same pause between later beats (panel done → nav → stats) */
+        --hero-seq-gap: 0.16s;
+
+        --hero-delay-watch-panel: calc(var(--hero-seq-text) + var(--hero-gap-after-copy));
+        --hero-delay-logo: var(--hero-delay-watch-panel);
+        --hero-delay-nav: calc(
+          var(--hero-delay-watch-panel) + var(--hero-seq-panel) + var(--hero-seq-gap)
+        );
+        --hero-delay-stats: calc(var(--hero-delay-nav) + var(--hero-seq-nav) + var(--hero-seq-gap));
+      }
+
+      /* Hero staggered fade-in (opacity 0 → 1, slight rise) */
+      @keyframes hero-fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      /* Hero copy: move + opacity as separate layers so the fade eases smoothly (no stepped opacity) */
+      @keyframes hero-copy-move {
+        from {
+          transform: translateY(14px);
+        }
+        to {
+          transform: translateY(0);
+        }
+      }
+      @keyframes hero-copy-fade {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      /* Panel navbar (lg+): after panel lands + gap, slides down from above */
+      @keyframes hero-panel-nav-move {
+        from {
+          transform: translateY(-115%);
+        }
+        to {
+          transform: translateY(0);
+        }
+      }
+      @keyframes hero-panel-nav-fade {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      /* Stats card: rises from below after nav finishes + gap */
+      @keyframes hero-panel-stats-move {
+        from {
+          transform: translateY(115%);
+        }
+        to {
+          transform: translateY(0);
+        }
+      }
+      @keyframes hero-panel-stats-fade {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes hero-panel-in {
+        0% {
+          opacity: 0;
+          transform: translateX(calc(100% + min(14vw, 8rem)));
+        }
+        28% {
+          opacity: 0.06;
+        }
+        52% {
+          opacity: 0.38;
+        }
+        78% {
+          opacity: 0.82;
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .hero-copy-block-in,
+      .hero-watch-in {
+        opacity: 0;
+        animation:
+          hero-copy-move var(--hero-seq-text) cubic-bezier(0.13, 0.72, 0.18, 1) both,
+          hero-copy-fade var(--hero-seq-text) cubic-bezier(0.15, 0.85, 0.22, 1) both;
+        will-change: transform, opacity;
+      }
+      .hero-copy-block-in {
+        animation-delay: 0s;
+      }
+      .hero-watch-in {
+        animation-delay: var(--hero-delay-watch-panel);
+      }
+      .hero-logo-in {
+        opacity: 0;
+        animation: hero-fade-in var(--hero-seq-logo) cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        animation-delay: var(--hero-delay-logo);
+        will-change: transform, opacity;
+      }
+      .hero-panel-in {
+        opacity: 0;
+        animation: hero-panel-in var(--hero-seq-panel) cubic-bezier(0.13, 0.72, 0.18, 1) forwards;
+        animation-delay: var(--hero-delay-watch-panel);
+        will-change: transform, opacity;
+      }
+      .hero-panel-nav-in {
+        opacity: 0;
+        animation:
+          hero-panel-nav-move var(--hero-seq-nav) cubic-bezier(0.13, 0.72, 0.18, 1) both,
+          hero-panel-nav-fade var(--hero-seq-nav) cubic-bezier(0.15, 0.85, 0.22, 1) both;
+        animation-delay: var(--hero-delay-nav);
+        will-change: transform, opacity;
+      }
+      .hero-panel-stats-in {
+        opacity: 0;
+        animation:
+          hero-panel-stats-move var(--hero-seq-nav) cubic-bezier(0.13, 0.72, 0.18, 1) both,
+          hero-panel-stats-fade var(--hero-seq-nav) cubic-bezier(0.15, 0.85, 0.22, 1) both;
+        animation-delay: var(--hero-delay-stats);
+        will-change: transform, opacity;
+      }
+      @media (max-width: 1023px) {
+        .hero-panel-nav-in {
+          animation: none !important;
+          opacity: 1 !important;
+          transform: none !important;
+          will-change: auto !important;
+        }
+        /* Nav strip hidden on small screens — stats follow panel + same gap as desktop rhythm */
+        .hero-panel-stats-in {
+          animation-delay: calc(
+            var(--hero-delay-watch-panel) + var(--hero-seq-panel) + var(--hero-seq-gap)
+          ) !important;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .hero-copy-block-in,
+        .hero-watch-in,
+        .hero-logo-in,
+        .hero-panel-in,
+        .hero-panel-nav-in,
+        .hero-panel-stats-in {
+          animation: none !important;
+          opacity: 1 !important;
+          transform: none !important;
+          will-change: auto !important;
+        }
       }
     </style>
   </head>

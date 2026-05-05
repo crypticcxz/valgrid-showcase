@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, NavLink, useLocation } from "react-router-dom"
 import logoImg from "./public/logo.png"
+import heroBg from "./public/hero_bg.png"
 import featureChartImg from "./public/p-1.png"
 import featureFlowImg from "./public/p-2.png"
 import stepOneImg from "./public/step-1.png"
@@ -23,29 +24,6 @@ const appSteps = [
     title: "Deploy & Monitor",
     content:
       "Launch your bot and monitor real-time performance with analytics and activity history.Launch your strategy with a few clicks. No servers, no infrastructure — Valgrid handles it. Track performance in real time, adjust your strategy, and let it run 24/7.",
-  },
-]
-
-const heroStripItems = [
-  {
-    icon: "shield",
-    text: "Non-custodial by design—your keys and strategies stay under your control.",
-  },
-  {
-    icon: "zap",
-    text: "Go from prompt to live bot fast with AI-generated code you can edit anytime.",
-  },
-  {
-    icon: "clipboard",
-    text: "Build, deploy, and monitor in one workspace—no duct-taped toolchain.",
-  },
-  {
-    icon: "award",
-    text: "Monitoring and safeguards so your automation runs with confidence.",
-  },
-  {
-    icon: "globe",
-    text: "Connect venues and markets without juggling tabs or separate tools.",
   },
 ]
 
@@ -109,6 +87,36 @@ const pricingPlans = [
 /** Replace with your waitlist inbox or hook this form to Formspree / API */
 const WAITLIST_EMAIL = "waitlist@valgrid.co"
 
+const heroNavPillClass =
+  "shrink-0 rounded-full bg-white px-3 py-1.5 text-[11px] font-semibold text-[#06050c] shadow-md ring-1 ring-black/5 transition hover:bg-neutral-100 sm:px-3.5 sm:py-2 sm:text-xs md:text-sm lg:max-xl:px-2 lg:max-xl:py-1 lg:max-xl:text-[10px] lg:max-xl:leading-none xl:px-3.5 xl:py-2 xl:text-xs"
+
+const heroNavStartClass =
+  "ml-auto inline-flex shrink-0 items-center gap-2 rounded-full bg-[#06050c] py-1.5 pl-3 pr-2.5 text-[11px] font-semibold uppercase tracking-wide text-white shadow-lg ring-1 ring-white/10 transition hover:bg-[#1a1a1e] sm:py-2 sm:pl-4 sm:pr-3 sm:text-sm lg:max-xl:gap-1 lg:max-xl:py-1 lg:max-xl:pl-2.5 lg:max-xl:pr-2 lg:max-xl:text-[10px] lg:max-xl:tracking-normal xl:gap-2 xl:py-2 xl:pl-4 xl:pr-3 xl:text-sm"
+
+/** Pill nav + Start — image panel only (lg+); mobile uses hamburger menu instead */
+function HeroAnchorPills() {
+  return (
+    <div className="scrollbar-none hidden w-full min-w-0 shrink-0 flex-nowrap items-center gap-1.5 overflow-x-auto overscroll-x-contain px-3 pb-1.5 pt-2.5 sm:gap-2 sm:px-5 sm:pb-1 sm:pt-4 lg:flex lg:max-xl:gap-1 lg:max-xl:px-4 lg:max-xl:pb-1 lg:max-xl:pt-4 xl:gap-2 xl:px-6 xl:pb-1 xl:pt-5">
+      <a href="#features" className={heroNavPillClass}>
+        Why Valgrid?
+      </a>
+      <a href="#pricing" className={heroNavPillClass}>
+        Pricing
+      </a>
+      <a href="#faq" className={heroNavPillClass}>
+        Docs
+      </a>
+      <a href="#footer" className={heroNavPillClass}>
+        Contact
+      </a>
+      <Link to="/strategies" className={heroNavStartClass}>
+        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#7BD0F9] shadow-[0_0_10px_rgba(123,208,249,0.9)] lg:max-xl:h-1 lg:max-xl:w-1 xl:h-1.5 xl:w-1.5" aria-hidden />
+        Start
+      </Link>
+    </div>
+  )
+}
+
 export function Home() {
   const { hash } = useLocation()
   const [activeIndex, setActiveIndex] = useState(null)
@@ -135,189 +143,166 @@ export function Home() {
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#06050c] text-white">
-      <section className="relative flex min-h-[100svh] flex-col overflow-x-clip rounded-b-[2rem] bg-[radial-gradient(circle_at_50%_65%,#B4F1FF_45%,#7BD0F9_54%,#0094BC_70%,#06050c_85%)] max-md:h-[100svh] max-md:max-h-[100svh] max-md:min-h-0 max-md:overflow-hidden md:h-[100svh] md:max-h-[100svh] md:overflow-hidden lg:rounded-b-[2.2rem] lg:bg-[radial-gradient(circle_at_50%_135%,#B4F1FF_45%,#7BD0F9_55%,#0094BC_68%,#06050c_91%)]">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-b-[2rem] lg:rounded-b-[2.2rem]">
-          <div className="absolute inset-0 bg-[linear-gradient(105deg,transparent_0%,rgba(255,255,255,0.16)_40%,rgba(255,255,255,0.05)_50%,transparent_62%)] opacity-[0.55]" />
-          <div className="absolute -left-[20%] top-0 h-full w-[55%] bg-[linear-gradient(95deg,rgba(255,255,255,0.22),transparent_65%)] opacity-40 blur-2xl" />
-          <div
-            className="absolute inset-0 opacity-[0.28]"
-            style={{
-              backgroundImage:
-                "repeating-linear-gradient(90deg, transparent, transparent 68px, rgba(255,255,255,0.09) 68px, rgba(255,255,255,0.09) 69px)",
-            }}
-          />
-        </div>
-
-        <nav className="relative z-30 shrink-0 px-3 py-2 max-md:py-1.5 sm:px-5 sm:py-2.5 lg:px-12 lg:py-3">
-          <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-4">
-            <Link
-              to="/"
-              className="relative z-10 flex shrink-0 items-center gap-2"
-              onClick={() => setMobileNavOpen(false)}
-            >
-              <img src={logoImg} alt="Valgrid" className="h-8 w-8 drop-shadow-sm" />
-              <span className="text-lg font-semibold tracking-tight text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.25)] sm:text-xl">
-                ValGrid
-              </span>
-            </Link>
-
-            <div className="absolute left-1/2 top-1/2 z-0 hidden -translate-x-1/2 -translate-y-1/2 lg:block">
-              <div className="flex w-max max-w-[min(100%,520px)] items-center gap-0.5 rounded-full border border-white/50 bg-white/35 px-1 py-1 shadow-[0_8px_40px_rgba(0,100,130,0.12)] backdrop-blur-xl">
-                <NavLink
-                  to="/"
-                  end
-                  className={({ isActive }) =>
-                    "flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors " +
-                    (isActive
-                      ? "bg-white/55 text-[#06050c] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]"
-                      : "text-[#06050c]/75 hover:bg-white/30 hover:text-[#06050c]")
-                  }
-                >
-                  {({ isActive }) => (
-                    <>
-                      <span
-                        className={
-                          "h-1.5 w-1.5 shrink-0 rounded-full " +
-                          (isActive ? "bg-[#0094BC] shadow-[0_0_8px_rgb(0_148_188_/_0.7)]" : "bg-transparent")
-                        }
-                        aria-hidden
-                      />
-                      Home
-                    </>
-                  )}
-                </NavLink>
-                <GlassNavAnchor href="#features" onNavigate={() => setMobileNavOpen(false)}>
-                  Why Valgrid?
-                </GlassNavAnchor>
-                <GlassNavAnchor href="#pricing" onNavigate={() => setMobileNavOpen(false)}>
-                  Pricing
-                </GlassNavAnchor>
-                <GlassNavAnchor href="#faq" onNavigate={() => setMobileNavOpen(false)}>
-                  Docs
-                </GlassNavAnchor>
-                <GlassNavAnchor href="#footer" onNavigate={() => setMobileNavOpen(false)}>
-                  Contact
-                </GlassNavAnchor>
-              </div>
-            </div>
-
-            <div className="relative z-10 flex w-[5.5rem] shrink-0 justify-end sm:w-24 lg:w-28">
+      <section className="relative grid min-h-0 w-full grid-cols-1 grid-rows-[minmax(0,1fr)_minmax(26svh,34svh)] gap-0 bg-white pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)] font-['Poppins',system-ui,sans-serif] text-[#06050c] antialiased max-lg:h-[100svh] max-lg:max-h-[100svh] max-lg:overflow-hidden sm:grid-rows-[minmax(0,1fr)_minmax(28svh,36svh)] lg:h-[100svh] lg:max-h-[100svh] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-3 lg:overflow-x-visible lg:overflow-y-hidden lg:pb-0 lg:pt-0 lg:items-stretch xl:gap-4">
+        {/* Left: compact mobile stack fits in upper fraction of 100svh */}
+        <div className="isolate grid min-h-0 w-full grid-rows-[auto_minmax(0,1fr)_auto] overflow-hidden px-4 pb-3 pt-3 max-lg:h-full max-lg:min-h-0 sm:px-6 sm:pb-4 sm:pt-4 lg:h-full lg:max-h-full lg:grid-rows-[auto_minmax(0,1fr)_auto] lg:px-8 lg:pb-10 lg:pt-9 xl:px-10 xl:pb-11 xl:pt-11 xl:pl-12 xl:pr-10 [@media(max-height:720px)]:pb-3 [@media(max-height:720px)]:pt-3 lg:[@media(max-height:720px)]:py-6">
+          <header className="shrink-0">
+            <div className="mb-2 flex items-start justify-between gap-3 sm:mb-8 lg:mb-4">
+              <Link
+                to="/"
+                className="hero-logo-in text-[1.4rem] font-medium tracking-[0.02em] text-[#111111] lowercase max-lg:leading-none sm:text-[1.85rem]"
+                onClick={() => setMobileNavOpen(false)}
+              >
+                sooma
+              </Link>
               <button
                 type="button"
-                className="flex h-10 flex-col items-center justify-center gap-1 rounded-full border border-white/50 bg-white/30 px-3.5 shadow-[0_4px_24px_rgba(0,100,130,0.1)] backdrop-blur-xl transition hover:bg-white/45 lg:hidden"
+                className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#06050c]/10 bg-white text-[#06050c] shadow-sm transition hover:bg-neutral-50 sm:h-10 sm:w-10 lg:hidden"
                 aria-expanded={mobileNavOpen}
                 aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
                 onClick={() => setMobileNavOpen((open) => !open)}
               >
-                <span className="h-0.5 w-5 rounded-full bg-[#06050c]/85" />
-                <span className="h-0.5 w-5 rounded-full bg-[#06050c]/85" />
+                <span className="sr-only">Menu</span>
+                <span className="flex flex-col gap-1">
+                  <span className="h-0.5 w-5 rounded-full bg-[#06050c]/85" />
+                  <span className="h-0.5 w-5 rounded-full bg-[#06050c]/85" />
+                </span>
               </button>
             </div>
-          </div>
 
-          {mobileNavOpen && (
-            <div className="mx-auto mt-4 max-w-7xl rounded-2xl border border-white/50 bg-white/40 p-3 shadow-[0_16px_48px_rgba(0,100,130,0.15)] backdrop-blur-xl lg:hidden">
-              <div className="flex flex-col gap-1">
-                <NavLink
-                  to="/"
-                  end
-                  onClick={() => setMobileNavOpen(false)}
-                  className={({ isActive }) =>
-                    "flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium " +
-                    (isActive ? "bg-white/60 text-[#06050c]" : "text-[#06050c]/85 hover:bg-white/35")
-                  }
-                >
-                  {({ isActive }) => (
-                    <>
-                      <span
-                        className={
-                          "h-1.5 w-1.5 rounded-full " + (isActive ? "bg-[#0094BC]" : "bg-transparent")
-                        }
-                        aria-hidden
-                      />
-                      Home
-                    </>
-                  )}
-                </NavLink>
-                <GlassNavAnchorMobile href="#features" onNavigate={() => setMobileNavOpen(false)}>
-                  Why Valgrid?
-                </GlassNavAnchorMobile>
-                <GlassNavAnchorMobile href="#pricing" onNavigate={() => setMobileNavOpen(false)}>
-                  Pricing
-                </GlassNavAnchorMobile>
-                <GlassNavAnchorMobile href="#faq" onNavigate={() => setMobileNavOpen(false)}>
-                  Docs
-                </GlassNavAnchorMobile>
-                <GlassNavAnchorMobile href="#footer" onNavigate={() => setMobileNavOpen(false)}>
-                  Contact Us
-                </GlassNavAnchorMobile>
-                <Link
-                  to="/strategies"
-                  className="mt-1 rounded-xl bg-[#0094BC]/15 px-4 py-3 text-center text-sm font-semibold text-[#06050c] hover:bg-[#0094BC]/25"
-                  onClick={() => setMobileNavOpen(false)}
-                >
-                  Sign In
-                </Link>
-              </div>
-            </div>
-          )}
-        </nav>
-
-        <div className="relative z-10 flex min-h-0 w-full flex-1 flex-col justify-start px-3 py-0.5 max-md:min-h-0 max-md:flex-1 max-md:overflow-hidden max-md:py-1 sm:px-5 sm:py-2 md:justify-center md:overflow-hidden md:py-2 lg:px-12 lg:py-3">
-          <div className="relative z-10 mx-auto w-full min-h-0 min-w-0 max-w-7xl py-0 sm:py-0.5 lg:py-1">
-            <div className="grid grid-cols-1 items-center gap-1.5 max-md:gap-2 sm:gap-4 md:gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(240px,min(100%,380px))] lg:gap-5 xl:gap-8">
-              <div className="mx-auto w-full min-w-0 max-w-2xl text-center lg:mx-0 lg:max-w-[min(36rem,100%)] lg:text-left">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[#06050c]/45 sm:text-[11px]">
-                  ValGrid
-                </p>
-                <h1 className="mt-1 text-[clamp(1.35rem,4vw+0.2rem,3.35rem)] font-bold leading-[1.07] tracking-[-0.03em] text-[#06050c] max-md:mt-1 md:text-[clamp(1.65rem,2.8vw+0.5rem,3.5rem)] lg:mt-2 lg:text-5xl lg:leading-[1.02] xl:text-6xl">
-                  Build Your Bot
-                </h1>
-                <p className="mx-auto mt-1.5 max-w-[26rem] text-[12px] font-normal leading-snug text-[#06050c]/65 max-md:mt-1.5 sm:mt-2.5 sm:text-[15px] sm:leading-relaxed lg:mx-0 lg:max-w-lg lg:text-base lg:leading-relaxed">
-                  Build and deploy your automation bot with zero set up!
-                </p>
-                <div className="mt-2 flex justify-center max-md:mt-2 sm:mt-4 lg:justify-start lg:mt-5">
+            {mobileNavOpen && (
+              <div className="mb-6 rounded-2xl border border-[#06050c]/10 bg-neutral-50 p-3 shadow-sm lg:hidden">
+                <div className="flex flex-col gap-0.5">
+                  <NavLink
+                    to="/"
+                    end
+                    onClick={() => setMobileNavOpen(false)}
+                    className={({ isActive }) =>
+                      "flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium " +
+                      (isActive ? "bg-white text-[#06050c] shadow-sm" : "text-[#06050c]/75 hover:bg-white/80")
+                    }
+                  >
+                    {({ isActive }) => (
+                      <>
+                        <span
+                          className={
+                            "h-1.5 w-1.5 rounded-full " + (isActive ? "bg-[#0094BC]" : "bg-transparent")
+                          }
+                          aria-hidden
+                        />
+                        Home
+                      </>
+                    )}
+                  </NavLink>
+                  <GlassNavAnchorMobile href="#features" onNavigate={() => setMobileNavOpen(false)}>
+                    Why Valgrid?
+                  </GlassNavAnchorMobile>
+                  <GlassNavAnchorMobile href="#pricing" onNavigate={() => setMobileNavOpen(false)}>
+                    Pricing
+                  </GlassNavAnchorMobile>
+                  <GlassNavAnchorMobile href="#faq" onNavigate={() => setMobileNavOpen(false)}>
+                    Docs
+                  </GlassNavAnchorMobile>
+                  <GlassNavAnchorMobile href="#footer" onNavigate={() => setMobileNavOpen(false)}>
+                    Contact
+                  </GlassNavAnchorMobile>
                   <Link
                     to="/strategies"
-                    className="group inline-flex h-10 max-md:h-9 max-md:px-5 max-md:text-[13px] items-center gap-2 rounded-full bg-white px-6 text-sm font-semibold tracking-wide text-[#06050c] shadow-[0_12px_40px_rgba(6,5,12,0.12)] ring-1 ring-white/80 transition hover:bg-[#f8fcff] hover:shadow-[0_16px_48px_rgba(0,148,188,0.18)] sm:h-11 sm:px-7 lg:h-12 lg:px-8"
+                    className="mt-1 rounded-xl bg-[#06050c] px-4 py-3 text-center text-sm font-semibold text-white hover:bg-[#1a1a1e]"
+                    onClick={() => setMobileNavOpen(false)}
                   >
-                    Get started
-                    <svg
-                      className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      aria-hidden
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H8M17 7v9" />
-                    </svg>
+                    Sign in
                   </Link>
                 </div>
               </div>
-              <HeroStatsGlassStack />
+            )}
+          </header>
+
+          <div className="min-h-0 overflow-hidden lg:scrollbar-none lg:overflow-y-auto lg:overscroll-y-contain [-webkit-overflow-scrolling:touch]">
+            <div className="flex flex-col justify-start gap-0 py-2 max-lg:py-1 sm:py-6 lg:min-h-full lg:justify-center lg:py-6">
+            <div className="hero-copy-block-in">
+            <h1 className="max-w-[min(100%,24rem)] text-[clamp(1.35rem,4.5vw+0.35rem,3.5rem)] font-semibold leading-[1.12] tracking-[-0.02em] text-[#111111] max-lg:max-w-none sm:max-w-[26ch] lg:max-w-[min(100%,22ch)] lg:text-[clamp(1.65rem,2.2vw+0.75rem,3.25rem)] lg:leading-[1.1] xl:max-w-[26ch] xl:text-[clamp(1.85rem,2vw+0.85rem,4rem)]">
+              <span className="block">Unleash your</span>
+              <span className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 sm:mt-4 sm:gap-x-3">
+                <span
+                  className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-pink-300 via-pink-400 to-rose-500 px-2 align-middle shadow-[0_6px_16px_rgba(244,114,182,0.22)] sm:h-11 sm:w-auto sm:px-3.5"
+                  aria-hidden
+                >
+                  <svg className="h-3.5 w-3.5 text-white drop-shadow-sm sm:h-5 sm:w-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                  </svg>
+                </span>
+                <span className="min-w-0 text-[0.92em] leading-tight sm:text-[1em]">is here to listen</span>
+              </span>
+              <span className="mt-1.5 block sm:mt-4">without judgment</span>
+            </h1>
+            <p className="mt-2 max-w-xl text-[0.8125rem] font-light leading-snug text-[#555555] sm:mt-8 sm:text-lg sm:leading-relaxed">
+              Your wellness assistant is here 24/7. Feeling anxious or burned out? It supports you safely and anonymously
+            </p>
+            <div className="mt-3 sm:mt-9 lg:mt-7">
+              <Link
+                to="/strategies"
+                className="group inline-flex h-10 items-center gap-2 rounded-full bg-black px-5 text-[10px] font-bold uppercase tracking-[0.18em] text-white shadow-[0_8px_28px_rgba(0,0,0,0.12)] transition hover:bg-neutral-900 sm:h-[3.75rem] sm:gap-3 sm:px-9 sm:text-[12px] lg:h-12"
+              >
+                TALK TO SOMA
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:h-10 sm:w-10">
+                  <svg className="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H8M17 7v9" />
+                  </svg>
+                </span>
+              </Link>
             </div>
+            </div>
+          </div>
+          </div>
+
+          <div className="hero-watch-in relative z-[1] shrink-0 border-t border-neutral-200 bg-white pt-3 sm:pt-6 lg:pt-5 [@media(max-height:720px)]:pt-3">
+            <a
+              href="#how-it-works"
+              className="group flex max-w-lg gap-1.5 rounded-xl border border-neutral-200 bg-neutral-50 p-2 pr-2 transition hover:border-neutral-300 hover:bg-white sm:gap-3 sm:rounded-2xl sm:p-4 sm:pr-5"
+            >
+              <span className="flex w-8 shrink-0 flex-col justify-center self-stretch rounded-l-lg bg-black py-1.5 text-center text-[8px] font-bold uppercase leading-tight tracking-wider text-white sm:w-11 sm:rounded-l-xl sm:py-2 sm:text-[10px]">
+                Watch
+              </span>
+              <img
+                src={stepOneImg}
+                alt=""
+                className="h-14 w-14 shrink-0 rounded-lg object-cover sm:h-[4.75rem] sm:w-[4.75rem] sm:rounded-xl"
+                width={96}
+                height={96}
+              />
+              <div className="min-w-0 flex-1 py-0.5">
+                <p className="text-[11px] font-medium leading-snug text-black sm:text-[15px] sm:leading-snug">
+                  Learn how the AI supports your mental health and keeps your data private
+                </p>
+                <span className="mt-1 inline-block rounded-full bg-pink-100 px-2 py-0.5 text-[10px] font-semibold text-pink-700 sm:mt-2 sm:px-2.5 sm:text-[11px]">
+                  5 minutes
+                </span>
+              </div>
+            </a>
           </div>
         </div>
 
-        <div className="relative z-10 w-full shrink-0 px-3 pb-[max(0.35rem,env(safe-area-inset-bottom))] pt-0 max-md:pb-1 sm:px-5 sm:pb-3 sm:pt-1 lg:px-8 lg:pb-5">
-          <div className="relative mx-auto w-full min-w-0 max-w-7xl">
-            <div className="mb-1 flex w-full min-w-0 items-center max-md:mb-1 sm:mb-3 lg:mb-4" role="presentation">
-              <span
-                className="h-0.5 w-8 shrink-0 rounded-full bg-[#0094BC] shadow-[0_0_14px_rgba(0,148,188,0.45)] sm:w-11"
-                aria-hidden
-              />
-              <span className="h-px min-w-0 flex-1 bg-gradient-to-r from-[#06050c]/22 via-[#06050c]/12 to-transparent" />
-            </div>
-            <div className="flex flex-col items-stretch gap-1.5 max-md:gap-1.5 sm:gap-3 md:flex-row md:items-center md:gap-2.5 lg:gap-4">
-              <div className="order-2 hidden shrink-0 justify-center md:order-1 md:flex md:w-[clamp(118px,19vw,240px)]">
-                <HeroCornerOrbitBox text="AI CODE • EDIT • DEPLOY • " />
+        {/* Right column — fills grid cell; inner panel uses height 100% (no fixed svh mins) */}
+        <div className="relative flex min-h-0 w-full min-w-0 flex-col p-2 pt-0.5 sm:p-3 lg:h-full lg:min-h-0 lg:p-4 lg:pl-2 lg:pr-5 lg:pt-6 xl:pr-6">
+          <div className="hero-panel-in relative flex h-full min-h-[26svh] w-full flex-1 flex-col overflow-hidden rounded-[1.15rem] border border-white/30 bg-[#0b1424] shadow-[0_28px_90px_rgba(0,0,0,0.22)] sm:min-h-[28svh] sm:rounded-[1.75rem] lg:min-h-0 lg:rounded-[2.25rem]">
+            <img
+              src={heroBg}
+              alt=""
+              className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+              decoding="async"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-black/15 to-black/30" aria-hidden />
+
+            <div className="relative z-10 flex min-h-0 flex-1 flex-col overflow-hidden overflow-x-hidden overscroll-y-contain lg:overflow-y-auto lg:scrollbar-none">
+              <div className="hero-panel-nav-in min-w-0 shrink-0">
+                <HeroAnchorPills />
               </div>
-              <div className="order-1 min-h-[4.85rem] min-w-0 flex-1 max-md:min-h-[4.85rem] sm:min-h-[7.25rem] md:order-2 md:min-h-[7.75rem] lg:min-h-[8.5rem]">
-                <HeroStripInteractiveDeck />
-              </div>
-              <div className="order-3 flex w-full shrink-0 justify-center pb-1 max-md:pb-1.5 md:w-[clamp(118px,19vw,240px)] md:pb-0">
-                <HeroCornerOrbitBox text="AI CODE • EDIT • DEPLOY • " />
+
+              <div className="hero-panel-stats-in mt-auto w-full max-w-full shrink-0 px-2 pb-2 pt-1 sm:px-4 sm:pb-5 sm:pt-3 lg:px-6 lg:pb-6">
+                <div className="max-lg:origin-bottom max-lg:scale-[0.82] max-lg:[@media(min-height:700px)]:scale-90 lg:scale-100">
+                  <HeroStatsGlassStack embedInPanel />
+                </div>
               </div>
             </div>
           </div>
@@ -785,160 +770,6 @@ function FeatureCard({ title, description, className, image }) {
   )
 }
 
-function HeroStripIcon({ name }) {
-  const common = "h-6 w-6"
-  switch (name) {
-    case "shield":
-      return (
-        <svg className={common} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden>
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-          />
-        </svg>
-      )
-    case "zap":
-      return (
-        <svg className={common} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
-      )
-    case "clipboard":
-      return (
-        <svg className={common} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden>
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-          />
-        </svg>
-      )
-    case "award":
-      return (
-        <svg className={common} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden>
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-          />
-        </svg>
-      )
-    case "globe":
-      return (
-        <svg className={common} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden>
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
-      )
-    default:
-      return null
-  }
-}
-
-function HeroCornerOrbitBox({ text }) {
-  return (
-    <div className="pointer-events-none flex shrink-0 justify-center">
-      <HeroOrbitDisc text={text} />
-    </div>
-  )
-}
-
-function HeroStripInteractiveDeck() {
-  const n = heroStripItems.length
-  const [activeIndex, setActiveIndex] = useState(0)
-  const zoneRef = useRef(null)
-
-  const pickIndexFromX = useCallback(
-    (clientX) => {
-      const el = zoneRef.current
-      if (!el) return
-      const r = el.getBoundingClientRect()
-      const t = (clientX - r.left) / Math.max(r.width, 1)
-      const x = Math.min(1, Math.max(0, t))
-      const idx = Math.round(x * (n - 1))
-      setActiveIndex(idx)
-    },
-    [n],
-  )
-
-  return (
-    <div
-      ref={zoneRef}
-      className="relative flex h-full min-h-[4.65rem] cursor-ew-resize select-none flex-col overflow-hidden rounded-[1.1rem] border border-white/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] max-md:min-h-[4.65rem] max-md:rounded-[1rem] sm:min-h-[7rem] sm:rounded-[1.5rem] md:min-h-[7.5rem] md:rounded-[1.75rem] lg:min-h-[8rem]"
-      onMouseMove={(e) => pickIndexFromX(e.clientX)}
-      onTouchMove={(e) => {
-        const t = e.touches[0]
-        if (t) pickIndexFromX(t.clientX)
-      }}
-      role="region"
-      aria-label="Product highlights"
-    >
-      {/* Blur only behind UI — text stays on its own layer (avoids fuzzy copy with backdrop-filter) */}
-      <div
-        className="pointer-events-none absolute inset-0 rounded-[inherit] bg-white/[0.22] backdrop-blur-xl"
-        aria-hidden
-      />
-      <div className="relative z-10 flex min-h-0 flex-1 flex-col px-1.5 py-1.5 max-md:py-1 max-md:pb-1 sm:px-3 sm:py-3">
-      <p className="pointer-events-none mb-0.5 text-center text-[7px] font-semibold uppercase tracking-[0.14em] text-[#06050c]/45 max-md:mb-0 sm:mb-1 sm:text-[9px] sm:tracking-[0.2em] md:text-[10px]">
-        Hover · drag right to explore
-      </p>
-      <div className="relative min-h-[2.65rem] flex-1 overflow-hidden max-md:min-h-[2.65rem] sm:min-h-[5rem] md:min-h-[5.25rem] lg:min-h-[5.75rem]">
-        <div
-          className="flex [backface-visibility:hidden] transition-[transform] duration-700 ease-out motion-reduce:transition-none motion-reduce:duration-0"
-          style={{
-            width: `${n * 100}%`,
-            transform: `translate3d(-${(activeIndex / n) * 100}%, 0, 0)`,
-          }}
-        >
-          {heroStripItems.map((item, i) => (
-            <div
-              key={item.icon + String(i)}
-              className="flex shrink-0 items-start gap-2 px-1 max-md:gap-1.5 sm:gap-4 sm:px-3"
-              style={{ width: `${100 / n}%` }}
-            >
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/55 bg-white/45 text-[#06050c] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] max-md:h-7 max-md:w-7 max-md:rounded-md sm:h-10 sm:w-10 md:rounded-xl">
-                <HeroStripIcon name={item.icon} />
-              </div>
-              <p className="min-w-0 flex-1 text-left text-[11px] font-medium leading-snug tracking-normal text-[#06050c]/88 antialiased [overflow-wrap:anywhere] sm:text-sm md:text-[15px] md:leading-snug">
-                {item.text}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="pointer-events-none mt-1 flex justify-center gap-0.5 max-md:mt-1 sm:mt-2.5 sm:gap-1">
-        {heroStripItems.map((_, i) => (
-          <span
-            key={String(i)}
-            className={
-              "h-1.5 rounded-full transition-all duration-300 " +
-              (i === activeIndex ? "w-6 bg-[#0094BC]" : "w-1.5 bg-[#06050c]/25")
-            }
-            aria-hidden
-          />
-        ))}
-      </div>
-      </div>
-    </div>
-  )
-}
-
-function GlassNavAnchor({ href, children, onNavigate }) {
-  return (
-    <a
-      href={href}
-      className="rounded-full px-3 py-2 text-sm font-medium text-[#06050c]/78 transition-colors hover:bg-white/35 hover:text-[#06050c] lg:px-4"
-      onClick={onNavigate}
-    >
-      {children}
-    </a>
-  )
-}
-
 function GlassNavAnchorMobile({ href, children, onNavigate }) {
   return (
     <a
@@ -951,12 +782,37 @@ function GlassNavAnchorMobile({ href, children, onNavigate }) {
   )
 }
 
-function HeroStatsGlassStack() {
+function HeroStatsGlassStack({ embedInPanel = false }) {
   return (
-    <div className="mx-auto w-full min-w-0 max-w-[400px] shrink-0 lg:mx-0 lg:w-full lg:max-w-none">
-      <div className="relative overflow-hidden rounded-[1.25rem] border border-[#7BD0F9]/35 bg-gradient-to-br from-[#0094BC] via-[#086f8a] to-[#062432] p-1.5 shadow-[0_20px_48px_rgba(0,80,110,0.42)] max-md:rounded-xl sm:rounded-[1.5rem] sm:p-3 md:p-3.5 lg:rounded-[1.75rem] lg:p-4">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_25%_0%,rgba(180,241,255,0.22),transparent_55%)]" />
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(160deg,rgba(255,255,255,0.06)_0%,transparent_40%)]" />
+    <div
+      className={
+        embedInPanel ? "w-full min-w-0" : "mx-auto w-full min-w-0 max-w-[400px] shrink-0 lg:mx-0 lg:w-full lg:max-w-none"
+      }
+    >
+      <div
+        className={
+          embedInPanel
+            ? "relative overflow-hidden rounded-2xl border border-white/20 bg-white/[0.07] p-2 shadow-[0_20px_60px_rgba(0,0,0,0.42),inset_0_1px_0_rgba(255,255,255,0.12)] ring-1 ring-inset ring-white/10 backdrop-blur-2xl backdrop-saturate-150 sm:rounded-[1.35rem] sm:bg-white/[0.09] sm:p-3 md:p-4"
+            : "relative overflow-hidden rounded-[1.25rem] border border-[#7BD0F9]/35 bg-gradient-to-br from-[#0094BC] via-[#086f8a] to-[#062432] p-1.5 shadow-[0_20px_48px_rgba(0,80,110,0.42)] max-md:rounded-xl sm:rounded-[1.5rem] sm:p-3 md:p-3.5 lg:rounded-[1.75rem] lg:p-4"
+        }
+      >
+        <div
+          className={
+            embedInPanel
+              ? "pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_30%_-10%,rgba(180,241,255,0.35),transparent_55%)]"
+              : "pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_25%_0%,rgba(180,241,255,0.22),transparent_55%)]"
+          }
+        />
+        <div
+          className={
+            embedInPanel
+              ? "pointer-events-none absolute inset-0 bg-[linear-gradient(155deg,rgba(255,255,255,0.18)_0%,rgba(255,255,255,0.04)_42%,transparent_68%)]"
+              : "pointer-events-none absolute inset-0 bg-[linear-gradient(160deg,rgba(255,255,255,0.06)_0%,transparent_40%)]"
+          }
+        />
+        {embedInPanel && (
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/25 via-transparent to-transparent" aria-hidden />
+        )}
         <div className="relative z-10 flex flex-col">
           <div className="mx-auto h-0.5 w-9 shrink-0 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.45)] max-md:h-px max-md:w-7 sm:w-10" />
           <div className="mt-0.5 flex min-w-0 items-center justify-center gap-0.5 text-center text-[7px] font-medium leading-tight text-white/90 max-md:leading-none sm:mt-1.5 sm:gap-1.5 sm:text-[9px] md:mt-2 md:text-[10px] lg:text-xs">
@@ -973,14 +829,22 @@ function HeroStatsGlassStack() {
             </svg>
             <span className="text-center">Non-custodial automation · Solana network</span>
           </div>
-          <div className="mt-1 grid grid-cols-2 gap-1 md:mt-3.5 md:flex md:flex-col md:gap-2.5">
+          <div
+            className={
+              embedInPanel
+                ? "mt-2 grid grid-cols-2 gap-2 sm:mt-2.5 sm:gap-3"
+                : "mt-1 grid grid-cols-2 gap-1 md:mt-3.5 md:flex md:flex-col md:gap-2.5"
+            }
+          >
             <HeroStatGlassCard
+              embedInPanel={embedInPanel}
               tag="Volume"
               badge="Live"
               value="$0"
               sublabel="Total Trading Volume"
             />
             <HeroStatGlassCard
+              embedInPanel={embedInPanel}
               tag="Reliability"
               badge="Real-time"
               value="99.9%"
@@ -993,10 +857,22 @@ function HeroStatsGlassStack() {
   )
 }
 
-function HeroStatGlassCard({ tag, badge, value, sublabel }) {
+function HeroStatGlassCard({ tag, badge, value, sublabel, embedInPanel = false }) {
   return (
-    <div className="relative overflow-hidden rounded-md border border-white/30 bg-white/[0.14] p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md max-md:backdrop-blur-sm sm:rounded-xl sm:p-3 lg:rounded-2xl lg:p-4">
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.08] to-transparent" />
+    <div
+      className={
+        embedInPanel
+          ? "relative overflow-hidden rounded-xl border border-white/25 bg-white/12 p-2 shadow-[0_8px_32px_rgba(0,0,0,0.22),inset_0_1px_0_rgba(255,255,255,0.22)] backdrop-blur-xl backdrop-saturate-150 sm:rounded-2xl sm:p-3 lg:rounded-3xl lg:p-4"
+          : "relative overflow-hidden rounded-md border border-white/30 bg-white/[0.14] p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md max-md:backdrop-blur-sm sm:rounded-xl sm:p-3 lg:rounded-2xl lg:p-4"
+      }
+    >
+      <div
+        className={
+          embedInPanel
+            ? "pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.22] via-white/[0.06] to-transparent"
+            : "pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.08] to-transparent"
+        }
+      />
       <div className="relative flex items-start justify-between gap-0.5 max-md:gap-0.5 sm:gap-1.5">
         <span className="text-[10px] font-bold tracking-tight text-white sm:text-sm md:text-[15px]">{tag}</span>
         <span className="inline-flex shrink-0 items-center gap-0.5 rounded-full border border-white/25 bg-black/25 px-1 py-px text-[7px] font-semibold uppercase tracking-wide text-white/85 sm:gap-1 sm:px-2 sm:py-0.5 sm:text-[10px]">
@@ -1040,80 +916,6 @@ function HeroStatBarDecoration() {
           style={{ height: `${h}px` }}
         />
       ))}
-    </div>
-  )
-}
-
-/** Orbit ring diameter by viewport width (readable text; avoid height-only caps that force tiny fonts). */
-function heroOrbitDiameterForWidth(w) {
-  if (w < 360) return 76
-  if (w < 400) return 80
-  if (w < 480) return 96
-  if (w < 640) return 118
-  if (w < 768) return 126
-  if (w < 1024) return 138
-  if (w < 1280) return 150
-  return 168
-}
-
-function HeroOrbitDisc({ text }) {
-  return <CircularText text={text} />
-}
-
-function CircularText({ text }) {
-  const letters = Array.from(text)
-  const n = letters.length
-  const [d, setD] = useState(() =>
-    typeof window !== "undefined" ? heroOrbitDiameterForWidth(window.innerWidth) : 168,
-  )
-
-  useEffect(() => {
-    const onResize = () => setD(heroOrbitDiameterForWidth(window.innerWidth))
-    onResize()
-    window.addEventListener("resize", onResize)
-    return () => window.removeEventListener("resize", onResize)
-  }, [])
-
-  const radius = d * 0.345
-  const fontPx = Math.max(10, Math.round(d * 0.098))
-  const logoSize = Math.round(d * 0.26)
-
-  return (
-    <div
-      className="relative mx-auto animate-[spin_20s_linear_infinite] motion-reduce:animate-none"
-      style={{ width: d, height: d }}
-      aria-hidden
-    >
-      {letters.map((letter, i) => {
-        const angleDeg = (360 / n) * i - 90
-        return (
-          <span
-            key={`${letter}-${i}`}
-            className="absolute left-1/2 top-1/2 block h-0 w-0"
-            style={{ transform: `rotate(${angleDeg}deg) translateY(-${radius}px) translateZ(0)` }}
-          >
-            <span
-              className="block -translate-x-1/2 font-black uppercase leading-none tracking-[0.02em] antialiased text-[#034859]"
-              style={{
-                fontSize: fontPx,
-                textShadow: "0 1px 3px rgba(180, 241, 255, 0.75)",
-              }}
-            >
-              {letter}
-            </span>
-          </span>
-        )
-      })}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
-        <img
-          src={logoImg}
-          alt=""
-          width={logoSize}
-          height={logoSize}
-          className="block object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.25)]"
-          draggable={false}
-        />
-      </div>
     </div>
   )
 }
