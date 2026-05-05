@@ -143,7 +143,7 @@ export function Home() {
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#06050c] text-white">
-      <section className="hero-sooma-shell relative grid min-h-0 w-full grid-cols-1 grid-rows-[minmax(0,1fr)_minmax(26svh,34svh)] gap-0 pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)] font-['Montserrat',system-ui,sans-serif] antialiased max-lg:h-[100svh] max-lg:max-h-[100svh] max-lg:overflow-hidden sm:grid-rows-[minmax(0,1fr)_minmax(28svh,36svh)] lg:h-[100svh] lg:max-h-[100svh] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-3 lg:overflow-x-visible lg:overflow-y-hidden lg:pb-0 lg:pt-0 lg:items-stretch xl:gap-4">
+      <section className="hero-sooma-shell relative grid min-h-0 w-full grid-cols-1 grid-rows-[minmax(0,1fr)_minmax(26svh,34svh)] gap-0 pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)] font-['Montserrat',system-ui,sans-serif] antialiased max-lg:h-[100svh] max-lg:max-h-[100svh] sm:grid-rows-[minmax(0,1fr)_minmax(28svh,36svh)] lg:h-[100svh] lg:max-h-[100svh] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-3 lg:pb-0 lg:pt-0 lg:items-stretch xl:gap-4">
         {/* Left: compact mobile stack fits in upper fraction of 100svh */}
         <div className="isolate grid min-h-0 w-full grid-rows-[auto_minmax(0,1fr)_auto] overflow-hidden px-4 pb-3 pt-3 text-white max-lg:h-full max-lg:min-h-0 sm:px-6 sm:pb-4 sm:pt-4 lg:h-full lg:max-h-full lg:grid-rows-[auto_minmax(0,1fr)_auto] lg:px-8 lg:pb-10 lg:pt-9 xl:px-10 xl:pb-11 xl:pt-11 xl:pl-12 xl:pr-10 [@media(max-height:720px)]:pb-3 [@media(max-height:720px)]:pt-3 lg:[@media(max-height:720px)]:py-6">
           <header className="shrink-0">
@@ -218,7 +218,7 @@ export function Home() {
             )}
           </header>
 
-          <div className="min-h-0 overflow-hidden lg:scrollbar-none lg:overflow-y-auto lg:overscroll-y-contain [-webkit-overflow-scrolling:touch]">
+          <div className="min-h-0 overflow-hidden [-webkit-overflow-scrolling:touch]">
             <div className="flex flex-col justify-start gap-0 py-2 max-lg:py-1 sm:py-6 lg:min-h-full lg:justify-center lg:py-6">
             <div className="hero-copy-block-in">
             <h1 className="max-w-[min(100%,24rem)] text-[clamp(1.35rem,4.5vw+0.35rem,3.5rem)] font-semibold leading-[1.12] tracking-[-0.02em] text-white max-lg:max-w-none sm:max-w-[26ch] lg:max-w-[min(100%,22ch)] lg:text-[clamp(1.65rem,2.2vw+0.75rem,3.25rem)] lg:leading-[1.1] xl:max-w-[26ch] xl:text-[clamp(1.85rem,2vw+0.85rem,4rem)]">
@@ -294,7 +294,7 @@ export function Home() {
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-black/15 to-black/30" aria-hidden />
 
-            <div className="relative z-10 flex min-h-0 flex-1 flex-col overflow-hidden overflow-x-hidden lg:overscroll-y-contain lg:overflow-y-auto lg:scrollbar-none">
+            <div className="relative z-10 flex min-h-0 flex-1 flex-col overflow-hidden overflow-x-hidden">
               <div className="hero-panel-nav-in min-w-0 shrink-0">
                 <HeroAnchorPills />
               </div>
