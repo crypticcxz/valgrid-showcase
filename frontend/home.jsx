@@ -134,8 +134,8 @@ export function Home() {
   }, [hash])
 
   return (
-    <main className="min-h-screen overflow-x-clip bg-[#06050c] text-white">
-      <section className="relative flex min-h-0 h-[100svh] max-h-[100svh] flex-col overflow-x-clip rounded-b-[2rem] bg-[radial-gradient(circle_at_50%_65%,#B4F1FF_45%,#7BD0F9_54%,#0094BC_70%,#06050c_85%)] lg:rounded-b-[2.2rem] lg:bg-[radial-gradient(circle_at_50%_135%,#B4F1FF_45%,#7BD0F9_55%,#0094BC_68%,#06050c_91%)]">
+    <main className="min-h-screen overflow-x-hidden bg-[#06050c] text-white">
+      <section className="relative flex min-h-[100svh] flex-col overflow-x-clip rounded-b-[2rem] bg-[radial-gradient(circle_at_50%_65%,#B4F1FF_45%,#7BD0F9_54%,#0094BC_70%,#06050c_85%)] max-md:h-[100svh] max-md:max-h-[100svh] max-md:min-h-0 max-md:overflow-hidden md:h-[100svh] md:max-h-[100svh] md:overflow-hidden lg:rounded-b-[2.2rem] lg:bg-[radial-gradient(circle_at_50%_135%,#B4F1FF_45%,#7BD0F9_55%,#0094BC_68%,#06050c_91%)]">
         <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-b-[2rem] lg:rounded-b-[2.2rem]">
           <div className="absolute inset-0 bg-[linear-gradient(105deg,transparent_0%,rgba(255,255,255,0.16)_40%,rgba(255,255,255,0.05)_50%,transparent_62%)] opacity-[0.55]" />
           <div className="absolute -left-[20%] top-0 h-full w-[55%] bg-[linear-gradient(95deg,rgba(255,255,255,0.22),transparent_65%)] opacity-40 blur-2xl" />
@@ -148,7 +148,7 @@ export function Home() {
           />
         </div>
 
-        <nav className="relative z-30 shrink-0 px-3 pb-3 pt-3 sm:px-8 sm:pb-6 sm:pt-5 lg:px-16 lg:pb-8 lg:pt-6">
+        <nav className="relative z-30 shrink-0 px-3 py-2 max-md:py-1.5 sm:px-5 sm:py-2.5 lg:px-12 lg:py-3">
           <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-4">
             <Link
               to="/"
@@ -263,23 +263,23 @@ export function Home() {
           )}
         </nav>
 
-        <div className="relative z-10 flex min-h-0 w-full flex-1 flex-col justify-center overflow-y-auto overscroll-y-contain px-3 py-2 sm:px-6 sm:py-4 lg:px-16 lg:py-6">
-          <div className="relative z-10 mx-auto w-full min-h-0 min-w-0 max-w-7xl py-1 sm:py-2 lg:py-3">
-            <div className="grid grid-cols-1 items-center gap-5 sm:gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(260px,min(100%,400px))] lg:gap-10 xl:gap-14">
+        <div className="relative z-10 flex min-h-0 w-full flex-1 flex-col justify-start px-3 py-0.5 max-md:min-h-0 max-md:flex-1 max-md:overflow-hidden max-md:py-1 sm:px-5 sm:py-2 md:justify-center md:overflow-hidden md:py-2 lg:px-12 lg:py-3">
+          <div className="relative z-10 mx-auto w-full min-h-0 min-w-0 max-w-7xl py-0 sm:py-0.5 lg:py-1">
+            <div className="grid grid-cols-1 items-center gap-1.5 max-md:gap-2 sm:gap-4 md:gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(240px,min(100%,380px))] lg:gap-5 xl:gap-8">
               <div className="mx-auto w-full min-w-0 max-w-2xl text-center lg:mx-0 lg:max-w-[min(36rem,100%)] lg:text-left">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#06050c]/45 sm:text-xs">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[#06050c]/45 sm:text-[11px]">
                   ValGrid
                 </p>
-                <h1 className="mt-2 text-[clamp(1.65rem,4.2vw+0.45rem,3.75rem)] font-bold leading-[1.08] tracking-[-0.03em] text-[#06050c] sm:text-5xl sm:leading-[1.06] lg:mt-3 lg:text-6xl lg:leading-[1.02]">
+                <h1 className="mt-1 text-[clamp(1.35rem,4vw+0.2rem,3.35rem)] font-bold leading-[1.07] tracking-[-0.03em] text-[#06050c] max-md:mt-1 md:text-[clamp(1.65rem,2.8vw+0.5rem,3.5rem)] lg:mt-2 lg:text-5xl lg:leading-[1.02] xl:text-6xl">
                   Build Your Bot
                 </h1>
-                <p className="mx-auto mt-3 max-w-[26rem] text-[14px] font-normal leading-[1.55] text-[#06050c]/65 sm:mt-4 sm:text-lg sm:leading-relaxed lg:mx-0 lg:max-w-lg lg:text-[1.125rem] lg:leading-[1.7]">
+                <p className="mx-auto mt-1.5 max-w-[26rem] text-[12px] font-normal leading-snug text-[#06050c]/65 max-md:mt-1.5 sm:mt-2.5 sm:text-[15px] sm:leading-relaxed lg:mx-0 lg:max-w-lg lg:text-base lg:leading-relaxed">
                   Build and deploy your automation bot with zero set up!
                 </p>
-                <div className="mt-5 flex justify-center sm:mt-7 lg:justify-start lg:mt-8">
+                <div className="mt-2 flex justify-center max-md:mt-2 sm:mt-4 lg:justify-start lg:mt-5">
                   <Link
                     to="/strategies"
-                    className="group inline-flex h-12 items-center gap-2 rounded-full bg-white px-7 text-sm font-semibold tracking-wide text-[#06050c] shadow-[0_12px_40px_rgba(6,5,12,0.12)] ring-1 ring-white/80 transition hover:bg-[#f8fcff] hover:shadow-[0_16px_48px_rgba(0,148,188,0.18)] sm:h-12 sm:px-8"
+                    className="group inline-flex h-10 max-md:h-9 max-md:px-5 max-md:text-[13px] items-center gap-2 rounded-full bg-white px-6 text-sm font-semibold tracking-wide text-[#06050c] shadow-[0_12px_40px_rgba(6,5,12,0.12)] ring-1 ring-white/80 transition hover:bg-[#f8fcff] hover:shadow-[0_16px_48px_rgba(0,148,188,0.18)] sm:h-11 sm:px-7 lg:h-12 lg:px-8"
                   >
                     Get started
                     <svg
@@ -300,23 +300,23 @@ export function Home() {
           </div>
         </div>
 
-        <div className="relative z-10 w-full shrink-0 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-1 sm:px-6 sm:pb-5 sm:pt-2 lg:px-8 lg:pb-7">
+        <div className="relative z-10 w-full shrink-0 px-3 pb-[max(0.35rem,env(safe-area-inset-bottom))] pt-0 max-md:pb-1 sm:px-5 sm:pb-3 sm:pt-1 lg:px-8 lg:pb-5">
           <div className="relative mx-auto w-full min-w-0 max-w-7xl">
-            <div className="mb-3 flex w-full min-w-0 items-center sm:mb-5 lg:mb-6" role="presentation">
+            <div className="mb-1 flex w-full min-w-0 items-center max-md:mb-1 sm:mb-3 lg:mb-4" role="presentation">
               <span
                 className="h-0.5 w-8 shrink-0 rounded-full bg-[#0094BC] shadow-[0_0_14px_rgba(0,148,188,0.45)] sm:w-11"
                 aria-hidden
               />
               <span className="h-px min-w-0 flex-1 bg-gradient-to-r from-[#06050c]/22 via-[#06050c]/12 to-transparent" />
             </div>
-            <div className="flex flex-col items-stretch gap-3 sm:gap-4 md:flex-row md:items-center md:gap-3 lg:gap-5">
-              <div className="order-2 flex shrink-0 justify-center md:order-1 md:w-[clamp(140px,22vw,260px)]">
+            <div className="flex flex-col items-stretch gap-1.5 max-md:gap-1.5 sm:gap-3 md:flex-row md:items-center md:gap-2.5 lg:gap-4">
+              <div className="order-2 hidden shrink-0 justify-center md:order-1 md:flex md:w-[clamp(118px,19vw,240px)]">
                 <HeroCornerOrbitBox text="AI CODE • EDIT • DEPLOY • " />
               </div>
-              <div className="order-1 min-h-[8.25rem] min-w-0 flex-1 sm:min-h-[9.5rem] md:order-2 md:min-h-[10rem] lg:min-h-[11rem]">
+              <div className="order-1 min-h-[4.85rem] min-w-0 flex-1 max-md:min-h-[4.85rem] sm:min-h-[7.25rem] md:order-2 md:min-h-[7.75rem] lg:min-h-[8.5rem]">
                 <HeroStripInteractiveDeck />
               </div>
-              <div className="order-3 flex shrink-0 justify-center md:w-[clamp(140px,22vw,260px)]">
+              <div className="order-3 flex w-full shrink-0 justify-center pb-1 max-md:pb-1.5 md:w-[clamp(118px,19vw,240px)] md:pb-0">
                 <HeroCornerOrbitBox text="AI CODE • EDIT • DEPLOY • " />
               </div>
             </div>
@@ -339,7 +339,7 @@ export function Home() {
               width: 3000,
               height: 2000,
               className:
-                "absolute -bottom-12 left-0 z-0 scale-125 rounded-2xl lg:-bottom-10",
+                "relative z-0 mx-auto mt-10 block w-full max-w-[95%] rounded-2xl object-cover sm:mt-12 md:absolute md:-bottom-12 md:left-0 md:mt-0 md:h-auto md:w-auto md:max-w-none md:scale-125 lg:-bottom-10",
             }}
           />
           <FeatureCard
@@ -350,14 +350,14 @@ export function Home() {
           <FeatureCard
             title="Deploy and run in one place"
             description="Valgrid is an all-in-one environment where you can build, backtest, and deploy your bots seamlessly. Once deployed, your strategies run 24/7 across markets without requiring constant monitoring, allowing you to stay active in the market without being glued to a screen."
-            className="col-span-1 min-h-[300px] bg-[#7BD0F9] sm:min-h-[500px] lg:col-span-3 lg:min-h-[600px] xl:min-h-[300px]"
+            className="col-span-1 min-h-0 bg-[#7BD0F9] sm:min-h-[500px] lg:col-span-3 lg:min-h-[600px] xl:min-h-[300px]"
             image={{
               src: featureChartImg,
               alt: "deploy and run visualization",
               width: 500,
               height: 500,
               className:
-                "absolute -bottom-32 right-0 rounded-2xl object-cover md:-right-[40%] lg:-bottom-30 lg:right-[5%]",
+                "relative z-0 mx-auto mt-8 block h-auto w-full max-w-[280px] rounded-2xl object-contain sm:max-w-[360px] md:absolute md:bottom-[-7rem] md:z-0 md:mx-0 md:mt-0 md:max-h-[min(52vw,420px)] md:w-[min(480px,58vw)] md:max-w-none md:object-cover md:-right-[40%] lg:bottom-[-8rem] xl:-bottom-32 xl:right-[5%]",
             }}
           />
         </div>
@@ -759,7 +759,12 @@ function FeatureCard({ title, description, className, image }) {
             "0 10px 32px rgba(34, 42, 53, 0.12), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.05), 0 4px 6px rgba(34, 42, 53, 0.08), 0 24px 108px rgba(47, 48, 55, 0.10)",
         }}
       >
-        <div className="relative h-full px-4 py-20 sm:px-10">
+        <div
+          className={
+            "relative h-full px-4 sm:px-10 " +
+            (image ? "pb-8 pt-12 sm:pb-12 sm:pt-16 md:py-20" : "py-20")
+          }
+        >
           <div className={image ? "relative z-10 max-w-2xl" : ""}>
             <h3 className="text-left text-2xl font-semibold">{title}</h3>
             <p className="mt-4 text-left text-base/7 text-[#06050c]/70">{description}</p>
@@ -771,6 +776,7 @@ function FeatureCard({ title, description, className, image }) {
               height={image.height}
               alt={image.alt}
               className={image.className}
+              decoding="async"
             />
           )}
         </div>
@@ -862,7 +868,7 @@ function HeroStripInteractiveDeck() {
   return (
     <div
       ref={zoneRef}
-      className="relative flex h-full min-h-[7.5rem] cursor-ew-resize select-none flex-col overflow-hidden rounded-[1.35rem] border border-white/50 bg-white/22 px-2.5 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] backdrop-blur-xl sm:min-h-[9rem] sm:rounded-[1.75rem] sm:px-4 sm:py-4 md:min-h-[10rem] md:rounded-[2rem] md:px-5 md:py-5 lg:min-h-[11rem]"
+      className="relative flex h-full min-h-[4.65rem] cursor-ew-resize select-none flex-col overflow-hidden rounded-[1.1rem] border border-white/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] max-md:min-h-[4.65rem] max-md:rounded-[1rem] sm:min-h-[7rem] sm:rounded-[1.5rem] md:min-h-[7.5rem] md:rounded-[1.75rem] lg:min-h-[8rem]"
       onMouseMove={(e) => pickIndexFromX(e.clientX)}
       onTouchMove={(e) => {
         const t = e.touches[0]
@@ -871,34 +877,40 @@ function HeroStripInteractiveDeck() {
       role="region"
       aria-label="Product highlights"
     >
-      <p className="pointer-events-none mb-1.5 text-center text-[9px] font-semibold uppercase tracking-[0.2em] text-[#06050c]/45 sm:mb-2 sm:text-[10px] sm:tracking-[0.22em]">
+      {/* Blur only behind UI — text stays on its own layer (avoids fuzzy copy with backdrop-filter) */}
+      <div
+        className="pointer-events-none absolute inset-0 rounded-[inherit] bg-white/[0.22] backdrop-blur-xl"
+        aria-hidden
+      />
+      <div className="relative z-10 flex min-h-0 flex-1 flex-col px-1.5 py-1.5 max-md:py-1 max-md:pb-1 sm:px-3 sm:py-3">
+      <p className="pointer-events-none mb-0.5 text-center text-[7px] font-semibold uppercase tracking-[0.14em] text-[#06050c]/45 max-md:mb-0 sm:mb-1 sm:text-[9px] sm:tracking-[0.2em] md:text-[10px]">
         Hover · drag right to explore
       </p>
-      <div className="relative min-h-[4.75rem] flex-1 overflow-hidden sm:min-h-[6rem] md:min-h-[6.5rem] lg:min-h-[7rem]">
+      <div className="relative min-h-[2.65rem] flex-1 overflow-hidden max-md:min-h-[2.65rem] sm:min-h-[5rem] md:min-h-[5.25rem] lg:min-h-[5.75rem]">
         <div
-          className="flex transition-[transform] duration-700 ease-out motion-reduce:transition-none motion-reduce:duration-0"
+          className="flex [backface-visibility:hidden] transition-[transform] duration-700 ease-out motion-reduce:transition-none motion-reduce:duration-0"
           style={{
             width: `${n * 100}%`,
-            transform: `translateX(-${(activeIndex / n) * 100}%)`,
+            transform: `translate3d(-${(activeIndex / n) * 100}%, 0, 0)`,
           }}
         >
           {heroStripItems.map((item, i) => (
             <div
               key={item.icon + String(i)}
-              className="flex shrink-0 items-start gap-3 px-2 sm:gap-4 sm:px-3"
+              className="flex shrink-0 items-start gap-2 px-1 max-md:gap-1.5 sm:gap-4 sm:px-3"
               style={{ width: `${100 / n}%` }}
             >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/55 bg-white/35 text-[#06050c] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] backdrop-blur-md sm:h-11 sm:w-11">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/55 bg-white/45 text-[#06050c] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] max-md:h-7 max-md:w-7 max-md:rounded-md sm:h-10 sm:w-10 md:rounded-xl">
                 <HeroStripIcon name={item.icon} />
               </div>
-              <p className="min-w-0 flex-1 text-left text-sm font-medium leading-relaxed text-[#06050c]/88 [overflow-wrap:anywhere] sm:text-[15px] sm:leading-snug">
+              <p className="min-w-0 flex-1 text-left text-[11px] font-medium leading-snug tracking-normal text-[#06050c]/88 antialiased [overflow-wrap:anywhere] sm:text-sm md:text-[15px] md:leading-snug">
                 {item.text}
               </p>
             </div>
           ))}
         </div>
       </div>
-      <div className="pointer-events-none mt-3 flex justify-center gap-1.5">
+      <div className="pointer-events-none mt-1 flex justify-center gap-0.5 max-md:mt-1 sm:mt-2.5 sm:gap-1">
         {heroStripItems.map((_, i) => (
           <span
             key={String(i)}
@@ -909,6 +921,7 @@ function HeroStripInteractiveDeck() {
             aria-hidden
           />
         ))}
+      </div>
       </div>
     </div>
   )
@@ -941,14 +954,14 @@ function GlassNavAnchorMobile({ href, children, onNavigate }) {
 function HeroStatsGlassStack() {
   return (
     <div className="mx-auto w-full min-w-0 max-w-[400px] shrink-0 lg:mx-0 lg:w-full lg:max-w-none">
-      <div className="relative overflow-hidden rounded-[1.35rem] border border-[#7BD0F9]/35 bg-gradient-to-br from-[#0094BC] via-[#086f8a] to-[#062432] p-3 shadow-[0_24px_64px_rgba(0,80,110,0.45)] sm:rounded-[1.75rem] sm:p-4 lg:p-5">
+      <div className="relative overflow-hidden rounded-[1.25rem] border border-[#7BD0F9]/35 bg-gradient-to-br from-[#0094BC] via-[#086f8a] to-[#062432] p-1.5 shadow-[0_20px_48px_rgba(0,80,110,0.42)] max-md:rounded-xl sm:rounded-[1.5rem] sm:p-3 md:p-3.5 lg:rounded-[1.75rem] lg:p-4">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_25%_0%,rgba(180,241,255,0.22),transparent_55%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(160deg,rgba(255,255,255,0.06)_0%,transparent_40%)]" />
         <div className="relative z-10 flex flex-col">
-          <div className="mx-auto h-1 w-10 shrink-0 rounded-full bg-white shadow-[0_0_12px_rgba(255,255,255,0.5)] sm:w-11" />
-          <div className="mt-2 flex min-w-0 items-center justify-center gap-2 text-center text-[9px] font-medium leading-snug text-white/90 sm:mt-3 sm:text-xs">
+          <div className="mx-auto h-0.5 w-9 shrink-0 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.45)] max-md:h-px max-md:w-7 sm:w-10" />
+          <div className="mt-0.5 flex min-w-0 items-center justify-center gap-0.5 text-center text-[7px] font-medium leading-tight text-white/90 max-md:leading-none sm:mt-1.5 sm:gap-1.5 sm:text-[9px] md:mt-2 md:text-[10px] lg:text-xs">
             <svg
-              className="h-3.5 w-3.5 shrink-0 text-white/95"
+              className="h-3 w-3 shrink-0 text-white/95 max-md:h-2.5 max-md:w-2.5 sm:h-3.5 sm:w-3.5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -960,7 +973,7 @@ function HeroStatsGlassStack() {
             </svg>
             <span className="text-center">Non-custodial automation · Solana network</span>
           </div>
-          <div className="mt-4 flex flex-1 flex-col gap-2 sm:mt-5 sm:gap-3">
+          <div className="mt-1 grid grid-cols-2 gap-1 md:mt-3.5 md:flex md:flex-col md:gap-2.5">
             <HeroStatGlassCard
               tag="Volume"
               badge="Live"
@@ -982,12 +995,12 @@ function HeroStatsGlassStack() {
 
 function HeroStatGlassCard({ tag, badge, value, sublabel }) {
   return (
-    <div className="relative overflow-hidden rounded-xl border border-white/30 bg-white/[0.14] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md sm:rounded-2xl sm:p-4 lg:p-5">
+    <div className="relative overflow-hidden rounded-md border border-white/30 bg-white/[0.14] p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md max-md:backdrop-blur-sm sm:rounded-xl sm:p-3 lg:rounded-2xl lg:p-4">
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.08] to-transparent" />
-      <div className="relative flex items-start justify-between gap-2">
-        <span className="text-[15px] font-bold tracking-tight text-white">{tag}</span>
-        <span className="inline-flex items-center gap-1 rounded-full border border-white/25 bg-black/25 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white/85">
-          <svg className="h-3 w-3 text-[#B4F1FF]" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
+      <div className="relative flex items-start justify-between gap-0.5 max-md:gap-0.5 sm:gap-1.5">
+        <span className="text-[10px] font-bold tracking-tight text-white sm:text-sm md:text-[15px]">{tag}</span>
+        <span className="inline-flex shrink-0 items-center gap-0.5 rounded-full border border-white/25 bg-black/25 px-1 py-px text-[7px] font-semibold uppercase tracking-wide text-white/85 sm:gap-1 sm:px-2 sm:py-0.5 sm:text-[10px]">
+          <svg className="h-2.5 w-2.5 text-[#B4F1FF] sm:h-3 sm:w-3" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
             <rect x="1" y="10" width="3" height="5" rx="0.5" />
             <rect x="6" y="6" width="3" height="9" rx="0.5" />
             <rect x="11" y="2" width="3" height="13" rx="0.5" />
@@ -995,14 +1008,16 @@ function HeroStatGlassCard({ tag, badge, value, sublabel }) {
           {badge}
         </span>
       </div>
-      <div className="relative mt-4 flex flex-wrap items-end justify-between gap-3">
+      <div className="relative mt-1 flex flex-wrap items-end justify-between gap-1 sm:mt-2 md:mt-3 sm:gap-2">
         <div className="min-w-0">
-          <p className="bg-gradient-to-b from-white via-[#B4F1FF] to-[#7BD0F9] bg-clip-text text-4xl font-bold tabular-nums leading-none tracking-tight text-transparent sm:text-5xl">
+          <p className="bg-gradient-to-b from-white via-[#B4F1FF] to-[#7BD0F9] bg-clip-text text-xl font-bold tabular-nums leading-none tracking-tight text-transparent max-md:text-[1.15rem] sm:text-4xl md:text-[2.75rem] lg:text-5xl">
             {value}
           </p>
-          <p className="mt-2 text-sm font-medium text-white/60">{sublabel}</p>
+          <p className="mt-0.5 text-[9px] font-medium leading-tight text-white/60 max-md:line-clamp-2 sm:mt-1 sm:text-xs md:text-sm">
+            {sublabel}
+          </p>
         </div>
-        <div className="inline-flex shrink-0 items-center gap-1 rounded-full border border-white/20 bg-black/30 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white">
+        <div className="hidden shrink-0 items-center gap-1 rounded-full border border-white/20 bg-black/30 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white sm:inline-flex">
           <svg className="h-3.5 w-3.5 text-[#7BD0F9]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
@@ -1017,7 +1032,7 @@ function HeroStatGlassCard({ tag, badge, value, sublabel }) {
 function HeroStatBarDecoration() {
   const bars = [14, 22, 12, 26, 16, 24, 11, 28, 18, 20, 13, 25, 17, 21, 15, 23, 12, 27, 19, 14, 24, 16, 22, 18, 20, 13, 26, 15, 23, 17, 21, 19]
   return (
-    <div className="relative mt-3 flex h-8 items-end justify-between gap-px border-t border-white/10 pt-2 opacity-80 sm:mt-4 sm:h-10 sm:pt-3">
+    <div className="relative mt-1 hidden h-5 origin-bottom scale-y-[0.72] items-end justify-between gap-px border-t border-white/10 pt-1 opacity-80 sm:mt-2 sm:h-8 sm:scale-y-100 sm:pt-2 md:flex md:h-9">
       {bars.map((h, i) => (
         <div
           key={i}
@@ -1029,13 +1044,16 @@ function HeroStatBarDecoration() {
   )
 }
 
+/** Orbit ring diameter by viewport width (readable text; avoid height-only caps that force tiny fonts). */
 function heroOrbitDiameterForWidth(w) {
-  if (w < 380) return 112
-  if (w < 480) return 124
-  if (w < 640) return 140
-  if (w < 900) return 160
-  if (w < 1200) return 176
-  return 192
+  if (w < 360) return 76
+  if (w < 400) return 80
+  if (w < 480) return 96
+  if (w < 640) return 118
+  if (w < 768) return 126
+  if (w < 1024) return 138
+  if (w < 1280) return 150
+  return 168
 }
 
 function HeroOrbitDisc({ text }) {
@@ -1057,7 +1075,7 @@ function CircularText({ text }) {
   }, [])
 
   const radius = d * 0.345
-  const fontPx = Math.round(d * 0.098)
+  const fontPx = Math.max(10, Math.round(d * 0.098))
   const logoSize = Math.round(d * 0.26)
 
   return (
@@ -1071,11 +1089,11 @@ function CircularText({ text }) {
         return (
           <span
             key={`${letter}-${i}`}
-            className="absolute left-1/2 top-1/2 block h-0 w-0 will-change-transform"
-            style={{ transform: `rotate(${angleDeg}deg) translateY(-${radius}px)` }}
+            className="absolute left-1/2 top-1/2 block h-0 w-0"
+            style={{ transform: `rotate(${angleDeg}deg) translateY(-${radius}px) translateZ(0)` }}
           >
             <span
-              className="block -translate-x-1/2 font-black uppercase leading-none tracking-[0.02em] text-[#034859]"
+              className="block -translate-x-1/2 font-black uppercase leading-none tracking-[0.02em] antialiased text-[#034859]"
               style={{
                 fontSize: fontPx,
                 textShadow: "0 1px 3px rgba(180, 241, 255, 0.75)",
