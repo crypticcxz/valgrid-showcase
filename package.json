@@ -9,6 +9,7 @@
     "bs58": "^6.0.0",
     "express": "^5.2.1",
     "google-auth-library": "^10.6.2",
+    "highlight.js": "^11.11.1",
     "pidusage": "^4.0.1",
     "postgres": "^3.4.9",
     "react": "^18.3.1",
