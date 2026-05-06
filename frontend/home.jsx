@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react"
+import { useEffect, useId, useState } from "react"
 import { Link, NavLink, useLocation } from "react-router-dom"
 import logoImg from "./public/logo.png"
-import heroBg from "./public/hero_bg.png"
 import featureChartImg from "./public/p-1.png"
 import featureFlowImg from "./public/p-2.png"
 import stepOneImg from "./public/step-1.png"
@@ -117,6 +116,59 @@ function HeroAnchorPills() {
   )
 }
 
+/** Ring text color (teal); center uses logo.png for brand-accurate color. */
+const HERO_DISK_INK = "#016A88"
+
+/** Pair of decorative rotating rings used in the hero left column (below copy). */
+function HeroRotatingDisk({ reverse = false }) {
+  const pathId = useId().replace(/:/g, "")
+  const ringClass = reverse ? "hero-disk-ring-ccw" : "hero-disk-ring-cw"
+  const R = 76
+  const cx = 100
+  const cy = 100
+  /** Full circle so text can wrap 360°; no filled background (transparent on hero). */
+  const circlePath = `M ${cx} ${cy - R} A ${R} ${R} 0 1 1 ${cx - 0.08} ${cy - R}`
+  const circumference = 2 * Math.PI * R
+  /** One phrase, full ring: path length = circumference, spacing only (no duplicated words). */
+  const ringLabel = "EDIT\u2009•\u2009DEPLOY\u2009•\u2009AI CODE\u2009•\u2009"
+
+  return (
+    <div className="relative aspect-square w-[min(40vw,8.25rem)] shrink-0 sm:w-36 md:w-40">
+      <svg viewBox="0 0 200 200" className="h-full w-full overflow-visible" aria-hidden>
+        <g className={ringClass}>
+          <defs>
+            <path id={pathId} d={circlePath} fill="none" />
+          </defs>
+          <text
+            fill={HERO_DISK_INK}
+            fontFamily="Montserrat, system-ui, sans-serif"
+            fontSize="20"
+            fontWeight="800"
+            letterSpacing="0"
+            textLength={circumference}
+            lengthAdjust="spacing"
+          >
+            <textPath href={`#${pathId}`} startOffset="0%">
+              {ringLabel}
+            </textPath>
+          </text>
+        </g>
+        {/* Centered brand mark — PNG preserves logo colors; does not rotate with ring */}
+        <g transform={`translate(${cx} ${cy})`}>
+          <image
+            href={logoImg}
+            x={-23}
+            y={-23}
+            width={46}
+            height={46}
+            preserveAspectRatio="xMidYMid meet"
+          />
+        </g>
+      </svg>
+    </div>
+  )
+}
+
 export function Home() {
   const { hash } = useLocation()
   const [activeIndex, setActiveIndex] = useState(null)
@@ -143,17 +195,25 @@ export function Home() {
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#06050c] text-white">
-      <section className="hero-sooma-shell relative grid min-h-0 w-full grid-cols-1 grid-rows-[minmax(0,1fr)_minmax(26svh,34svh)] gap-0 pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)] font-['Montserrat',system-ui,sans-serif] antialiased max-lg:h-[100svh] max-lg:max-h-[100svh] sm:grid-rows-[minmax(0,1fr)_minmax(28svh,36svh)] lg:h-[100svh] lg:max-h-[100svh] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-3 lg:pb-0 lg:pt-0 lg:items-stretch xl:gap-4">
+      <section className="hero-sooma-shell relative grid min-h-0 w-full grid-cols-1 grid-rows-[minmax(0,1fr)_minmax(26svh,34svh)] gap-0 overflow-hidden rounded-b-[2rem] pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)] font-['Montserrat',system-ui,sans-serif] antialiased max-lg:h-[100svh] max-lg:max-h-[100svh] sm:grid-rows-[minmax(0,1fr)_minmax(28svh,36svh)] sm:rounded-b-[2.5rem] lg:h-[100svh] lg:max-h-[100svh] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-3 lg:rounded-b-[3rem] lg:pb-0 lg:pt-0 lg:items-stretch xl:gap-4">
         {/* Left: compact mobile stack fits in upper fraction of 100svh */}
         <div className="isolate grid min-h-0 w-full grid-rows-[auto_minmax(0,1fr)_auto] overflow-hidden px-4 pb-3 pt-3 text-white max-lg:h-full max-lg:min-h-0 sm:px-6 sm:pb-4 sm:pt-4 lg:h-full lg:max-h-full lg:grid-rows-[auto_minmax(0,1fr)_auto] lg:px-8 lg:pb-10 lg:pt-9 xl:px-10 xl:pb-11 xl:pt-11 xl:pl-12 xl:pr-10 [@media(max-height:720px)]:pb-3 [@media(max-height:720px)]:pt-3 lg:[@media(max-height:720px)]:py-6">
           <header className="shrink-0">
             <div className="mb-2 flex items-start justify-between gap-3 sm:mb-8 lg:mb-4">
               <Link
                 to="/"
-                className="hero-logo-in text-[1.4rem] font-medium tracking-[0.02em] text-white lowercase max-lg:leading-none sm:text-[1.85rem]"
+                className="hero-logo-in inline-flex items-center gap-2 text-[1.4rem] font-medium tracking-[0.02em] text-white max-lg:leading-none sm:gap-2.5 sm:text-[1.85rem]"
                 onClick={() => setMobileNavOpen(false)}
               >
-                sooma
+                <img
+                  src={logoImg}
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="h-8 w-8 shrink-0 object-contain sm:h-10 sm:w-10"
+                  decoding="async"
+                />
+                <span className="leading-none">ValGrid</span>
               </Link>
               <button
                 type="button"
@@ -222,31 +282,23 @@ export function Home() {
             <div className="flex flex-col justify-start gap-0 py-2 max-lg:py-1 sm:py-6 lg:min-h-full lg:justify-center lg:py-6">
             <div className="hero-copy-block-in">
             <h1 className="max-w-[min(100%,24rem)] text-[clamp(1.35rem,4.5vw+0.35rem,3.5rem)] font-semibold leading-[1.12] tracking-[-0.02em] text-white max-lg:max-w-none sm:max-w-[26ch] lg:max-w-[min(100%,22ch)] lg:text-[clamp(1.65rem,2.2vw+0.75rem,3.25rem)] lg:leading-[1.1] xl:max-w-[26ch] xl:text-[clamp(1.85rem,2vw+0.85rem,4rem)]">
-              <span className="block">Unleash your</span>
-              <span className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 sm:mt-4 sm:gap-x-3">
-                <span
-                  className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-pink-300 via-pink-400 to-rose-500 px-2 align-middle shadow-[0_6px_16px_rgba(244,114,182,0.22)] sm:h-11 sm:w-auto sm:px-3.5"
-                  aria-hidden
-                >
-                  <svg className="h-3.5 w-3.5 text-white drop-shadow-sm sm:h-5 sm:w-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                  </svg>
-                </span>
-                <span className="min-w-0 text-[0.92em] leading-tight sm:text-[1em]">is here to listen</span>
+              <span className="block">Turn any</span>
+              <span className="mt-1.5 block text-[0.92em] leading-tight sm:mt-4 sm:text-[1em]">
+                strategy into a live trading
               </span>
-              <span className="mt-1.5 block sm:mt-4">without judgment</span>
+              <span className="mt-1.5 block sm:mt-4">bot in seconds</span>
             </h1>
             <p className="mt-2 max-w-xl text-[0.8125rem] font-light leading-snug text-white/80 sm:mt-8 sm:text-lg sm:leading-relaxed">
-              Your wellness assistant is here 24/7. Feeling anxious or burned out? It supports you safely and anonymously
+            Turn your ideas into fully automated trading systems with AI. Generate code, customize your strategy, and deploy bots that run 24/7 across markets all in one place.
             </p>
             <div className="mt-3 sm:mt-9 lg:mt-7">
               <Link
                 to="/strategies"
-                className="group inline-flex h-10 items-center gap-2 rounded-full bg-black px-5 text-[10px] font-bold uppercase tracking-[0.18em] text-white shadow-[0_8px_28px_rgba(0,0,0,0.12)] transition hover:bg-neutral-900 sm:h-[3.75rem] sm:gap-3 sm:px-9 sm:text-[12px] lg:h-12"
+                className="group inline-flex items-center gap-2 rounded-full bg-black py-2 pl-4 pr-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white shadow-[0_8px_28px_rgba(0,0,0,0.12)] transition hover:bg-neutral-900 sm:gap-2.5 sm:py-2.5 sm:pl-5 sm:pr-2 sm:text-[11px] sm:tracking-[0.12em] lg:py-2.5"
               >
-                TALK TO SOMA
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:h-10 sm:w-10">
-                  <svg className="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden>
+                Join waitlist
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-black transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:h-8 sm:w-8">
+                  <svg className="h-3 w-3 sm:h-3.5 sm:w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H8M17 7v9" />
                   </svg>
                 </span>
@@ -257,41 +309,30 @@ export function Home() {
           </div>
 
           <div className="hero-watch-in relative z-[1] shrink-0 border-t border-white/10 bg-transparent pt-3 sm:pt-6 lg:pt-5 [@media(max-height:720px)]:pt-3">
-            <a
-              href="#how-it-works"
-              className="group flex max-w-lg gap-1.5 rounded-xl border border-white/15 bg-white/10 p-2 pr-2 shadow-sm backdrop-blur-xl transition hover:border-white/25 hover:bg-white/15 sm:gap-3 sm:rounded-2xl sm:p-4 sm:pr-5"
+            <div
+              className="flex w-full min-w-0 items-center justify-evenly"
+              role="img"
+              aria-label="Rotating badges: edit, deploy, AI, code"
             >
-              <span className="flex w-8 shrink-0 flex-col justify-center self-stretch rounded-l-lg bg-black py-1.5 text-center text-[8px] font-bold uppercase leading-tight tracking-wider text-white sm:w-11 sm:rounded-l-xl sm:py-2 sm:text-[10px]">
-                Watch
-              </span>
-              <img
-                src={stepOneImg}
-                alt=""
-                className="h-14 w-14 shrink-0 rounded-lg object-cover sm:h-[4.75rem] sm:w-[4.75rem] sm:rounded-xl"
-                width={96}
-                height={96}
-              />
-              <div className="min-w-0 flex-1 py-0.5">
-                <p className="text-[11px] font-medium leading-snug text-white sm:text-[15px] sm:leading-snug">
-                  Learn how the AI supports your mental health and keeps your data private
-                </p>
-                <span className="mt-1 inline-block rounded-full bg-pink-100 px-2 py-0.5 text-[10px] font-semibold text-pink-700 sm:mt-2 sm:px-2.5 sm:text-[11px]">
-                  5 minutes
-                </span>
-              </div>
-            </a>
+              <HeroRotatingDisk />
+              <HeroRotatingDisk reverse />
+            </div>
           </div>
         </div>
 
         {/* Right column — fills grid cell; inner panel uses height 100% (no fixed svh mins) */}
         <div className="relative flex min-h-0 w-full min-w-0 flex-col p-2 pt-0.5 sm:p-3 lg:h-full lg:min-h-0 lg:p-4 lg:pl-2 lg:pr-5 lg:pt-6 xl:pr-6">
           <div className="hero-panel-in relative flex h-full min-h-[26svh] w-full flex-1 flex-col overflow-hidden rounded-[1.15rem] border border-white/30 bg-[#0b1424] shadow-[0_28px_90px_rgba(0,0,0,0.22)] sm:min-h-[28svh] sm:rounded-[1.75rem] lg:min-h-0 lg:rounded-[2.25rem]">
-            <img
-              src={heroBg}
-              alt=""
-              className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-              decoding="async"
-            />
+            <picture className="pointer-events-none absolute inset-0 h-full w-full">
+              <source srcSet="/hero_bg.webp" type="image/webp" />
+              <img
+                src="/hero_bg.png"
+                alt=""
+                className="h-full w-full object-cover"
+                decoding="async"
+                fetchPriority="high"
+              />
+            </picture>
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-black/15 to-black/30" aria-hidden />
 
             <div className="relative z-10 flex min-h-0 flex-1 flex-col overflow-hidden overflow-x-hidden">

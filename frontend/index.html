@@ -4,10 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Valgrid</title>
+    <link rel="preload" as="image" href="/hero_bg.webp" type="image/webp" fetchpriority="high" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="icon" type="image/png" href="./public/logo.png" />
@@ -61,18 +62,24 @@
         1) white-panel copy → short pause → 2) Watch + right panel + sooma logo (same beat)
         → pause → 3) navbar on panel → pause → 4) stats box (last)
         Pauses use --hero-seq-gap so rhythm stays even after the first beat.
+
+        Copy uses long --hero-seq-text with strong ease-out: it *looks* settled well before
+        the keyframes end. --hero-copy-handoff is when we start the second beat so there is
+        no dead air; the copy animation can still run to completion in parallel.
       */
       :root {
         --hero-seq-text: 2.05s;
+        /* When panel + watch + logo begin (≤ --hero-seq-text; avoids waiting on easing tail) */
+        --hero-copy-handoff: 1.0s;
         --hero-seq-panel: 2.05s;
         --hero-seq-nav: 1.05s;
         --hero-seq-logo: 0.62s;
-        /* First handoff: copy finishes → quick breath before panel + logo + watch */
-        --hero-gap-after-copy: 0.08s;
+        /* Extra pause after handoff before panel + logo + watch (usually 0) */
+        --hero-gap-after-copy: 0.1s;
         /* Same pause between later beats (panel done → nav → stats) */
         --hero-seq-gap: 0.16s;
 
-        --hero-delay-watch-panel: calc(var(--hero-seq-text) + var(--hero-gap-after-copy));
+        --hero-delay-watch-panel: calc(var(--hero-copy-handoff) + var(--hero-gap-after-copy));
         --hero-delay-logo: var(--hero-delay-watch-panel);
         --hero-delay-nav: calc(
           var(--hero-delay-watch-panel) + var(--hero-seq-panel) + var(--hero-seq-gap)
@@ -243,6 +250,22 @@
           );
         }
       }
+      @keyframes hero-disk-spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .hero-disk-ring-cw {
+        transform-origin: 100px 100px;
+        animation: hero-disk-spin 22s linear infinite;
+      }
+      .hero-disk-ring-ccw {
+        transform-origin: 100px 100px;
+        animation: hero-disk-spin 22s linear infinite reverse;
+      }
       @media (prefers-reduced-motion: reduce) {
         .hero-copy-block-in,
         .hero-watch-in,
@@ -254,6 +277,11 @@
           opacity: 1 !important;
           transform: none !important;
           will-change: auto !important;
+        }
+        .hero-disk-ring-cw,
+        .hero-disk-ring-ccw {
+          animation: none !important;
+          transform: none !important;
         }
       }
     </style>
