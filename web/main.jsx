@@ -27,6 +27,7 @@ import { Profile } from "./profile"
 import { LegalPage } from "./legal"
 import { PublicStrategy } from "./public-strategy"
 import { Notifications } from "./notifications"
+import { ToastProvider } from "./toast"
 import { ContactPage } from "./contact-page"
 
 function App() {
