@@ -27,13 +27,14 @@ import { Profile } from "./profile"
 import { LegalPage } from "./legal"
 import { PublicStrategy } from "./public-strategy"
 import { Notifications } from "./notifications"
-import { ToastProvider } from "./toast"
+import { ContactPage } from "./contact-page"
 
 function App() {
   const { account: accountId, google, signin, signout, loading } = useAccount()
   const location = useLocation()
   if (location.pathname === "/terms") return <LegalPage type="terms" />
   if (location.pathname === "/privacy") return <LegalPage type="privacy" />
+  if (location.pathname === "/contact") return <ContactPage />
   if (location.pathname.startsWith("/share/strategies/"))
     return <Share accountId={accountId} />
   if (location.pathname === "/") return <Home />

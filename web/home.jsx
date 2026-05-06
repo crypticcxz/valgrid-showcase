@@ -105,9 +105,9 @@ function HeroAnchorPills() {
       <a href="#faq" className={heroNavPillClass}>
         Docs
       </a>
-      <a href="#footer" className={heroNavPillClass}>
+      <Link to="/contact" className={heroNavPillClass}>
         Contact
-      </a>
+      </Link>
       <Link to="/strategies" className={heroNavStartClass}>
         <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#7BD0F9] shadow-[0_0_10px_rgba(123,208,249,0.9)] lg:max-xl:h-1 lg:max-xl:w-1 xl:h-1.5 xl:w-1.5" aria-hidden />
         Start
@@ -210,9 +210,13 @@ export function Home() {
                   <GlassNavAnchorMobile href="#faq" onNavigate={() => setMobileNavOpen(false)}>
                     Docs
                   </GlassNavAnchorMobile>
-                  <GlassNavAnchorMobile href="#footer" onNavigate={() => setMobileNavOpen(false)}>
+                  <Link
+                    to="/contact"
+                    className="block rounded-xl px-4 py-3 text-sm font-medium text-white/90 transition-colors hover:bg-white/10"
+                    onClick={() => setMobileNavOpen(false)}
+                  >
                     Contact
-                  </GlassNavAnchorMobile>
+                  </Link>
                   <Link
                     to="/strategies"
                     className="mt-1 rounded-xl bg-[#06050c] px-4 py-3 text-center text-sm font-semibold text-white hover:bg-[#1a1a1e]"
@@ -662,7 +666,7 @@ export function Home() {
             <FooterColumn
               label="Support"
               links={[
-                { title: "Contact Us", href: "#footer" },
+                { title: "Contact Us", href: "/contact" },
                 { title: "Terms of Service", href: "/terms" },
                 { title: "Privacy Policy", href: "/privacy" },
               ]}
