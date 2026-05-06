@@ -144,9 +144,9 @@ export function Home() {
     <main className="min-h-screen overflow-x-hidden bg-[#06050c] text-white">
       <section className="hero-sooma-shell relative grid min-h-0 w-full grid-cols-1 grid-rows-[minmax(0,1fr)_minmax(26svh,34svh)] gap-0 overflow-hidden rounded-b-[2rem] pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)] font-['Montserrat',system-ui,sans-serif] antialiased max-lg:h-[100svh] max-lg:max-h-[100svh] sm:grid-rows-[minmax(0,1fr)_minmax(28svh,36svh)] sm:rounded-b-[2.5rem] lg:h-[100svh] lg:max-h-[100svh] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-3 lg:rounded-b-[3rem] lg:pb-0 lg:pt-0 lg:items-stretch xl:gap-4">
         {/* Left: compact mobile stack fits in upper fraction of 100svh */}
-        <div className="isolate grid min-h-0 w-full grid-rows-[auto_minmax(0,1fr)_auto] overflow-hidden px-4 pb-3 pt-3 text-white max-lg:h-full max-lg:min-h-0 sm:px-6 sm:pb-4 sm:pt-4 lg:h-full lg:max-h-full lg:grid-rows-[auto_minmax(0,1fr)_auto] lg:px-8 lg:pb-10 lg:pt-9 xl:px-10 xl:pb-11 xl:pt-11 xl:pl-12 xl:pr-10 [@media(max-height:720px)]:pb-3 [@media(max-height:720px)]:pt-3 lg:[@media(max-height:720px)]:py-6">
+        <div className="isolate grid min-h-0 w-full grid-rows-[auto_minmax(0,1fr)_auto] gap-y-4 overflow-hidden px-4 pb-3 pt-3 text-white max-lg:h-full max-lg:min-h-0 sm:gap-y-5 sm:px-6 sm:pb-4 sm:pt-4 lg:h-full lg:max-h-full lg:grid-rows-[auto_minmax(0,1fr)_auto] lg:gap-y-6 lg:px-8 lg:pb-10 lg:pt-9 xl:px-10 xl:pb-11 xl:pt-11 xl:pl-12 xl:pr-10 [@media(max-height:720px)]:gap-y-3 [@media(max-height:720px)]:pb-3 [@media(max-height:720px)]:pt-3 lg:[@media(max-height:720px)]:gap-y-4 lg:[@media(max-height:720px)]:py-6 lg:[@media(max-height:800px)]:gap-y-4 lg:[@media(max-height:800px)]:pb-6 lg:[@media(max-height:800px)]:pt-6">
           <header className="shrink-0">
-            <div className="mb-2 flex items-start justify-between gap-3 sm:mb-8 lg:mb-4">
+            <div className="mb-2 flex items-start justify-between gap-3 sm:mb-8 lg:mb-4 lg:[@media(max-height:800px)]:mb-2">
               <Link
                 to="/"
                 className="hero-logo-in inline-flex items-center gap-2 text-[1.4rem] font-medium tracking-[0.02em] text-white max-lg:leading-none sm:gap-2.5 sm:text-[1.85rem]"
@@ -225,20 +225,20 @@ export function Home() {
             )}
           </header>
 
-          <div className="min-h-0 overflow-hidden [-webkit-overflow-scrolling:touch]">
-            <div className="flex flex-col justify-start gap-0 py-2 max-lg:py-1 sm:py-6 lg:min-h-full lg:justify-center lg:py-6">
+          <div className="min-h-0 overflow-x-hidden overflow-y-auto lg:overflow-y-hidden lg:[@media(max-height:820px)]:overflow-y-auto [-webkit-overflow-scrolling:touch]">
+            <div className="flex flex-col justify-start gap-0 py-2 max-lg:py-1 sm:py-6 lg:py-6 lg:[@media(max-height:800px)]:py-3">
             <div className="hero-copy-block-in">
-            <h1 className="max-w-[min(100%,24rem)] text-[clamp(1.35rem,4.5vw+0.35rem,3.5rem)] font-semibold leading-[1.12] tracking-[-0.02em] text-white max-lg:max-w-none sm:max-w-[26ch] lg:max-w-[min(100%,22ch)] lg:text-[clamp(1.65rem,2.2vw+0.75rem,3.25rem)] lg:leading-[1.1] xl:max-w-[26ch] xl:text-[clamp(1.85rem,2vw+0.85rem,4rem)]">
+            <h1 className="max-w-[min(100%,24rem)] text-[clamp(1.35rem,4.5vw+0.35rem,3.5rem)] font-semibold leading-[1.12] tracking-[-0.02em] text-white max-lg:max-w-none sm:max-w-[26ch] lg:max-w-[min(100%,22ch)] lg:text-[clamp(1.65rem,2.2vw+0.75rem,3.25rem)] lg:leading-[1.1] lg:[@media(max-height:800px)]:[&>span:nth-child(n+2)]:mt-2 lg:[@media(max-height:800px)]:[&>span:nth-child(n+2)]:sm:mt-3 xl:max-w-[26ch] xl:text-[clamp(1.85rem,2vw+0.85rem,4rem)]">
               <span className="block">Turn any</span>
               <span className="mt-1.5 block text-[0.92em] leading-tight sm:mt-4 sm:text-[1em]">
                 strategy into a live trading
               </span>
               <span className="mt-1.5 block sm:mt-4">bot in seconds</span>
             </h1>
-            <p className="mt-2 max-w-xl text-[0.8125rem] font-light leading-snug text-white/80 sm:mt-8 sm:text-lg sm:leading-relaxed">
+            <p className="mt-2 max-w-xl text-[0.8125rem] font-light leading-snug text-white/80 sm:mt-8 sm:text-lg sm:leading-relaxed lg:[@media(max-height:800px)]:mt-4 lg:[@media(max-height:800px)]:text-base lg:[@media(max-height:800px)]:leading-snug">
             Turn your ideas into fully automated trading systems with AI. Generate code, customize your strategy, and deploy bots that run 24/7 across markets all in one place.
             </p>
-            <div className="mt-3 sm:mt-9 lg:mt-7">
+            <div className="mt-3 sm:mt-9 lg:mt-7 lg:[@media(max-height:800px)]:mt-4">
               <Link
                 to="/strategies"
                 className="group inline-flex items-center gap-2 rounded-full bg-black py-2 pl-4 pr-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white shadow-[0_8px_28px_rgba(0,0,0,0.12)] transition hover:bg-neutral-900 sm:gap-2.5 sm:py-2.5 sm:pl-5 sm:pr-2 sm:text-[11px] sm:tracking-[0.12em] lg:py-2.5"
@@ -255,8 +255,9 @@ export function Home() {
           </div>
           </div>
 
-          <div className="hero-watch-in relative z-[1] shrink-0 border-t border-white/10 bg-transparent pt-3 sm:pt-6 lg:pt-5 [@media(max-height:720px)]:pt-3">
-            <div className="w-full min-w-0 max-lg:origin-bottom max-lg:scale-[0.82] max-lg:[@media(min-height:700px)]:scale-90 lg:scale-100">
+          <div className="hero-watch-in relative shrink-0 border-t border-white/10 bg-transparent pt-3 sm:pt-6 lg:pt-5 [@media(max-height:720px)]:pt-3 lg:[@media(max-height:800px)]:pt-2">
+            {/* Medium widths + short laptop heights: shrink stats so copy + CTA stay visible */}
+            <div className="w-full min-w-0 origin-bottom md:max-xl:scale-[0.82] lg:[@media(max-height:880px)]:scale-[0.82]">
               <HeroStatsGlassStack />
             </div>
           </div>
@@ -835,7 +836,7 @@ function HeroStatsGlassStack({ embedInPanel = false }) {
         className={
           embedInPanel
             ? "relative overflow-hidden rounded-2xl border border-white/20 bg-white/[0.07] p-2 shadow-[0_20px_60px_rgba(0,0,0,0.42),inset_0_1px_0_rgba(255,255,255,0.12)] ring-1 ring-inset ring-white/10 backdrop-blur-2xl backdrop-saturate-150 sm:rounded-[1.35rem] sm:bg-white/[0.09] sm:p-3 md:p-4"
-            : "relative overflow-hidden rounded-[1.25rem] border border-[#7BD0F9]/35 bg-gradient-to-br from-[#0094BC] via-[#086f8a] to-[#062432] p-1.5 shadow-[0_20px_48px_rgba(0,80,110,0.42)] max-md:rounded-xl sm:rounded-[1.5rem] sm:p-3 md:p-3.5 lg:rounded-[1.75rem] lg:p-4"
+            : "relative overflow-hidden rounded-[1.25rem] border border-[#7BD0F9]/35 bg-gradient-to-br from-[#0094BC] via-[#086f8a] to-[#062432] p-1.5 shadow-[0_20px_48px_rgba(0,80,110,0.42)] max-md:rounded-xl sm:rounded-[1.5rem] sm:p-3 md:p-3.5 md:max-xl:p-2 md:max-xl:sm:p-2.5 lg:rounded-[1.75rem] lg:p-4 lg:[@media(max-height:880px)]:p-2 lg:[@media(max-height:880px)]:sm:p-2.5"
         }
       >
         <div
@@ -857,7 +858,7 @@ function HeroStatsGlassStack({ embedInPanel = false }) {
         )}
         <div className="relative z-10 flex flex-col">
           <div className="mx-auto h-0.5 w-9 shrink-0 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.45)] max-md:h-px max-md:w-7 sm:w-10" />
-          <div className="mt-0.5 flex min-w-0 items-center justify-center gap-0.5 text-center text-[7px] font-medium leading-tight text-white/90 max-md:leading-none sm:mt-1.5 sm:gap-1.5 sm:text-[9px] md:mt-2 md:text-[10px] lg:text-xs">
+          <div className="mt-0.5 flex min-w-0 items-center justify-center gap-0.5 text-center text-[7px] font-medium leading-tight text-white/90 max-md:leading-none sm:mt-1.5 sm:gap-1.5 sm:text-[9px] md:mt-2 md:text-[10px] md:max-xl:text-[8px] md:max-xl:sm:text-[9px] lg:text-xs lg:[@media(max-height:880px)]:text-[9px] lg:[@media(max-height:880px)]:sm:text-[10px]">
             <svg
               className="h-3 w-3 shrink-0 text-white/95 max-md:h-2.5 max-md:w-2.5 sm:h-3.5 sm:w-3.5"
               fill="none"
@@ -875,7 +876,7 @@ function HeroStatsGlassStack({ embedInPanel = false }) {
             className={
               embedInPanel
                 ? "mt-2 grid grid-cols-2 gap-2 sm:mt-2.5 sm:gap-3"
-                : "mt-1 grid grid-cols-2 gap-1 md:mt-3.5 md:flex md:flex-col md:gap-2.5"
+                : "mt-1 grid grid-cols-2 gap-2 sm:mt-2 sm:gap-3 md:max-xl:gap-1.5 lg:[@media(max-height:880px)]:gap-1.5"
             }
           >
             <HeroStatGlassCard
@@ -905,7 +906,7 @@ function HeroStatGlassCard({ tag, badge, value, sublabel, embedInPanel = false }
       className={
         embedInPanel
           ? "relative overflow-hidden rounded-xl border border-white/25 bg-white/12 p-2 shadow-[0_8px_32px_rgba(0,0,0,0.22),inset_0_1px_0_rgba(255,255,255,0.22)] backdrop-blur-xl backdrop-saturate-150 sm:rounded-2xl sm:p-3 lg:rounded-3xl lg:p-4"
-          : "relative overflow-hidden rounded-md border border-white/30 bg-white/[0.14] p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md max-md:backdrop-blur-sm sm:rounded-xl sm:p-3 lg:rounded-2xl lg:p-4"
+            : "relative overflow-hidden rounded-md border border-white/30 bg-white/[0.14] p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md max-md:backdrop-blur-sm sm:rounded-xl sm:p-3 md:max-xl:p-2 md:max-xl:sm:p-2.5 lg:rounded-2xl lg:p-4 lg:[@media(max-height:880px)]:p-2 lg:[@media(max-height:880px)]:sm:p-2.5"
       }
     >
       <div
@@ -916,8 +917,8 @@ function HeroStatGlassCard({ tag, badge, value, sublabel, embedInPanel = false }
         }
       />
       <div className="relative flex items-start justify-between gap-0.5 max-md:gap-0.5 sm:gap-1.5">
-        <span className="text-[10px] font-bold tracking-tight text-white sm:text-sm md:text-[15px]">{tag}</span>
-        <span className="inline-flex shrink-0 items-center gap-0.5 rounded-full border border-white/25 bg-black/25 px-1 py-px text-[7px] font-semibold uppercase tracking-wide text-white/85 sm:gap-1 sm:px-2 sm:py-0.5 sm:text-[10px]">
+        <span className="text-[10px] font-bold tracking-tight text-white sm:text-sm md:text-[15px] md:max-xl:text-[11px] md:max-xl:sm:text-xs lg:[@media(max-height:880px)]:text-xs lg:[@media(max-height:880px)]:sm:text-[13px]">{tag}</span>
+        <span className="inline-flex shrink-0 items-center gap-0.5 rounded-full border border-white/25 bg-black/25 px-1 py-px text-[7px] font-semibold uppercase tracking-wide text-white/85 sm:gap-1 sm:px-2 sm:py-0.5 sm:text-[10px] md:max-xl:text-[6px] md:max-xl:sm:text-[9px] lg:[@media(max-height:880px)]:text-[7px] lg:[@media(max-height:880px)]:sm:text-[9px]">
           <svg className="h-2.5 w-2.5 text-[#B4F1FF] sm:h-3 sm:w-3" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
             <rect x="1" y="10" width="3" height="5" rx="0.5" />
             <rect x="6" y="6" width="3" height="9" rx="0.5" />
@@ -928,10 +929,10 @@ function HeroStatGlassCard({ tag, badge, value, sublabel, embedInPanel = false }
       </div>
       <div className="relative mt-1 flex flex-wrap items-end justify-between gap-1 sm:mt-2 md:mt-3 sm:gap-2">
         <div className="min-w-0">
-          <p className="bg-gradient-to-b from-white via-[#B4F1FF] to-[#7BD0F9] bg-clip-text text-xl font-bold tabular-nums leading-none tracking-tight text-transparent max-md:text-[1.15rem] sm:text-4xl md:text-[2.75rem] lg:text-5xl">
+          <p className="bg-gradient-to-b from-white via-[#B4F1FF] to-[#7BD0F9] bg-clip-text text-xl font-bold tabular-nums leading-none tracking-tight text-transparent max-md:text-[1.15rem] sm:text-4xl md:text-[2.75rem] md:max-xl:!text-2xl md:max-xl:sm:!text-3xl lg:text-5xl lg:[@media(max-height:880px)]:!text-3xl lg:[@media(max-height:880px)]:sm:!text-4xl lg:[@media(max-height:880px)]:lg:!text-[2.75rem]">
             {value}
           </p>
-          <p className="mt-0.5 text-[9px] font-medium leading-tight text-white/60 max-md:line-clamp-2 sm:mt-1 sm:text-xs md:text-sm">
+          <p className="mt-0.5 text-[9px] font-medium leading-tight text-white/60 max-md:line-clamp-2 sm:mt-1 sm:text-xs md:text-sm md:max-xl:text-[8px] md:max-xl:sm:text-[10px] lg:[@media(max-height:880px)]:text-[9px] lg:[@media(max-height:880px)]:sm:text-xs">
             {sublabel}
           </p>
         </div>
@@ -950,7 +951,7 @@ function HeroStatGlassCard({ tag, badge, value, sublabel, embedInPanel = false }
 function HeroStatBarDecoration() {
   const bars = [14, 22, 12, 26, 16, 24, 11, 28, 18, 20, 13, 25, 17, 21, 15, 23, 12, 27, 19, 14, 24, 16, 22, 18, 20, 13, 26, 15, 23, 17, 21, 19]
   return (
-    <div className="relative mt-1 hidden h-5 origin-bottom scale-y-[0.72] items-end justify-between gap-px border-t border-white/10 pt-1 opacity-80 sm:mt-2 sm:h-8 sm:scale-y-100 sm:pt-2 md:flex md:h-9">
+    <div className="relative mt-1 hidden h-5 origin-bottom scale-y-[0.72] items-end justify-between gap-px border-t border-white/10 pt-1 opacity-80 sm:mt-2 sm:h-8 sm:scale-y-100 sm:pt-2 md:flex md:h-9 md:max-xl:h-6 md:max-xl:sm:h-7 lg:[@media(max-height:880px)]:h-7 lg:[@media(max-height:880px)]:sm:h-8">
       {bars.map((h, i) => (
         <div
           key={i}
