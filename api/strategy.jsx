@@ -28,7 +28,7 @@ import {
 
 const sql = postgres(process.env.DATABASE_URL)
 const outputs = new Map()
-const runnerPath = path.join(process.cwd(), "backend", "python-runner.py")
+const runnerPath = path.join(process.cwd(), "api", "python-runner.py")
 
 function runnerPid(runner) {
   const match = /^process:(\d+)$/.exec(String(runner || ""))

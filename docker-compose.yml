@@ -20,9 +20,9 @@ services:
   frontend:
     build:
       context: .
-    command: ["bun", "frontend/index.html", "--host=0.0.0.0", "--port=5173"]
+    command: ["bun", "web/index.html", "--host=0.0.0.0", "--port=5173"]
     volumes:
-      - ${PWD}/frontend:/app/frontend
+      - ${PWD}/web:/app/web
     restart: unless-stopped
 
   backend:

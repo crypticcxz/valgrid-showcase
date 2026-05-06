@@ -32,16 +32,16 @@ Architecture
 The app runs as a Docker Compose stack:
 
 - `proxy`: Caddy. Public entrypoint for the browser.
-- `frontend`: Bun's frontend dev server on port `5173`. The local `frontend/`
-  directory is mounted into the container, so frontend changes hot reload.
-- `backend`: Bun running the Express API on port `3001`.
+- `frontend` (compose service): Bun's Vite app on port `5173`. The local `web/`
+  directory is mounted into the container as `/app/web`, so UI changes hot reload.
+- `backend` (compose service): Bun running the Express API on port `3001`. Source in `api/`.
 - `postgres`: PostgreSQL 18 with logical replication enabled.
 - `electric`: ElectricSQL shape server connected to Postgres.
 
 Ports:
 
-- `localhost:8080`: the app. Caddy routes `/api/*` to the backend and all other
-  browser traffic to the frontend dev server.
+- `localhost:8080`: the app. Caddy routes `/api/*` to the backend service and all other
+  browser traffic to the frontend dev server (compose service names).
 - `localhost:8081`: Electric shape traffic only.
 
 Electric is intentionally on `:8081`, not `:8080`. Browsers cap parallel

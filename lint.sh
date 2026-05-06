@@ -1,7 +1,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-node_modules/.bin/eslint frontend backend \
+node_modules/.bin/eslint web api \
   --no-config-lookup \
   --ext .jsx \
   --parser-options '{"ecmaVersion":"latest","sourceType":"module","ecmaFeatures":{"jsx":true}}' \

@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "npm install --prefix frontend && npm run build --prefix frontend"
+    "build": "npm install --prefix web && npm run build --prefix web"
   },
   "dependencies": {
     "@tanstack/electric-db-collection": "^0.3.3",

@@ -7,9 +7,9 @@ WORKDIR /app
 COPY package.json .
 RUN bun install --production
 
-COPY frontend frontend
-RUN bun build frontend/index.html --outdir dist --public-path / --minify
+COPY web web
+RUN bun build web/index.html --outdir dist --public-path / --minify
 
-COPY backend backend
+COPY api api
 
-CMD ["bun", "backend/main.jsx"]
+CMD ["bun", "api/main.jsx"]

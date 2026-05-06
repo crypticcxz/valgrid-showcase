@@ -1,5 +1,5 @@
 {
-  "name": "valgrid-frontend",
+  "name": "valgrid-web",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -17,7 +17,8 @@
     "react-markdown": "^10.1.0",
     "react-router-dom": "^6.30.2",
     "react-simple-code-editor": "^0.14.1",
-    "rehype-highlight": "^7.0.2"
+    "rehype-highlight": "^7.0.2",
+    "valgrid-progressive": "file:.."
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
