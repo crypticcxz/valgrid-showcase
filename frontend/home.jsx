@@ -144,7 +144,7 @@ export function Home() {
     <main className="min-h-screen overflow-x-hidden bg-[#06050c] text-white">
       <section className="hero-sooma-shell relative grid min-h-0 w-full grid-cols-1 grid-rows-[minmax(0,1fr)_minmax(26svh,34svh)] gap-0 overflow-hidden rounded-b-[2rem] pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)] font-['Montserrat',system-ui,sans-serif] antialiased max-lg:h-[100svh] max-lg:max-h-[100svh] sm:grid-rows-[minmax(0,1fr)_minmax(28svh,36svh)] sm:rounded-b-[2.5rem] lg:h-[100svh] lg:max-h-[100svh] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-3 lg:rounded-b-[3rem] lg:pb-0 lg:pt-0 lg:items-stretch xl:gap-4">
         {/* Left: compact mobile stack fits in upper fraction of 100svh */}
-        <div className="isolate grid min-h-0 w-full grid-rows-[auto_minmax(0,1fr)_auto] gap-y-4 overflow-hidden px-4 pb-3 pt-3 text-white max-lg:h-full max-lg:min-h-0 sm:gap-y-5 sm:px-6 sm:pb-4 sm:pt-4 lg:h-full lg:max-h-full lg:grid-rows-[auto_minmax(0,1fr)_auto] lg:gap-y-6 lg:px-8 lg:pb-10 lg:pt-9 xl:px-10 xl:pb-11 xl:pt-11 xl:pl-12 xl:pr-10 [@media(max-height:720px)]:gap-y-3 [@media(max-height:720px)]:pb-3 [@media(max-height:720px)]:pt-3 lg:[@media(max-height:720px)]:gap-y-4 lg:[@media(max-height:720px)]:py-6 lg:[@media(max-height:800px)]:gap-y-4 lg:[@media(max-height:800px)]:pb-6 lg:[@media(max-height:800px)]:pt-6">
+        <div className="isolate grid min-h-0 w-full grid-rows-[auto_minmax(0,1fr)_auto] gap-y-4 overflow-hidden px-4 pb-3 pt-3 text-white max-lg:h-full max-lg:min-h-0 sm:gap-y-5 sm:px-6 sm:pb-4 sm:pt-4 lg:h-full lg:max-h-full lg:grid-rows-[auto_minmax(0,1fr)_auto] lg:gap-y-6 lg:px-8 lg:pb-4 lg:pt-9 xl:px-10 xl:pb-4 xl:pt-11 xl:pl-12 xl:pr-10 [@media(max-height:720px)]:gap-y-3 [@media(max-height:720px)]:pb-3 [@media(max-height:720px)]:pt-3 lg:[@media(max-height:720px)]:gap-y-4 lg:[@media(max-height:720px)]:pt-6 lg:[@media(max-height:720px)]:pb-4 lg:[@media(max-height:800px)]:gap-y-4 lg:[@media(max-height:800px)]:pt-6 lg:[@media(max-height:800px)]:pb-4">
           <header className="shrink-0">
             <div className="mb-2 flex items-start justify-between gap-3 sm:mb-8 lg:mb-4 lg:[@media(max-height:800px)]:mb-2">
               <Link
@@ -522,48 +522,6 @@ export function Home() {
         </div>
       </section>
 
-      <section id="waitlist" className="border-y border-white/[0.06] bg-[#06050c] px-4 py-16 sm:px-6 sm:py-20 lg:px-12">
-        <div className="relative mx-auto max-w-5xl overflow-hidden rounded-3xl border border-white/[0.08] bg-[#0d0b14] px-4 py-10 sm:px-10 sm:py-12 lg:px-14">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgb(123_208_249_/_0.08),transparent_55%)]" />
-          <div className="relative z-10">
-            <h2 className="text-center text-3xl font-bold text-white md:text-4xl">Join the waitlist</h2>
-            <p className="mt-3 text-center text-sm leading-relaxed text-white/45 md:text-base">
-              Leave your email and we will notify you when new plans and features go live.
-            </p>
-            <form onSubmit={handleWaitlistSubmit} className="mx-auto mt-8 w-full">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch">
-                <label className="sr-only" htmlFor="waitlist-email">
-                  Email address
-                </label>
-                <input
-                  id="waitlist-email"
-                  type="email"
-                  name="email"
-                  autoComplete="email"
-                  required
-                  placeholder="you@example.com"
-                  value={waitlistEmail}
-                  onChange={(ev) => setWaitlistEmail(ev.target.value)}
-                  className="min-h-12 flex-1 rounded-full border border-white/[0.1] bg-[#06050c] px-5 text-sm text-white outline-none ring-0 placeholder:text-white/25 focus:border-[#7BD0F9]/40 focus:shadow-[0_0_20px_rgb(123_208_249_/_0.15)]"
-                />
-                <button
-                  type="submit"
-                  className="inline-flex h-12 shrink-0 items-center justify-center rounded-full bg-[#0094BC] px-8 text-sm font-semibold text-white shadow-[0_0_30px_rgb(0_148_188_/_0.25)] transition-all hover:bg-[#00aad8] hover:shadow-[0_0_40px_rgb(123_208_249_/_0.35)] sm:px-10"
-                >
-                  Join waitlist
-                </button>
-              </div>
-              {waitlistMessage && (
-                <p className="mt-4 text-center text-sm text-[#7BD0F9]/90">{waitlistMessage}</p>
-              )}
-              <p className="mt-4 text-center text-xs text-white/30">
-                By submitting, you agree to hear from ValGrid about product updates. Unsubscribe anytime.
-              </p>
-            </form>
-          </div>
-        </div>
-      </section>
-
       <section id="faq" className="bg-[#06050c] px-4 py-16 sm:px-6 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-5xl">
           <h2 className="mb-4 bg-gradient-to-b from-white to-[#7BD0F9] bg-clip-text px-2 text-center text-4xl font-bold text-transparent sm:text-5xl md:text-6xl">
@@ -598,7 +556,7 @@ export function Home() {
         </div>
       </section>
 
-      <section className="w-full bg-[#06050c] px-4 py-16 sm:px-6 sm:py-20 lg:py-28">
+      <section id="waitlist" className="w-full bg-[#06050c] px-4 py-16 sm:px-6 sm:py-20 lg:py-28">
         <div className="mx-auto max-w-7xl">
           <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-[#0d0b14]">
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#7BD0F9]/45 to-transparent" />
@@ -627,27 +585,41 @@ export function Home() {
               </h2>
 
               <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/55 md:text-lg">
-                Deploy grid bots that work 24/7 on Solana. Set your range, pick a
-                template, and let intelligent automation handle the rest.
+              Describe your idea—our agents turn it into a fully running bot in 
+              minutes, optimized to execute and earn around the clock.  
               </p>
 
-              <div className="mt-8 flex justify-center">
-                <Link
-                  to="/strategies"
-                  className="inline-flex h-12 items-center rounded-lg bg-[#0094BC] px-8 text-sm font-semibold text-white shadow-[0_0_30px_rgb(0_148_188_/_0.25)] transition-all duration-300 hover:bg-[#00aad8] hover:shadow-[0_0_40px_rgb(123_208_249_/_0.35)]"
-                >
-                  Start free today
-                  <span className="ml-2">→</span>
-                </Link>
-              </div>
+              <form onSubmit={handleWaitlistSubmit} className="mx-auto mt-8 w-full max-w-xl">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch">
+                  <label className="sr-only" htmlFor="waitlist-email">
+                    Email address
+                  </label>
+                  <input
+                    id="waitlist-email"
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    required
+                    placeholder="you@example.com"
+                    value={waitlistEmail}
+                    onChange={(ev) => setWaitlistEmail(ev.target.value)}
+                    className="min-h-12 flex-1 rounded-full border border-white/[0.1] bg-[#06050c] px-5 text-sm text-white outline-none ring-0 placeholder:text-white/25 focus:border-[#7BD0F9]/40 focus:shadow-[0_0_20px_rgb(123_208_249_/_0.15)]"
+                  />
+                  <button
+                    type="submit"
+                    className="inline-flex h-12 shrink-0 items-center justify-center rounded-full bg-[#0094BC] px-8 text-sm font-semibold text-white shadow-[0_0_30px_rgb(0_148_188_/_0.25)] transition-all hover:bg-[#00aad8] hover:shadow-[0_0_40px_rgb(123_208_249_/_0.35)] sm:px-10"
+                  >
+                    Join waitlist
+                  </button>
+                </div>
+                {waitlistMessage && (
+                  <p className="mt-4 text-center text-sm text-[#7BD0F9]/90">{waitlistMessage}</p>
+                )}
+              </form>
 
-              <div className="mt-6 flex items-center justify-center gap-4 text-xs font-medium text-white/30">
-                <span>No KYC required</span>
-                <span className="h-3 w-px bg-white/[0.08]" />
-                <span>Non-custodial</span>
-                <span className="h-3 w-px bg-white/[0.08]" />
-                <span>Start in 60 seconds</span>
-              </div>
+              <p className="mt-6 max-w-xl mx-auto text-center text-xs text-white/30">
+                By submitting, you agree to hear from ValGrid about product updates. Unsubscribe anytime.
+              </p>
             </div>
 
             <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#7BD0F9]/30 to-transparent" />

@@ -16,6 +16,12 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
+      @media (prefers-reduced-motion: no-preference) {
+        html {
+          scroll-behavior: smooth;
+        }
+      }
+
       * {
         scrollbar-width: thin;
         scrollbar-color: rgb(14 116 144) transparent;
