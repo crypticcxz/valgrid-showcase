@@ -250,22 +250,6 @@
           );
         }
       }
-      @keyframes hero-disk-spin {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
-      }
-      .hero-disk-ring-cw {
-        transform-origin: 100px 100px;
-        animation: hero-disk-spin 22s linear infinite;
-      }
-      .hero-disk-ring-ccw {
-        transform-origin: 100px 100px;
-        animation: hero-disk-spin 22s linear infinite reverse;
-      }
       @media (prefers-reduced-motion: reduce) {
         .hero-copy-block-in,
         .hero-watch-in,
@@ -277,11 +261,6 @@
           opacity: 1 !important;
           transform: none !important;
           will-change: auto !important;
-        }
-        .hero-disk-ring-cw,
-        .hero-disk-ring-ccw {
-          animation: none !important;
-          transform: none !important;
         }
       }
     </style>

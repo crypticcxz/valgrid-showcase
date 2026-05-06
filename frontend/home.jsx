@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, NavLink, useLocation } from "react-router-dom"
 import logoImg from "./public/logo.png"
 import featureChartImg from "./public/p-1.png"
@@ -112,59 +112,6 @@ function HeroAnchorPills() {
         <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#7BD0F9] shadow-[0_0_10px_rgba(123,208,249,0.9)] lg:max-xl:h-1 lg:max-xl:w-1 xl:h-1.5 xl:w-1.5" aria-hidden />
         Start
       </Link>
-    </div>
-  )
-}
-
-/** Ring text color (teal); center uses logo.png for brand-accurate color. */
-const HERO_DISK_INK = "#016A88"
-
-/** Pair of decorative rotating rings used in the hero left column (below copy). */
-function HeroRotatingDisk({ reverse = false }) {
-  const pathId = useId().replace(/:/g, "")
-  const ringClass = reverse ? "hero-disk-ring-ccw" : "hero-disk-ring-cw"
-  const R = 76
-  const cx = 100
-  const cy = 100
-  /** Full circle so text can wrap 360°; no filled background (transparent on hero). */
-  const circlePath = `M ${cx} ${cy - R} A ${R} ${R} 0 1 1 ${cx - 0.08} ${cy - R}`
-  const circumference = 2 * Math.PI * R
-  /** One phrase, full ring: path length = circumference, spacing only (no duplicated words). */
-  const ringLabel = "EDIT\u2009•\u2009DEPLOY\u2009•\u2009AI CODE\u2009•\u2009"
-
-  return (
-    <div className="relative aspect-square w-[min(40vw,8.25rem)] shrink-0 sm:w-36 md:w-40">
-      <svg viewBox="0 0 200 200" className="h-full w-full overflow-visible" aria-hidden>
-        <g className={ringClass}>
-          <defs>
-            <path id={pathId} d={circlePath} fill="none" />
-          </defs>
-          <text
-            fill={HERO_DISK_INK}
-            fontFamily="Montserrat, system-ui, sans-serif"
-            fontSize="20"
-            fontWeight="800"
-            letterSpacing="0"
-            textLength={circumference}
-            lengthAdjust="spacing"
-          >
-            <textPath href={`#${pathId}`} startOffset="0%">
-              {ringLabel}
-            </textPath>
-          </text>
-        </g>
-        {/* Centered brand mark — PNG preserves logo colors; does not rotate with ring */}
-        <g transform={`translate(${cx} ${cy})`}>
-          <image
-            href={logoImg}
-            x={-23}
-            y={-23}
-            width={46}
-            height={46}
-            preserveAspectRatio="xMidYMid meet"
-          />
-        </g>
-      </svg>
     </div>
   )
 }
@@ -309,13 +256,8 @@ export function Home() {
           </div>
 
           <div className="hero-watch-in relative z-[1] shrink-0 border-t border-white/10 bg-transparent pt-3 sm:pt-6 lg:pt-5 [@media(max-height:720px)]:pt-3">
-            <div
-              className="flex w-full min-w-0 items-center justify-evenly"
-              role="img"
-              aria-label="Rotating badges: edit, deploy, AI, code"
-            >
-              <HeroRotatingDisk />
-              <HeroRotatingDisk reverse />
+            <div className="w-full min-w-0 max-lg:origin-bottom max-lg:scale-[0.82] max-lg:[@media(min-height:700px)]:scale-90 lg:scale-100">
+              <HeroStatsGlassStack />
             </div>
           </div>
         </div>
@@ -342,7 +284,7 @@ export function Home() {
 
               <div className="hero-panel-stats-in mt-auto w-full max-w-full shrink-0 px-2 pb-2 pt-1 sm:px-4 sm:pb-5 sm:pt-3 lg:px-6 lg:pb-6">
                 <div className="max-lg:origin-bottom max-lg:scale-[0.82] max-lg:[@media(min-height:700px)]:scale-90 lg:scale-100">
-                  <HeroStatsGlassStack embedInPanel />
+                  <HeroChatUiPanelMockup />
                 </div>
               </div>
             </div>
@@ -811,15 +753,74 @@ function FeatureCard({ title, description, className, image }) {
   )
 }
 
-function GlassNavAnchorMobile({ href, children, onNavigate }) {
+/** Chat-style preview with full-panel frosted glass (no PNG transparency grid). */
+function HeroChatUiPanelMockup() {
+  const wave = [10, 18, 8, 22, 14, 20, 9, 24, 12, 17, 11, 25, 15, 19, 13, 21, 16, 14, 23, 12, 18, 10, 20, 15]
   return (
-    <a
-      href={href}
-      className="block rounded-xl px-4 py-3 text-sm font-medium text-white/90 transition-colors hover:bg-white/10"
-      onClick={onNavigate}
-    >
-      {children}
-    </a>
+    <div className="relative isolate w-full min-w-0 overflow-hidden rounded-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.42),inset_0_1px_0_rgba(255,255,255,0.12)] ring-1 ring-inset ring-white/10 sm:rounded-[1.35rem]">
+      {/* Full-surface glass: blurs the hero photo across the entire card, not just the rim */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-white/[0.10] backdrop-blur-2xl backdrop-saturate-150"
+        aria-hidden
+      />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_40%_0%,rgba(180,241,255,0.28),transparent_58%)]" aria-hidden />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(160deg,rgba(255,255,255,0.14)_0%,rgba(255,255,255,0.04)_38%,transparent_65%)]" aria-hidden />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" aria-hidden />
+
+      <div className="relative z-10 space-y-3 p-3 sm:space-y-4 sm:p-4">
+        <p className="text-center text-[13px] font-medium tracking-tight text-white/95 sm:text-sm">
+          What are you thinking about today?
+        </p>
+
+        <div className="rounded-2xl border border-white/15 bg-[#050a12]/75 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] ring-1 ring-black/30 sm:p-4">
+          <p className="text-left text-[12px] text-white/45 sm:text-sm">How can I help you today?</p>
+          <div className="mt-4 flex flex-wrap items-end justify-between gap-3">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/[0.06] text-white/90 shadow-sm">
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden>
+                  <path strokeLinecap="round" d="M12 5v14M5 12h14" />
+                </svg>
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.07] px-2.5 py-1.5 text-[10px] font-semibold text-white/90 shadow-sm sm:text-[11px]">
+                <svg className="h-3.5 w-3.5 shrink-0 text-[#B4F1FF]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  />
+                </svg>
+                Thinking
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.07] px-2.5 py-1.5 text-[10px] font-semibold text-white/90 shadow-sm sm:text-[11px]">
+                <svg className="h-3.5 w-3.5 shrink-0 text-[#7BD0F9]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                Search
+              </span>
+            </div>
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0094BC] text-white shadow-[0_6px_20px_rgba(0,148,188,0.45)] ring-1 ring-[#7BD0F9]/35">
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <div className="flex h-6 items-end justify-center gap-px px-2 opacity-75" aria-hidden>
+          {wave.map((h, i) => (
+            <div
+              key={i}
+              className="min-w-[2px] flex-1 rounded-[1px] bg-gradient-to-t from-[#0094BC]/80 to-[#7BD0F9]"
+              style={{ height: `${h}px` }}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -958,6 +959,18 @@ function HeroStatBarDecoration() {
         />
       ))}
     </div>
+  )
+}
+
+function GlassNavAnchorMobile({ href, children, onNavigate }) {
+  return (
+    <a
+      href={href}
+      className="block rounded-xl px-4 py-3 text-sm font-medium text-white/90 transition-colors hover:bg-white/10"
+      onClick={onNavigate}
+    >
+      {children}
+    </a>
   )
 }
 
