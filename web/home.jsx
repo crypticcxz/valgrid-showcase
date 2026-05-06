@@ -243,9 +243,9 @@ export function Home() {
             Turn your ideas into fully automated trading systems with AI. Generate code, customize your strategy, and deploy bots that run 24/7 across markets all in one place.
             </p>
             <div className="mt-3 sm:mt-9 lg:mt-7 lg:[@media(max-height:800px)]:mt-4">
-              <Link
-                to="/strategies"
-                className="group inline-flex items-center gap-2 rounded-full bg-black py-2 pl-4 pr-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white shadow-[0_8px_28px_rgba(0,0,0,0.12)] transition hover:bg-neutral-900 sm:gap-2.5 sm:py-2.5 sm:pl-5 sm:pr-2 sm:text-[11px] sm:tracking-[0.12em] lg:py-2.5"
+              <a
+                href="#waitlist"
+                className="group inline-flex cursor-pointer items-center gap-2 rounded-full bg-black py-2 pl-4 pr-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white shadow-[0_8px_28px_rgba(0,0,0,0.12)] transition hover:bg-neutral-900 sm:gap-2.5 sm:py-2.5 sm:pl-5 sm:pr-2 sm:text-[11px] sm:tracking-[0.12em] lg:py-2.5"
               >
                 Join waitlist
                 <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-black transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:h-8 sm:w-8">
@@ -253,7 +253,7 @@ export function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H8M17 7v9" />
                   </svg>
                 </span>
-              </Link>
+              </a>
             </div>
             </div>
           </div>
@@ -461,7 +461,7 @@ export function Home() {
           <div className="mt-10 flex justify-center">
             <a
               href="#waitlist"
-              className="inline-flex h-12 items-center rounded-full bg-[#0094BC] px-8 text-sm font-semibold text-white shadow-[0_0_30px_rgb(0_148_188_/_0.25)] transition-all duration-300 hover:bg-[#00aad8] hover:shadow-[0_0_40px_rgb(123_208_249_/_0.35)]"
+              className="inline-flex h-12 cursor-pointer items-center rounded-full bg-[#0094BC] px-8 text-sm font-semibold text-white shadow-[0_0_30px_rgb(0_148_188_/_0.25)] transition-all duration-300 hover:bg-[#00aad8] hover:shadow-[0_0_40px_rgb(123_208_249_/_0.35)]"
             >
               Join waitlist
             </a>
@@ -516,7 +516,7 @@ export function Home() {
                 </ul>
                 <a
                   href="#waitlist"
-                  className="mt-8 inline-flex h-11 w-full items-center justify-center rounded-full border border-white/[0.1] bg-[#06050c] text-sm font-semibold text-white transition-colors hover:border-[#7BD0F9]/35 hover:bg-[#0f0d17]"
+                  className="mt-8 inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-full border border-white/[0.1] bg-[#06050c] text-sm font-semibold text-white transition-colors hover:border-[#7BD0F9]/35 hover:bg-[#0f0d17]"
                 >
                   Join waitlist
                 </a>
@@ -611,7 +611,7 @@ export function Home() {
                   />
                   <button
                     type="submit"
-                    className="inline-flex h-12 shrink-0 items-center justify-center rounded-full bg-[#0094BC] px-8 text-sm font-semibold text-white shadow-[0_0_30px_rgb(0_148_188_/_0.25)] transition-all hover:bg-[#00aad8] hover:shadow-[0_0_40px_rgb(123_208_249_/_0.35)] sm:px-10"
+                    className="inline-flex h-12 shrink-0 cursor-pointer items-center justify-center rounded-full bg-[#0094BC] px-8 text-sm font-semibold text-white shadow-[0_0_30px_rgb(0_148_188_/_0.25)] transition-all hover:bg-[#00aad8] hover:shadow-[0_0_40px_rgb(123_208_249_/_0.35)] sm:px-10"
                   >
                     Join waitlist
                   </button>

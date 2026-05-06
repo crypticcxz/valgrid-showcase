@@ -44,9 +44,6 @@ export function ContactPage() {
             </span>
           </Link>
           <nav className="flex flex-wrap items-center justify-end gap-2 sm:gap-2.5">
-            <Link to="/" className={pillNavClass}>
-              Home
-            </Link>
             <Link to="/#features" className={pillNavClass}>
               Why Valgrid?
             </Link>
@@ -174,14 +171,6 @@ export function ContactPage() {
               <h2 className="text-xs font-semibold uppercase tracking-widest text-white/45">Response time</h2>
               <p className="mt-2 text-sm leading-relaxed text-white/50">
                 We typically reply within a few business days. For account-specific issues, sign in and use in-app support when available.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-white/[0.06] bg-[#06050c]/60 p-4">
-              <p className="text-xs leading-relaxed text-white/40">
-                Prefer the landing site?{" "}
-                <Link to="/" className="font-medium text-[#7BD0F9]/90 hover:text-[#B4F1FF]">
-                  Back to home
-                </Link>
               </p>
             </div>
           </aside>
