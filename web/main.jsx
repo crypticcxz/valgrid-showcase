@@ -17,7 +17,7 @@ import {
   Archive,
   Strategies,
   StrategySidebar,
-} from "./strategies"
+} from "./strategies-list"
 import { accountEnvVars, accounts, notifications, strategies, wallet } from "./data"
 import { StrategyDetail } from "./strategy-detail"
 import { Wallets } from "./wallets"
