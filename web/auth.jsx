@@ -45,12 +45,20 @@ export function useAccount() {
   const [accountId, setAccountId] = useState(null)
   const [google, setGoogle] = useState(null)
   const [loading, setLoading] = useState(true)
+  /** Snapshot from GET /api/auth/me when Electric has not synced the row yet */
+  const [sessionAccount, setSessionAccount] = useState(null)
 
   useEffect(() => {
     api("GET", "/api/auth/me")
       .then((data) => {
-        if (data && data.google) setGoogle(data.google)
-        if (data && data.id) setAccountId(data.id)
+        if (data?.google) setGoogle(data.google)
+        if (data?.id) {
+          setAccountId(data.id)
+          setSessionAccount(data.account ?? null)
+        } else {
+          setAccountId(null)
+          setSessionAccount(null)
+        }
       })
       .catch((e) => {
         console.info("No active session:", e.message)
@@ -58,21 +66,47 @@ export function useAccount() {
       .finally(() => setLoading(false))
   }, [])
 
-  const signin = (id) => setAccountId(id)
+  const signin = (id) => {
+    setAccountId(id)
+    api("GET", "/api/auth/me")
+      .then((data) => {
+        if (data?.account) setSessionAccount(data.account)
+      })
+      .catch(() => {})
+  }
 
   const signout = () => {
     setAccountId(null)
+    setSessionAccount(null)
     logout().catch((err) => console.error("Sign out failed:", err))
   }
 
-  return { account: accountId, google, signin, signout, loading }
+  return {
+    account: accountId,
+    google,
+    sessionAccount,
+    signin,
+    signout,
+    loading,
+  }
 }
 
-export function useMe(accountCollection, walletCollection, accountId) {
+export function useMe(accountCollection, walletCollection, accountId, sessionAccount) {
   const { data: accounts = [] } = useLiveQuery(accountCollection)
   const { data: rows = [] } = useLiveQuery(walletCollection)
 
-  const row = accounts[0]
+  const row =
+    accounts[0] ??
+    sessionAccount ??
+    (accountId
+      ? {
+          id: accountId,
+          google_sub: null,
+          tier: "free",
+          primary_wallet_id: null,
+          created_at: null,
+        }
+      : null)
   const sortedWallets = [...rows].sort((a, b) => {
     if (a.id === row?.primary_wallet_id) return -1
     if (b.id === row?.primary_wallet_id) return 1
@@ -83,6 +117,8 @@ export function useMe(accountCollection, walletCollection, accountId) {
     id: accountId,
     ...row,
     wallets: sortedWallets,
-    ready: Boolean(accountId && row),
+    // Frontend-only mode: if we have a session/account id, render immediately.
+    // Live collections can hydrate in the background when available.
+    ready: Boolean(accountId),
   }
 }

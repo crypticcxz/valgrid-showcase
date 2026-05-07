@@ -193,9 +193,24 @@ authRoutes.patch("/auth/session", async (req, res, next) => {
   }
 })
 
-authRoutes.get("/auth/me", (req, res) => {
-  res.json({
-    id: account(req),
-    google: { client: googleClientId() },
-  })
+authRoutes.get("/auth/me", async (req, res, next) => {
+  try {
+    const id = account(req)
+    const google = { client: googleClientId() }
+    if (!id) {
+      return res.json({ id: null, google, account: null })
+    }
+    const [row] = await sql`
+      SELECT id, google_sub, tier, primary_wallet_id, created_at
+      FROM accounts
+      WHERE id = ${id}
+    `
+    res.json({
+      id,
+      google,
+      account: row ?? null,
+    })
+  } catch (e) {
+    next(e)
+  }
 })

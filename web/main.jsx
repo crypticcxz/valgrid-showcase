@@ -31,7 +31,14 @@ import { ToastProvider } from "./toast"
 import { ContactPage } from "./contact-page"
 
 function App() {
-  const { account: accountId, google, signin, signout, loading } = useAccount()
+  const {
+    account: accountId,
+    google,
+    sessionAccount,
+    signin,
+    signout,
+    loading,
+  } = useAccount()
   const location = useLocation()
   if (location.pathname === "/terms") return <LegalPage type="terms" />
   if (location.pathname === "/privacy") return <LegalPage type="privacy" />
@@ -39,14 +46,20 @@ function App() {
   if (location.pathname.startsWith("/share/strategies/"))
     return <Share accountId={accountId} />
   if (location.pathname === "/") return <Home />
-  if (loading) return null
+  if (loading) {
+    return (
+      <div className="flex min-h-screen w-full items-center justify-center bg-[#03111f] px-4 text-center text-sm text-white/50">
+        Loading…
+      </div>
+    )
+  }
   if (!accountId) {
     return <SignIn google={google} onSignedIn={(me) => signin(me.id)} />
   }
-  return <AuthedApp accountId={accountId} google={google} signout={signout} />
+  return <AuthedApp accountId={accountId} google={google} sessionAccount={sessionAccount} signout={signout} />
 }
 
-function AuthedApp({ accountId, google, signout }) {
+function AuthedApp({ accountId, google, sessionAccount, signout }) {
   const location = useLocation()
   const navigate = useNavigate()
   const match = location.pathname.match(/^\/strategies\/([^/]+)$/)
@@ -59,11 +72,21 @@ function AuthedApp({ accountId, google, signout }) {
   const store = strategies(accountId)
   const envVars = accountEnvVars(accountId)
   const inbox = notifications(accountId)
-  const me = useMe(accountCollection, wallets, accountId)
+  const me = useMe(accountCollection, wallets, accountId, sessionAccount)
   const [sidebar, setSidebar] = useState(true)
   const [strategySearch, setStrategySearch] = useState("")
 
-  if (!me.ready) return null
+  if (!me.ready) {
+    return (
+      <div className="flex h-screen w-full flex-col items-center justify-center gap-2 bg-[#03111f] px-6 text-center text-sm text-white/50">
+        <p>Syncing your account…</p>
+        <p className="max-w-md text-xs text-white/35">
+          If this never finishes, check the browser console and that the
+          Electric sync service is running.
+        </p>
+      </div>
+    )
+  }
 
   return (
     <div className="flex h-screen w-full bg-[#03111f] text-white">

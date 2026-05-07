@@ -75,7 +75,7 @@ export function Wallets({ me, collection: store }) {
   if (!me.wallets) return null
 
   return (
-    <div className="space-y-6">
+    <div className="mx-auto max-w-5xl space-y-8">
       <PageHeader
         label="Dashboard"
         title="Wallets"
@@ -86,7 +86,7 @@ export function Wallets({ me, collection: store }) {
             type="button"
             onClick={() => load(walletIdList)}
             disabled={loadingBalances || wallets.length === 0}
-            className="rounded-lg border border-white/[0.08] px-4 py-2 text-sm font-medium text-white/70 hover:bg-white/[0.03] hover:text-white disabled:opacity-50 transition-colors"
+            className="inline-flex h-11 items-center justify-center rounded-full bg-[#0094BC] px-6 text-sm font-semibold text-white shadow-[0_0_30px_rgb(0_148_188_/_0.25)] transition-all duration-300 hover:bg-[#00aad8] hover:shadow-[0_0_40px_rgb(123_208_249_/_0.35)] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {loadingBalances ? "Refreshing..." : "Refresh balances"}
           </button>
@@ -102,33 +102,33 @@ export function Wallets({ me, collection: store }) {
             return (
               <div
                 key={w.id}
-                className="group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#03111f] p-5 transition-all duration-300 hover:border-sky-500/30 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgb(56_189_248_/_0.08)]"
+                className="group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0a0a0e]/90 p-5 shadow-[0_20px_60px_rgb(0_0_0_/_0.35)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#7BD0F9]/35 hover:shadow-[0_0_38px_rgb(123_208_249_/_0.14)]"
               >
-              <div className="flex items-start justify-between mb-4">
-                <div className="h-11 w-11 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400">
-                  <Icon d={ICONS.wallets} size={20} />
+                <div className="flex items-start justify-between mb-4">
+                  <div className="h-11 w-11 rounded-xl border border-white/[0.10] bg-white/[0.03] flex items-center justify-center text-[#7BD0F9]">
+                    <Icon d={ICONS.wallets} size={20} />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setPendingArchive(w)}
+                    disabled={primary}
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.12] bg-[#06050c] text-white/45 transition-colors hover:border-[#7BD0F9]/35 hover:bg-[#0f0d17] hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
+                    aria-label="Archive"
+                    title={primary ? "Login wallet cannot be archived" : "Archive"}
+                  >
+                    <Icon d={ICONS.archive} />
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setPendingArchive(w)}
-                  disabled={primary}
-                  className="rounded-lg p-2 text-white/40 hover:bg-red-500/10 hover:text-red-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-                  aria-label="Archive"
-                  title={primary ? "Login wallet cannot be archived" : "Archive"}
-                >
-                  <Icon d={ICONS.archive} />
-                </button>
-              </div>
-              <p className="text-xs font-medium uppercase tracking-widest text-white/50 mb-1">
-                {w.chain}
-              </p>
-              <p className="font-mono text-sm text-white truncate">
-                {w.address}
-              </p>
-              <Balance
-                balances={balances[w.id]}
-                loading={loadingBalances}
-              />
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/45 mb-1">
+                  {w.chain}
+                </p>
+                <p className="font-mono text-sm text-white truncate">
+                  {w.address}
+                </p>
+                <Balance
+                  balances={balances[w.id]}
+                  loading={loadingBalances}
+                />
               </div>
             )
           })}
@@ -147,8 +147,8 @@ function ArchiveWallet({ wallet, onCancel, onConfirm }) {
   if (!wallet) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#020b14]/75 px-4 backdrop-blur-sm">
-      <div className="w-full max-w-sm rounded-xl border border-white/[0.08] bg-[#03111f] p-4 shadow-2xl shadow-sky-950/30">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 backdrop-blur-sm">
+      <div className="w-full max-w-sm rounded-2xl border border-white/[0.08] bg-[#0a0a0e] p-5 shadow-[0_24px_80px_rgb(0_0_0_/_0.55)]">
         <div className="mb-4">
           <h2 className="text-sm font-semibold text-white">Archive wallet</h2>
           <p className="mt-1 text-xs leading-5 text-white/45">
@@ -159,14 +159,14 @@ function ArchiveWallet({ wallet, onCancel, onConfirm }) {
           <button
             type="button"
             onClick={onCancel}
-            className="rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-xs font-medium text-white/55 hover:bg-white/[0.06] hover:text-white"
+            className="inline-flex h-9 items-center justify-center rounded-full border border-white/[0.12] bg-[#06050c] px-4 text-xs font-semibold text-white/75 transition-colors hover:border-[#7BD0F9]/35 hover:bg-[#0f0d17] hover:text-white"
           >
             Cancel
           </button>
           <button
             type="button"
             onClick={onConfirm}
-            className="rounded-lg border border-red-500/20 bg-red-500/10 px-3 py-2 text-xs font-medium text-red-300 hover:bg-red-500/20"
+            className="inline-flex h-9 items-center justify-center rounded-full bg-[#0094BC] px-4 text-xs font-semibold text-white shadow-[0_0_24px_rgb(0_148_188_/_0.22)] transition-all duration-300 hover:bg-[#00aad8] hover:shadow-[0_0_32px_rgb(123_208_249_/_0.32)]"
           >
             Archive
           </button>
@@ -184,9 +184,9 @@ function Balance({ balances, loading }) {
         return (
           <div
             key={network.value}
-            className="rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2"
+            className="rounded-xl border border-white/[0.08] bg-black/30 px-3 py-2.5"
           >
-            <p className="text-[10px] font-bold uppercase tracking-widest text-white/35">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/35">
               {network.label}
             </p>
             <p className="mt-1 font-mono text-sm text-white">
@@ -205,12 +205,12 @@ function Balance({ balances, loading }) {
 
 function Empty() {
   return (
-    <div className="flex flex-col items-center justify-center py-12 px-4 rounded-2xl border border-white/[0.08] bg-[#03111f]">
-      <div className="w-20 h-20 rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center mb-4 text-sky-400">
+    <div className="flex flex-col items-center justify-center rounded-2xl border border-white/[0.08] bg-[#0a0a0e]/90 px-4 py-14 shadow-[0_20px_60px_rgb(0_0_0_/_0.35)]">
+      <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-2xl border border-white/[0.10] bg-white/[0.03] text-[#7BD0F9]">
         <Icon d={ICONS.wallets} size={36} />
       </div>
-      <h3 className="text-xl font-semibold text-white mb-2">No wallets yet</h3>
-      <p className="text-sm text-white/50 text-center max-w-md mb-6">
+      <h3 className="mb-2 text-xl font-semibold text-white">No wallets yet</h3>
+      <p className="mb-6 max-w-md text-center text-sm text-white/50">
         Sign in with a wallet to track balances here.
       </p>
     </div>
