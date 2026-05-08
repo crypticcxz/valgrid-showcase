@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
   BrowserRouter,
   Navigate,
@@ -59,6 +59,16 @@ function App() {
     return <SignIn google={google} onSignedIn={(me) => signin(me.id)} />
   }
   return <AuthedApp accountId={accountId} google={google} sessionAccount={sessionAccount} signout={signout} />
+}
+
+function ScrollToTopOnPathChange() {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" })
+  }, [pathname])
+
+  return null
 }
 
 function AuthedApp({ accountId, google, sessionAccount, signout }) {
@@ -218,6 +228,7 @@ root.render(
     <BrowserRouter
       future={{ v7_relativeSplatPath: true, v7_startTransition: true }}
     >
+      <ScrollToTopOnPathChange />
       <App />
     </BrowserRouter>
   </ToastProvider>,

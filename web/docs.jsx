@@ -215,11 +215,22 @@ export function DocsPage() {
   return (
     <main className="min-h-screen bg-[#06050c] text-white">
       <div className="border-b border-white/[0.06] px-4 py-3 md:px-6">
-        <div className="mx-auto flex w-full max-w-[1280px] items-center gap-2">
+        <div className="mx-auto flex w-full max-w-[1280px] items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
           <Link to="/" className="text-2xl font-semibold tracking-tight text-white">
             ValGrid
           </Link>
           <span className="text-xs text-white/35">Documentation</span>
+          </div>
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 rounded-full border border-white/[0.12] bg-[#06050c] px-4 py-2 text-sm font-medium text-white/80 transition-colors hover:border-[#7BD0F9]/35 hover:bg-[#0f0d17] hover:text-white"
+          >
+            <span className="inline-flex rotate-180 text-white/70">
+              <Icon d={ICONS.arrowRight} size={13} />
+            </span>
+            Back to Valgrid
+          </Link>
         </div>
       </div>
 

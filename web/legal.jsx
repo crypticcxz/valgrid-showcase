@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { Icon, ICONS } from "./icons"
 
 export function LegalPage({ type }) {
   const page = {
@@ -110,6 +111,9 @@ export function LegalPage({ type }) {
           to="/"
           className="inline-flex items-center gap-2 rounded-full border border-white/[0.12] bg-[#06050c] px-4 py-2 text-sm font-medium text-white/80 transition-colors hover:border-[#7BD0F9]/35 hover:bg-[#0f0d17] hover:text-white"
         >
+          <span className="inline-flex rotate-180 text-white/70">
+            <Icon d={ICONS.arrowRight} size={13} />
+          </span>
           Back to Valgrid
         </Link>
 
