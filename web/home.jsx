@@ -4,6 +4,8 @@ import logoImg from "./public/logo.png"
 import featureChartImg from "./public/p-1.png"
 import featureFlowImg from "./public/p-2.png"
 import stepOneImg from "./public/step-1.png"
+import heroBgWebp from "./public/hero_bg.webp"
+import heroBgPng from "./public/hero_bg.png"
 
 const appSteps = [
   {
@@ -102,9 +104,9 @@ function HeroAnchorPills() {
       <a href="#pricing" className={heroNavPillClass}>
         Pricing
       </a>
-      <a href="#faq" className={heroNavPillClass}>
+      <Link to="/docs" className={heroNavPillClass}>
         Docs
-      </a>
+      </Link>
       <Link to="/contact" className={heroNavPillClass}>
         Contact
       </Link>
@@ -207,9 +209,13 @@ export function Home() {
                   <GlassNavAnchorMobile href="#pricing" onNavigate={() => setMobileNavOpen(false)}>
                     Pricing
                   </GlassNavAnchorMobile>
-                  <GlassNavAnchorMobile href="#faq" onNavigate={() => setMobileNavOpen(false)}>
+                  <Link
+                    to="/docs"
+                    className="block rounded-xl px-4 py-3 text-sm font-medium text-white/90 transition-colors hover:bg-white/10"
+                    onClick={() => setMobileNavOpen(false)}
+                  >
                     Docs
-                  </GlassNavAnchorMobile>
+                  </Link>
                   <Link
                     to="/contact"
                     className="block rounded-xl px-4 py-3 text-sm font-medium text-white/90 transition-colors hover:bg-white/10"
@@ -271,9 +277,9 @@ export function Home() {
         <div className="relative flex min-h-0 w-full min-w-0 flex-col p-2 pt-0.5 sm:p-3 lg:h-full lg:min-h-0 lg:p-4 lg:pl-2 lg:pr-5 lg:pt-6 xl:pr-6">
           <div className="hero-panel-in relative flex h-full min-h-[26svh] w-full flex-1 flex-col overflow-hidden rounded-[1.15rem] border border-white/30 bg-[#0b1424] shadow-[0_28px_90px_rgba(0,0,0,0.22)] sm:min-h-[28svh] sm:rounded-[1.75rem] lg:min-h-0 lg:rounded-[2.25rem]">
             <picture className="pointer-events-none absolute inset-0 h-full w-full">
-              <source srcSet="/hero_bg.webp" type="image/webp" />
+              <source srcSet={heroBgWebp} type="image/webp" />
               <img
-                src="/hero_bg.png"
+                src={heroBgPng}
                 alt=""
                 className="h-full w-full object-cover"
                 decoding="async"
@@ -650,7 +656,7 @@ export function Home() {
               links={[
                 { title: "Home", href: "/" },
                 { title: "Pricing", href: "#pricing" },
-                { title: "Docs", href: "#faq" },
+                { title: "Docs", href: "/docs" },
                 { title: "Sign In", href: "/strategies" },
               ]}
             />

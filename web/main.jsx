@@ -29,6 +29,7 @@ import { PublicStrategy } from "./public-strategy"
 import { Notifications } from "./notifications"
 import { ToastProvider } from "./toast"
 import { ContactPage } from "./contact-page"
+import { DocsPage } from "./docs"
 
 function App() {
   const {
@@ -43,6 +44,7 @@ function App() {
   if (location.pathname === "/terms") return <LegalPage type="terms" />
   if (location.pathname === "/privacy") return <LegalPage type="privacy" />
   if (location.pathname === "/contact") return <ContactPage />
+  if (location.pathname === "/docs") return <DocsPage />
   if (location.pathname.startsWith("/share/strategies/"))
     return <Share accountId={accountId} />
   if (location.pathname === "/") return <Home />
