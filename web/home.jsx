@@ -35,19 +35,19 @@ const faqs = [
       "Valgrid is an AI-powered platform where you can create, edit, and deploy automated trading bots. Its where you go from idea → AI-generated bot → live automated strategy, all in one place. Describe your strategy, generate the code, customize it, and run your bot 24/7 across markets—all in one place.",
   },
   {
-    question: "Is valgrid free?",
+    question: "Do I need to know coding to use Valgrid?",
     answer:
-      "Yes. The platform is free to access with a small execution fee per trade and no subscription.",
+      "No. You can start from strategy templates and refine them with AI chat. If you want deeper control, you can also edit everything manually in the code editor.",
   },
   {
-    question: "How do i use valgrid?",
+    question: "How does the workflow in Valgrid work?",
     answer:
-      "Create your account, connect wallet, configure your grid parameters, and activate your bot.",
+      "Open /strategies, choose a template path, prompt the AI assistant, review the generated code, then run and iterate until the strategy behaves the way you want.",
   },
   {
-    question: "Can I run multiple grids at once?",
+    question: "Can I run and manage multiple strategy bots?",
     answer:
-      "Yes. Multiple bots can run in parallel across different pairs and configurations.",
+      "Yes. You can create multiple strategies, run them independently, and keep refining each one through AI chat and manual code edits.",
   },
 ]
 

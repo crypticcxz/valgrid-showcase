@@ -250,7 +250,7 @@ export function DocsPage() {
                         type="button"
                         onClick={() => setActiveId(item.id)}
                         className={
-                          "flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm transition-colors " +
+                          "flex w-full cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm transition-colors " +
                           (item.id === activeDoc.id
                             ? "border border-[#7BD0F9]/30 bg-[#0094BC]/16 text-[#B4F1FF]"
                             : "border border-transparent text-white/60 hover:border-white/[0.08] hover:bg-white/[0.03] hover:text-white")
@@ -318,7 +318,7 @@ export function DocsPage() {
                   <button
                     type="button"
                     onClick={() => setActiveId(nextDoc.id)}
-                    className="group inline-flex items-center gap-2 text-sm text-white/55 transition-colors hover:text-[#B4F1FF]"
+                    className="group inline-flex cursor-pointer items-center gap-2 text-sm text-white/55 transition-colors hover:text-[#B4F1FF]"
                   >
                     <span>Next</span>
                     <span>{nextDoc.label}</span>
