@@ -534,7 +534,7 @@ export function Home() {
 
       <section id="faq" className="bg-[#06050c] px-4 py-16 sm:px-6 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-5xl">
-          <h2 className="mb-4 bg-gradient-to-b from-white to-[#7BD0F9] bg-clip-text px-2 text-center text-4xl font-bold text-transparent sm:text-5xl md:text-6xl">
+          <h2 className="mb-3 bg-gradient-to-b from-white to-[#7BD0F9] bg-clip-text px-2 pb-2 text-center text-4xl font-bold leading-[1.08] text-transparent sm:text-5xl md:text-6xl">
             Frequently Asked Questions
           </h2>
           <p className="mb-10 text-center text-white/40">Everything you need to know about ValGrid</p>
